@@ -1,22 +1,63 @@
-#include <iostream>
-#include <string>
-enum direction {Nord,Est,Ouest,Sud}; 
-#define Taille_x 30
-#define Taille_y 15
-// 1 - Nord car dominant    
-using namespace std;
+#ifndef PLAYER_H
+#define PLAYER_H
 
-class Player
-{
+#include "character.h"
+#include "fishingrod.h"
+
+class Fisherman : public Character {
 private:
-    int x;    //position en x
-    int y;    //position en y
-    char table[Taille_x][Taille_y];   //responsable du tableau de l'Affichage console
+	int score = 0;
+	int life = 3;
+	Fishingrod* fishingrod;
 public:
-    Player();
-    ~Player();
-    void initialiser_char();        //initialise un tableau de ~ et un # à la position initiale du joueur
-    void move(direction orientation);   //déplace le joueur selon l'orientation entrée
-    void position(int position_x,int position_y);   //initialise la position du joueur aux coordonnée précisée
-    void display(ostream & s);          //affiche le string qui contient le tableau de caractère
+	Fisherman() { cout<< "\nCreation of Fisher\n"; fishingrod = new Fishingrod(); setAttributs(Attributs{1, 1, 1.0, 1.0, 1.0, 'P'});}
+	~Fisherman() { cout<< "\nDestruction of Fisher\n"; }
+
+	//Score manipulations
+	int getScore() { return score; }
+	void setScore(int newScore) { score = newScore; }
+	void addScore(int addingScore) { score += addingScore; }
+
+	int getLife() { return life; }
+	void setLife(int newLife) { life = newLife; }
+	void loseLife() { life--; }
+	void gainLife() { life++; }
+
+	//Fishingrod manipulations
+	Fishingrod* getFishingrod() { return fishingrod; }
+	void setFishingrod(Fishingrod* newFishingrod) { fishingrod = newFishingrod; }
+
+	//Mouvements manipulations
+	void move(char key);
+
+	//Actions manipulations
+	void isHooking() {}
+	bool capturing(int toBeat, long double time);
+
 };
+
+void Fisherman::move(char key) {
+	if (key == 'a' || key == 'd') { key == 'a' ? moveX(0) : moveX(1); }
+	if (key == 's' || key == 'w') { key == 's' ? moveY(1) : moveY(0); }
+	if (key == 'q') { return; }
+}
+
+
+bool Fisherman::capturing(int toBeat, long double time) {
+	
+	bool spacePress = false;
+	std::cout << "\n\nPress space as many times as possible to capture!\nStart in two seconds";
+	Sleep(2000); //wait two seconds
+
+	while (1) {
+		SHORT keyState = GetKeyState(VK_SPACE);// Check if the space bar is pressed
+
+		if (keyState & 0x8000) { spacePress = true; }
+		
+
+	}
+
+	return spacePress;
+}
+
+#endif
