@@ -141,6 +141,11 @@
   <ItemGroup>
     <ClCompile Include="Projet_S2.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="DataFile.hpp" />
+    <ClInclude Include="FishingRun.hpp" />
+    <ClInclude Include="IData.hpp" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
