@@ -13,123 +13,180 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\Communication">
+      <UniqueIdentifier>{60949110-7bb3-4d05-a077-9d64b97050b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Data">
+      <UniqueIdentifier>{d6bba1ab-854a-4bb0-ae53-bca1efe992d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\UI">
+      <UniqueIdentifier>{9615796e-59c3-474c-a7da-3f17c05c0b5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\UI\Console">
+      <UniqueIdentifier>{881ebb5b-3d99-44b4-89c5-0360bf678bed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameDomain">
+      <UniqueIdentifier>{72098d19-778a-446d-9631-b368df6a3b0d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameDomain\Entities">
+      <UniqueIdentifier>{5d10d968-c6ac-4eae-8800-71a03971380d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameDomain\Map">
+      <UniqueIdentifier>{a6cc51bc-1d40-4bff-9694-69098360e1dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Rng">
+      <UniqueIdentifier>{7a1c40e8-c841-4e97-81b5-134f6d198a70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Input">
+      <UniqueIdentifier>{9896936a-bd3c-4229-8797-3051312eb46a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Communication">
+      <UniqueIdentifier>{4671e9a4-d701-4bb4-96eb-463d04733e39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Data">
+      <UniqueIdentifier>{1fcc3684-c0f6-4429-9c5b-aab413be9e04}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameDomain">
+      <UniqueIdentifier>{7de5ec54-b4a2-4334-9b96-98c758cd2880}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameDomain\Map">
+      <UniqueIdentifier>{32e6e35a-5674-4536-9eb6-c2d547bb94b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameDomain\Entities">
+      <UniqueIdentifier>{3e733adc-9971-4242-b7eb-f725ab052ca2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Types">
+      <UniqueIdentifier>{83189261-a6bc-4823-85a8-64845659e5bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Input">
+      <UniqueIdentifier>{477432e0-ea3b-44b0-9fc7-83d3be364316}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Rng">
+      <UniqueIdentifier>{ac384cdb-c924-4785-95d4-b35795b0699c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\UI">
+      <UniqueIdentifier>{589ebf10-e6c5-45af-8705-b523ef6d5cbc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\UI\Console">
+      <UniqueIdentifier>{10c0d0d9-07f4-45a5-bda6-2a88b576a222}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ProjetS2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Communication\ComSerialMaster.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Communication</Filter>
     </ClCompile>
     <ClCompile Include="Data\DataFile.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GameDomain\Entities\Entity.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GameDomain\Entities\Fish.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GameDomain\Entities\Player.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GameDomain\Map\Environment.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GameDomain\Map\Map.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GameDomain\FishingRun.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GameDomain\FishingSession.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GameDomain\Watershed.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Input\InputArduino.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Input\InputConsole.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Rng\RngClassic.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Rng\RngMuons.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Data</Filter>
     </ClCompile>
     <ClCompile Include="UI\Console\DisplayConsole.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\UI\Console</Filter>
+    </ClCompile>
+    <ClCompile Include="GameDomain\Entities\Entity.cpp">
+      <Filter>Source Files\GameDomain\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="GameDomain\Entities\Fish.cpp">
+      <Filter>Source Files\GameDomain\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="GameDomain\Entities\Player.cpp">
+      <Filter>Source Files\GameDomain\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="GameDomain\Map\Map.cpp">
+      <Filter>Source Files\GameDomain\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="GameDomain\Map\Environment.cpp">
+      <Filter>Source Files\GameDomain\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="GameDomain\FishingRun.cpp">
+      <Filter>Source Files\GameDomain</Filter>
+    </ClCompile>
+    <ClCompile Include="GameDomain\FishingSession.cpp">
+      <Filter>Source Files\GameDomain</Filter>
+    </ClCompile>
+    <ClCompile Include="GameDomain\Watershed.cpp">
+      <Filter>Source Files\GameDomain</Filter>
+    </ClCompile>
+    <ClCompile Include="Rng\RngClassic.cpp">
+      <Filter>Source Files\Rng</Filter>
+    </ClCompile>
+    <ClCompile Include="Rng\RngMuons.cpp">
+      <Filter>Source Files\Rng</Filter>
+    </ClCompile>
+    <ClCompile Include="Input\InputArduino.cpp">
+      <Filter>Source Files\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Input\InputConsole.cpp">
+      <Filter>Source Files\Input</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Communication\ComSerialMaster.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Communication</Filter>
     </ClInclude>
     <ClInclude Include="Data\DataFile.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Data</Filter>
     </ClInclude>
     <ClInclude Include="Data\IData.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GameDomain\Entities\Entity.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GameDomain\Entities\Fish.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GameDomain\Entities\Player.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GameDomain\Map\Environment.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GameDomain\Map\Map.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GameDomain\FishingRun.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Data</Filter>
     </ClInclude>
     <ClInclude Include="GameDomain\FishingSession.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\GameDomain</Filter>
+    </ClInclude>
+    <ClInclude Include="GameDomain\FishingRun.hpp">
+      <Filter>Header Files\GameDomain</Filter>
     </ClInclude>
     <ClInclude Include="GameDomain\Watershed.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\GameDomain</Filter>
     </ClInclude>
-    <ClInclude Include="Input\IInput.hpp">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="GameDomain\Map\Map.hpp">
+      <Filter>Header Files\GameDomain\Map</Filter>
     </ClInclude>
-    <ClInclude Include="Input\InputArduino.hpp">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="GameDomain\Map\Environment.hpp">
+      <Filter>Header Files\GameDomain\Map</Filter>
     </ClInclude>
-    <ClInclude Include="Input\InputConsole.hpp">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="GameDomain\Entities\Entity.hpp">
+      <Filter>Header Files\GameDomain\Entities</Filter>
     </ClInclude>
-    <ClInclude Include="Rng\IRng.hpp">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="GameDomain\Entities\Fish.hpp">
+      <Filter>Header Files\GameDomain\Entities</Filter>
     </ClInclude>
-    <ClInclude Include="Rng\RngClassic.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Rng\RngMuons.hpp">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="GameDomain\Entities\Player.hpp">
+      <Filter>Header Files\GameDomain\Entities</Filter>
     </ClInclude>
     <ClInclude Include="Types\CaptureStep.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Types</Filter>
     </ClInclude>
     <ClInclude Include="Types\Direction.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Types\InputAction.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Types</Filter>
     </ClInclude>
     <ClInclude Include="Types\Position.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\InputAction.hpp">
+      <Filter>Header Files\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="Input\IInput.hpp">
+      <Filter>Header Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Input\InputArduino.hpp">
+      <Filter>Header Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Input\InputConsole.hpp">
+      <Filter>Header Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Rng\IRng.hpp">
+      <Filter>Header Files\Rng</Filter>
+    </ClInclude>
+    <ClInclude Include="Rng\RngClassic.hpp">
+      <Filter>Header Files\Rng</Filter>
+    </ClInclude>
+    <ClInclude Include="Rng\RngMuons.hpp">
+      <Filter>Header Files\Rng</Filter>
     </ClInclude>
     <ClInclude Include="UI\Console\DisplayConsole.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\UI\Console</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
