@@ -1,6 +1,7 @@
 #pragma once
 
-#include "../Types/Position.hpp"
+#include "../../Types/Position.hpp"
+#include "../../Types/Direction.hpp"
 
 class Entity
 {
@@ -8,9 +9,9 @@ public:
   Entity();
   Entity(Position Position);
   ~Entity();
-  
+
   Position getPosition();
-  void MoveTo(int x, int y);
-private:
+  void move(Direction direction);
+protected:
   Position position;
 };
