@@ -2,6 +2,8 @@
 
 FishingRun::FishingRun()
 {
+    FishingSession session;
+    sessions.push_back(session);
     totalScore = 0;
 }
 

@@ -10,7 +10,9 @@ int main()
   IInput* input = new InputConsole();
   FishingRun fishingRun;
 
-  display.DisplayMessage(std::string("HELLO THERE"));
+  display.DisplayMessage(std::string("Init"));
+  display.DisplayMap(fishingRun.sessions[0].map);
+
   for (;;)
   {
     InputAction actions = input->getInput();

@@ -3,11 +3,13 @@
 #include "Entities/Player.hpp"
 #include "Entities/Fish.hpp"
 #include "../Types/InputAction.hpp"
+#include "Map/Map.hpp"
 
 class FishingSession
 {
 public:
     Player player;
+    Map map;
 
     FishingSession();
     ~FishingSession();

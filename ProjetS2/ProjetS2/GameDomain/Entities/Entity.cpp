@@ -1,16 +1,27 @@
-#include "Player.hpp"
+#include "Entity.hpp"
 
-Player::Player()
+Entity::Entity()
+{
+    position.x = 0;
+    position.y = 0;
+}
+
+Entity::Entity(Position Position)
+{
+    this->position = position;
+}
+
+Entity::~Entity()
 {
 
 }
 
-Player::~Player()
+Position Entity::getPosition()
 {
-
+    return position;
 }
 
-void Player::move(Direction direction)
+void Entity::move(Direction direction)
 {
     switch (direction)
     {

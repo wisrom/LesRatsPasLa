@@ -3,7 +3,7 @@
 #include <vector>
 
 #include "Entity.hpp"
-#include "../Types/CaptureStep.hpp"
+#include "../../Types/CaptureStep.hpp"
 
 
 class Fish : public Entity
