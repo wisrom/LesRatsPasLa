@@ -120,6 +120,9 @@
     <ClCompile Include="Input\InputConsole.cpp">
       <Filter>Source Files\Input</Filter>
     </ClCompile>
+    <ClCompile Include="Data\DataMemory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Communication\ComSerialMaster.hpp">
@@ -187,6 +190,12 @@
     </ClInclude>
     <ClInclude Include="UI\Console\DisplayConsole.hpp">
       <Filter>Header Files\UI\Console</Filter>
+    </ClInclude>
+    <ClInclude Include="Data\DataMemory.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Types\RunSettings.hpp">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

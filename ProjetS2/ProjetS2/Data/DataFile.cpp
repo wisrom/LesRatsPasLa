@@ -16,8 +16,24 @@ std::vector<int> DataFile::getScores()
     return scores;
 }
 
-std::vector<Fish> DataFile::getFishPool(int watershedId)
+Watershed DataFile::getWatershed(int watershedId)
 {
-    std::vector<Fish> fishs;
-    return fishs;
+    Watershed watershed;
+    return watershed;
+}
+
+Map DataFile::getMap(int mapId)
+{
+    Map map;
+    return map;
+}
+
+void DataFile::addScore(int score)
+{
+
+}
+
+int DataFile::getHighScore()
+{
+    return 0;
 }

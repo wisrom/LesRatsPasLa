@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClCompile Include="Communication\ComSerialMaster.cpp" />
     <ClCompile Include="Data\DataFile.cpp" />
+    <ClCompile Include="Data\DataMemory.cpp" />
     <ClCompile Include="GameDomain\Entities\Entity.cpp" />
     <ClCompile Include="GameDomain\Entities\Fish.cpp" />
     <ClCompile Include="GameDomain\Entities\Player.cpp" />
@@ -159,6 +160,7 @@
   <ItemGroup>
     <ClInclude Include="Communication\ComSerialMaster.hpp" />
     <ClInclude Include="Data\DataFile.hpp" />
+    <ClInclude Include="Data\DataMemory.hpp" />
     <ClInclude Include="Data\IData.hpp" />
     <ClInclude Include="GameDomain\Entities\Entity.hpp" />
     <ClInclude Include="GameDomain\Entities\Fish.hpp" />
@@ -178,6 +180,7 @@
     <ClInclude Include="Types\Movement.hpp" />
     <ClInclude Include="Types\InputAction.hpp" />
     <ClInclude Include="Types\Position.hpp" />
+    <ClInclude Include="Types\RunSettings.hpp" />
     <ClInclude Include="UI\Console\DisplayConsole.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

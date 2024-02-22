@@ -11,15 +11,16 @@ class Fish : public Entity
 {
 public:
   Fish();
-  Fish(std::vector<CaptureStep> captureSteps, std::string name, float length_m, float weight_kg, int score);
+  Fish(int id, std::vector<CaptureStep> captureSteps, std::string name, float length_m, float weight_kg, int score);
   ~Fish();
 
+  int getId();
   int getScore();
   CaptureStep getCurrentCaptureStep();
-  //bool getIsCaptured();
   void setPosition(Position position);
   bool capture(float reelSpeed_rotPerSec, float duration_s);
 private:
+  int id;
   std::vector<CaptureStep> captureSteps;
   std::string name;
   int score;

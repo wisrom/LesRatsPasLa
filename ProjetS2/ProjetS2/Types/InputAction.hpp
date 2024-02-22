@@ -6,5 +6,6 @@ struct InputAction
 {
     Movement movement;
     float reelSpeed_rotPerSec;
+    bool menu;
     bool quit;
 };

@@ -2,6 +2,7 @@
 
 Fish::Fish()
 {
+  id = 0;
   name = "emptyFish";
   length_m = 0;
   weight_kg = 0;
@@ -11,25 +12,31 @@ Fish::Fish()
   isCaptured = false;
 }
 
-Fish::Fish(std::vector<CaptureStep> captureSteps, std::string name, float length_m, float weight_kg, int score)
+Fish::Fish(int id, std::vector<CaptureStep> captureSteps, std::string name, float length_m, float weight_kg, int score)
 {
-    std::vector<CaptureStep> tmpCaptureSteps;
-    for (CaptureStep captureStep : captureSteps)
-    {
-        tmpCaptureSteps.push_back(captureStep);
-    }
-    this->captureSteps = tmpCaptureSteps;
-    this->length_m = length_m;
-    this->weight_kg = weight_kg;
-    this->score = score;
-    currentCaptureStepIndex = 0;
-    currentCaptureProgress_s = 0;
-    isCaptured = false;
+  this->id = id;
+  std::vector<CaptureStep> tmpCaptureSteps;
+  for (CaptureStep captureStep : captureSteps)
+  {
+      tmpCaptureSteps.push_back(captureStep);
+  }
+  this->captureSteps = tmpCaptureSteps;
+  this->length_m = length_m;
+  this->weight_kg = weight_kg;
+  this->score = score;
+  currentCaptureStepIndex = 0;
+  currentCaptureProgress_s = 0;
+  isCaptured = false;
 }
 
 Fish::~Fish()
 {
 
+}
+
+int Fish::getId()
+{
+  return id;
 }
 
 int Fish::getScore()
@@ -41,11 +48,6 @@ CaptureStep Fish::getCurrentCaptureStep()
 {
   return captureSteps[currentCaptureStepIndex];
 }
-
-/*bool Fish::getIsCaptured()
-{
-  return isCaptured;
-}*/
 
 void Fish::setPosition(Position position)
 {

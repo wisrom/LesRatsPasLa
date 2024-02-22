@@ -25,5 +25,4 @@ private:
 
   bool checkMovement(Movement movement);
   void captureNearFish(float reelSpeed_rotPerSec, float duration_s);
-  void removeFish(const Fish fish);
 };

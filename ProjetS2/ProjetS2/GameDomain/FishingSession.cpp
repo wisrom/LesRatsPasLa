@@ -15,17 +15,17 @@ FishingSession::FishingSession()
     captureStep.speed_rotPerSec = 1;
     captureSteps.push_back(captureStep);
 
-    Fish fish = Fish(captureSteps, "Fish", 0.25, 3.0f, 1);
+    Fish fish = Fish(1, captureSteps, "Fish", 0.25, 3.0f, 1);
     fish.setPosition({ 5, 4 });
 
     fishs.push_back(fish); // test
 
     captureStep.speed_rotPerSec = 2;
     captureSteps.push_back(captureStep);
-    fish = Fish(captureSteps, "Fish", 0.25, 3.0f, 2);
+    fish = Fish(2, captureSteps, "Fish", 0.25, 3.0f, 2);
     fish.setPosition({ 10, 6 });
     fishs.push_back(fish);
-    map = Map(80, 20);
+    map = Map(1, 80, 20);
 }
 
 FishingSession::~FishingSession()

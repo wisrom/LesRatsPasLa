@@ -8,15 +8,17 @@ class Map
 {
 public:
     Map();
-    Map(int width, int height);
+    Map(int id, int width, int height);
     ~Map();
 
+    int getId();
     int getWidth();
     int getHeight();
     void setWidth(int newWidth);
     void setHeight(int newHeight);
     bool isInMap(Position newPosition);
 private:
+    int id;
     int width;
     int height;
 };

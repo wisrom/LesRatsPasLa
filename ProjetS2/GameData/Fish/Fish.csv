@@ -1,0 +1,9 @@
+id, 1
+name, truite
+minLength_m, 0.1
+maxLength_m, 0.3
+minWeight_kg, 0.15
+maxWeight_kg, 0.5
+score, 5
+step_1, 1.0, 0, 0
+step_2, 2.0, 0, 0

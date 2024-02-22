@@ -2,12 +2,14 @@
 
 Map::Map()
 {
+    id = 0;
     width = 0;
     height = 0;
 }
 
-Map::Map(int width, int height)
+Map::Map(int id, int width, int height)
 {
+    this->id = id;
     this->width = width;
     this->height = height;
 }
@@ -15,6 +17,11 @@ Map::Map(int width, int height)
 Map::~Map()
 {
 
+}
+
+int Map::getId()
+{
+    return id;
 }
 
 int Map::getWidth()
