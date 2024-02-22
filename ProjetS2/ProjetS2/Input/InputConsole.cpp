@@ -12,37 +12,51 @@ InputConsole::~InputConsole()
 
 InputAction InputConsole::getInput()
 {
-    char key;
-    Direction movementDirection = Direction::UNDEFINED;
-    bool quit = false;
+  char key;
+  Movement movement = MOVEMENT_NONE;
+  float reelSpeed = 0.0f;
+  bool quit = false;
 
-    InputAction actions;
+  InputAction actions;
 
-    std::cin >> key;
+  key = _getch();
 
-    switch (key)
-    {
-        case 'w':
-            movementDirection = Direction::NORTH;
-            break;
-        case 'a':
-            movementDirection = Direction::WEST;
-            break;
-        case 's':
-            movementDirection = Direction::SOUTH;
-            break;
-        case 'd':
-            movementDirection = Direction::EAST;
-            break;
-        case 'q':
-            quit = true;
-            break;
-        default:
-            break;
-    }
+  switch (key)
+  {
+    case 'w':
+      movement = MOVEMENT_NORTH;
+      break;
+    case 'a':
+      movement = MOVEMENT_WEST;
+      break;
+    case 's':
+      movement = MOVEMENT_SOUTH;
+      break;
+    case 'd':
+      movement = MOVEMENT_EAST;
+      break;
+    case '1':
+      reelSpeed = 1.0f;
+      break;
+    case '2':
+      reelSpeed = 2.0f;
+      break;
+    case '3':
+      reelSpeed = 3.0f;
+      break;
+    case '4':
+      reelSpeed = 4.0f;
+      break;
+    case 'q':
+      quit = true;
+      break;
+    default:
+      break;
+  }
 
-    actions.movementDirection = movementDirection;
-    actions.quit = quit;
+  actions.movement = movement;
+  actions.reelSpeed_rotPerSec = reelSpeed;
+  actions.quit = quit;
 
-    return actions;
+  return actions;
 }

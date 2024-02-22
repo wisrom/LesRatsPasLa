@@ -10,17 +10,12 @@ int main()
   IInput* input = new InputConsole();
   FishingRun fishingRun;
 
-  display.DisplayMessage(std::string("Init"));
-  display.DisplayMap(fishingRun.sessions[0].map);
-
   for (;;)
   {
+    display.displaySession(*fishingRun.getCurrentSession());
     InputAction actions = input->getInput();
 
-    if (actions.movementDirection != Direction::UNDEFINED)
-    {
-      fishingRun.sessions[0].processInput(actions);
-    }
+    fishingRun.getCurrentSession()->processInput(actions);
   }
   delete input;
 }

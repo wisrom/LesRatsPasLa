@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../../Types/Position.hpp"
-#include "../../Types/Direction.hpp"
+#include "../../Types/Movement.hpp"
 
 class Entity
 {
@@ -11,7 +11,7 @@ public:
   ~Entity();
 
   Position getPosition();
-  void move(Direction direction);
+  void move(Movement movement);
 protected:
   Position position;
 };

@@ -158,7 +158,7 @@
     <ClInclude Include="Types\CaptureStep.hpp">
       <Filter>Header Files\Types</Filter>
     </ClInclude>
-    <ClInclude Include="Types\Direction.hpp">
+    <ClInclude Include="Types\Movement.hpp">
       <Filter>Header Files\Types</Filter>
     </ClInclude>
     <ClInclude Include="Types\Position.hpp">

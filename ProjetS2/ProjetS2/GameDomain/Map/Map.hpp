@@ -15,7 +15,7 @@ public:
     int getHeight();
     void setWidth(int newWidth);
     void setHeight(int newHeight);
-    bool isInMap(Position position);
+    bool isInMap(Position newPosition);
 private:
     int width;
     int height;

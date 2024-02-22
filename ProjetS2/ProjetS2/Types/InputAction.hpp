@@ -1,9 +1,10 @@
 #pragma once
 
-#include "Direction.hpp"
+#include "Movement.hpp"
 
-typedef struct InputAction
+struct InputAction
 {
-    Direction movementDirection;
+    Movement movement;
+    float reelSpeed_rotPerSec;
     bool quit;
 };

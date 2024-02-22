@@ -1,8 +1,9 @@
 #pragma once
 
 #include "IInput.hpp"
-#include <iostream>
+#include <conio.h>
 #include <string>
+#include "../Types/Movement.hpp"
 
 class InputConsole : public IInput
 {

@@ -1,10 +1,8 @@
 #pragma once
 
-class WaterShed
+class Watershed
 {
 public:
-    WaterShed();
-    ~WaterShed();
-
-    
+  Watershed();
+  ~Watershed();
 };

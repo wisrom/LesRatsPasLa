@@ -175,7 +175,7 @@
     <ClInclude Include="Rng\RngClassic.hpp" />
     <ClInclude Include="Rng\RngMuons.hpp" />
     <ClInclude Include="Types\CaptureStep.hpp" />
-    <ClInclude Include="Types\Direction.hpp" />
+    <ClInclude Include="Types\Movement.hpp" />
     <ClInclude Include="Types\InputAction.hpp" />
     <ClInclude Include="Types\Position.hpp" />
     <ClInclude Include="UI\Console\DisplayConsole.hpp" />

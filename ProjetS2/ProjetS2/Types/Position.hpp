@@ -1,6 +1,6 @@
 #pragma once
 
-typedef struct Position
+struct Position
 {
   int x;
   int y;

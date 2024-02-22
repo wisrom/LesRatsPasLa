@@ -6,10 +6,12 @@
 class FishingRun
 {
 public:
-    std::vector<FishingSession> sessions;
+  std::vector<FishingSession> sessions;
 
-    FishingRun();
-    ~FishingRun();
+  FishingRun();
+  ~FishingRun();
+
+  FishingSession* getCurrentSession();
 private:
-    int totalScore;
+  int totalScore;
 };

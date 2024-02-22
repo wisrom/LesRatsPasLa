@@ -4,18 +4,26 @@
 #include "Entities/Fish.hpp"
 #include "../Types/InputAction.hpp"
 #include "Map/Map.hpp"
+#include "Watershed.hpp"
 
 class FishingSession
 {
 public:
-    Player player;
-    Map map;
+  Player player;
+  std::vector<Fish> fishs;
+  Map map;
 
-    FishingSession();
-    ~FishingSession();
+  FishingSession();
+  ~FishingSession();
 
-    void processInput(InputAction input);
+  int getScore();
+  void processInput(InputAction input);
 private:
-    int score;
-    Fish fish; // may be list
+  Watershed watershed;
+  Environment environment;
+  int score;
+
+  bool checkMovement(Movement movement);
+  void captureNearFish(float reelSpeed_rotPerSec, float duration_s);
+  void removeFish(const Fish fish);
 };

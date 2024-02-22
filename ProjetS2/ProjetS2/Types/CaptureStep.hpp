@@ -1,6 +1,6 @@
 #pragma once
 
-typedef struct CaptureStep
+struct CaptureStep
 {
   int speed_rotPerSec;
   int margin;

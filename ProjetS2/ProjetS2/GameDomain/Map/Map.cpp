@@ -37,12 +37,12 @@ void Map::setHeight(int newHeight)
     height = newHeight;
 }
 
-bool Map::isInMap(Position position)
+bool Map::isInMap(Position newPosition)
 {
     bool isInMap = false;
-    if (position.x > 0 && position.y > 0)
+    if (newPosition.x >= 0 && newPosition.y >= 0)
     {
-        if (position.x <= width && position.y <= height)
+        if (newPosition.x <= width - 1 && newPosition.y <= height - 1)
         {
             isInMap = true;
         }
