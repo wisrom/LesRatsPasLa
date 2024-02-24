@@ -1,0 +1,114 @@
+<diagram program="umletino" version="15.1"><zoom_level>7</zoom_level><element><id>UMLClass</id><coordinates><x>1757</x><y>693</y><w>175</w><h>91</h></coordinates><panel_attributes>&lt;&lt;interface&gt;&gt;
+IData
+--
+-.
+/+saveGame(score : int) : void/
+/+getGames() : list&lt;GameResult&gt;/
+/+getWatershedFish() : list&lt;IFish&gt;/</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1757</x><y>833</y><w>175</w><h>77</h></coordinates><panel_attributes>DataFile
+--
+-gamesFilepath : string
+-fishFilepath : string
+-.
++saveGame(score : int) : void
++getGames() : list&lt;GameResult&gt;
++getWatershedFish() : list&lt;IFish&gt;</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1561</x><y>504</y><w>147</w><h>70</h></coordinates><panel_attributes>Watershed
+--
+-fishPool : list&lt;IFish&gt;
+-.
++getFish() : list&lt;IFish&gt;
+
+BASSIN VERSANT - "MAP"</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1351</x><y>693</y><w>217</w><h>49</h></coordinates><panel_attributes>&lt;&lt;interface&gt;&gt;
+IFish
+--
+-.
+/+capture(PARAMETRES DE CAPTURE) :bool/</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1561</x><y>882</y><w>168</w><h>70</h></coordinates><panel_attributes>Environment
+--
+-.
++generateNewEnvironment() : void
+
+PARAMETRES DE LA GAME
+ex : météo, température, heure, etc.</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1624</x><y>567</y><w>21</w><h>329</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;450</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1351</x><y>791</y><w>217</w><h>49</h></coordinates><panel_attributes>Fish1 (TYPE OF FISH)
+--
+-.
++capture(PARAMETRES DE CAPTURE) : bool
+COMPORTEMENT POISSON</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1827</x><y>777</y><w>21</w><h>70</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;80</additional_attributes></element><element><id>Relation</id><coordinates><x>1421</x><y>735</y><w>21</w><h>70</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;80</additional_attributes></element><element><id>Relation</id><coordinates><x>1673</x><y>567</y><w>175</w><h>140</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;10;230;180</additional_attributes></element><element><id>Relation</id><coordinates><x>1421</x><y>567</y><w>182</w><h>140</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>240;10;10;180</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1561</x><y>357</y><w>147</w><h>49</h></coordinates><panel_attributes>FishingSession
+--
+-watershed : Watershed
+-score : int</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1561</x><y>224</y><w>147</w><h>49</h></coordinates><panel_attributes>FishingRun
+--
+-fishingSessions : list&lt;FishingSession&gt;
+-totalScore : int</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1624</x><y>266</y><w>21</w><h>105</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;130</additional_attributes></element><element><id>Relation</id><coordinates><x>1624</x><y>399</y><w>21</w><h>119</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;150</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1330</x><y>357</y><w>147</w><h>49</h></coordinates><panel_attributes>Player
+--
+-input : IInput
+-.
++getInputs() : TYPE</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1099</x><y>357</y><w>147</w><h>49</h></coordinates><panel_attributes>&lt;&lt;interface&gt;&gt;
+IInput
+--
+/+getInputs() : TYPE/</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>980</x><y>469</y><w>147</w><h>49</h></coordinates><panel_attributes>InputArduino
+--
++getInputs() : TYPE</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1190</x><y>469</y><w>147</w><h>49</h></coordinates><panel_attributes>InputConsole
+--
++GetInputs() : TYPE</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1169</x><y>399</y><w>112</w><h>84</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;140;100</additional_attributes></element><element><id>Relation</id><coordinates><x>1043</x><y>399</y><w>133</w><h>84</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>170;10;10;100</additional_attributes></element><element><id>Relation</id><coordinates><x>1239</x><y>378</y><w>105</w><h>21</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>130;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1470</x><y>378</y><w>105</w><h>21</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>130;10;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1561</x><y>49</y><w>392</w><h>49</h></coordinates><panel_attributes>UI classes
+--
+CONSOLE OU QT</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1624</x><y>91</y><w>21</w><h>147</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;190</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>1498</x><y>0</y><w>504</w><h>140</h></coordinates><panel_attributes>FRONT END
+halign=left</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>973</x><y>763</y><w>210</w><h>49</h></coordinates><panel_attributes>MuonRNG
+--
+GETRANDOM POURRAIT PTET TEMPLATE
++getRandom(min : int, max : int) : int</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1057</x><y>805</y><w>518</w><h>119</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>720;150;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1050</x><y>539</y><w>525</w><h>238</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>730;10;10;320</additional_attributes></element><element><id>UMLClass</id><coordinates><x>973</x><y>609</y><w>175</w><h>49</h></coordinates><panel_attributes>ComSerialMaster
+--
+INTERFACE ?
+DEMANDER LES DONNEES</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1043</x><y>511</y><w>21</w><h>112</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;140</additional_attributes></element><element><id>Relation</id><coordinates><x>1043</x><y>651</y><w>21</w><h>126</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;160;10;10</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>952</x><y>210</y><w>1134</w><h>791</h></coordinates><panel_attributes>BACK END
+halign=left</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>35</x><y>434</y><w>175</w><h>56</h></coordinates><panel_attributes>Accelerometer
+--
+-.
++getValues() : AcceleremeterValues
+DRIVER</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>42</x><y>567</y><w>175</w><h>56</h></coordinates><panel_attributes>Button
+--
+-.
++getValue() : bool
+DRIVER</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>42</x><y>812</y><w>175</w><h>49</h></coordinates><panel_attributes>Joystick
+--
+-.
++getValues() : JoystickValues
+DRIVER</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>42</x><y>693</y><w>175</w><h>49</h></coordinates><panel_attributes>Encoder
+--
+-.
++getValue() : int // FLOAT ??
+DRIVER</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>350</x><y>609</y><w>175</w><h>77</h></coordinates><panel_attributes>InputParser
+--
+-buttons : Button[4]
+-accelerometer : Accelerometer
+-encoder : Encoder
+-joystick : Joystick
+-.
+GET ET INTERPRETER LES INPUTS</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>203</x><y>455</y><w>161</w><h>210</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>210;280;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>210</x><y>595</y><w>154</w><h>70</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>200;80;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>210</x><y>644</y><w>154</w><h>84</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>200;10;10;100</additional_attributes></element><element><id>Relation</id><coordinates><x>210</x><y>651</y><w>154</w><h>203</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>200;10;10;270</additional_attributes></element><element><id>Relation</id><coordinates><x>826</x><y>630</y><w>161</w><h>28</h></coordinates><panel_attributes></panel_attributes><additional_attributes>10;20;210;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>602</x><y>609</y><w>231</w><h>84</h></coordinates><panel_attributes>ComSerialSlave
+--
+
+INTERFACE ?
+ENVOYER LES DONNEES :
+PRENDRE LES RESULTATS DE INPUTPARSER
+ET LES ENVOYER À L'ORDI
+SERA INCLU DANS main.cpp</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>518</x><y>630</y><w>98</w><h>21</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>120;10;10;10</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>0</x><y>287</y><w>875</w><h>658</h></coordinates><panel_attributes>ARDUINO
+halign=left</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1890</x><y>497</y><w>175</w><h>49</h></coordinates><panel_attributes>&lt;&lt;struct&gt;&gt;
+GameResult
+--
+score : int
+VOIR SI AUTRE CHOSE À METTRE</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1890</x><y>539</y><w>98</w><h>168</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;220;120;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1813</x><y>91</y><w>35</w><h>616</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;10;30;860</additional_attributes></element><element><id>Relation</id><coordinates><x>1869</x><y>91</y><w>126</w><h>420</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;10;160;580</additional_attributes></element><element><id>UMLClass</id><coordinates><x>315</x><y>371</y><w>175</w><h>63</h></coordinates><panel_attributes>&lt;&lt;struct&gt;&gt;
+AccelerometerValues
+--
+x : float
+y : float
+z : float
+VOIR SI AUTRES À METTRE</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>287</x><y>868</y><w>175</w><h>63</h></coordinates><panel_attributes>&lt;&lt;struct&gt;&gt;
+JoystickValues
+--
+x : float
+y : float
+isButtonPressed : bool</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1001</x><y>266</y><w>147</w><h>49</h></coordinates><panel_attributes>&lt;&lt;struct&gt;&gt;
+Inputs
+--
+button1Pressed : bool // VOIR ROLE BOUTON
+button2Pressed : bool // VOIR ROLE BOUTON
+button3Pressed : bool // VOIR ROLE BOUTON
+button4Pressed : bool // VOIR ROLE BOUTON
+</panel_attributes><additional_attributes></additional_attributes></element></diagram>
