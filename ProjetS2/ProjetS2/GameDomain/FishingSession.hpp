@@ -22,6 +22,7 @@ private:
   Watershed watershed;
   Environment environment;
   int score;
+  const int CAPTURE_DISTANCE = 0;
 
   bool checkMovement(Movement movement);
   void captureNearFish(float reelSpeed_rotPerSec, float duration_s);

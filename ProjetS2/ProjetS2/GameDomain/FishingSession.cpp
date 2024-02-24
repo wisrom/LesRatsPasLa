@@ -7,7 +7,7 @@ FishingSession::FishingSession()
     watershed = Watershed();
     environment = Environment();
 
-    // TEST
+    // TEST, TO CHANGE
     std::vector<CaptureStep> captureSteps;
     CaptureStep captureStep;
     captureStep.duration_s = 0;
@@ -64,7 +64,8 @@ void FishingSession::captureNearFish(float reelSpeed_rotPerSec, float duration_s
 {
   for (int fishIndex = 0; fishIndex < fishs.size(); fishIndex++)
   {
-    if (abs(fishs[fishIndex].getPosition().x - player.getPosition().x) <= 1 && abs(fishs[fishIndex].getPosition().y - player.getPosition().y) <= 1)
+    if (abs(fishs[fishIndex].getPosition().x - player.getPosition().x) <= CAPTURE_DISTANCE 
+      && abs(fishs[fishIndex].getPosition().y - player.getPosition().y) <= CAPTURE_DISTANCE)
     {
       if (fishs[fishIndex].capture(reelSpeed_rotPerSec, duration_s))
       {
