@@ -25,8 +25,8 @@ void DisplayConsole::displaySession(FishingSession session)
 
   std::string scoreText = "Score : " + std::to_string(score);
   std::string movementControlsText = "Move up : W, Move down : S, Move left : A, Move right : D";
-  std::string reelControlText = "Reel speed : [1, 2, 3, 4]";
-  std::string lineContent;
+  std::string reelControlText = "Reel speed : [" + CODE_COLOR_RED + "1\033[0m, " + CODE_COLOR_YELLOW + "2\033[0m, " + CODE_COLOR_GREEN + "3\033[0m, " + CODE_COLOR_BLUE + "4\033[0m]";
+  std::string lineContent = "";
   std::string fullLine = "+" + std::string(mapWidth, '-') + "+";
 
   system("CLS"); // Clear console
@@ -39,7 +39,7 @@ void DisplayConsole::displaySession(FishingSession session)
   }
   std::cout << fullLine << std::endl;
   displayCentered(mapWidth, movementControlsText);
-  displayCentered(mapWidth, reelControlText);
+  displayCentered(mapWidth, reelControlText, std::string("Reel speed : [1, 2, 3, 4]").length());
 }
 
 std::string DisplayConsole::getLine(FishingSession session, int lineNumber)
@@ -47,6 +47,7 @@ std::string DisplayConsole::getLine(FishingSession session, int lineNumber)
   Position fishPosition;
   Position playerPosition;
   std::string lineContent = std::string(session.map.getWidth(), ' ');
+  std::string playerDisplayColor = CODE_COLOR_WHITE;
 
   for (Fish fish : session.fishs)
   {
@@ -63,7 +64,24 @@ std::string DisplayConsole::getLine(FishingSession session, int lineNumber)
     lineContent[playerPosition.x] = 'P';
     if (session.isPlayerNearFish())
     {
-      lineContent = getLinePlayerColored(lineContent, DisplayColor::BLUE);
+      switch (session.getNearFish().getCurrentCaptureStep().speed_rotPerSec)
+      {
+        case 1:
+          playerDisplayColor = CODE_COLOR_RED;
+          break;
+        case 2:
+          playerDisplayColor = CODE_COLOR_YELLOW;
+          break;
+        case 3:
+          playerDisplayColor = CODE_COLOR_GREEN;
+          break;
+        case 4:
+          playerDisplayColor = CODE_COLOR_BLUE;
+          break;
+        default:
+          break;
+      }
+      lineContent = getLinePlayerColored(lineContent, playerDisplayColor);
     }
   }
 
@@ -71,46 +89,32 @@ std::string DisplayConsole::getLine(FishingSession session, int lineNumber)
   return lineContent;
 }
 
-std::string DisplayConsole::getLinePlayerColored(std::string lineText, DisplayColor color)
+std::string DisplayConsole::getLinePlayerColored(std::string lineText, std::string color)
 {
-  std::string colorFlag = "";
-  std::string coloredPlayer = "";
+  //std::string colorFlag = "";
+  std::string coloredPlayer = color + 'P' + "\033[0m";
   int playerPosition = lineText.find('P');
-
-  switch (color)
-  {
-  case DisplayColor::WHITE:
-    colorFlag = "\033[" + CODE_COLOR_WHITE + 'm';
-    break;
-  case DisplayColor::GREEN:
-    colorFlag = "\033[" + CODE_COLOR_GREEN + 'm';
-    break;
-  case DisplayColor::RED:
-    colorFlag = "\033[" + CODE_COLOR_RED + 'm';
-    break;
-  case DisplayColor::YELLOW:
-    colorFlag = "\033[" + CODE_COLOR_YELLOW + 'm';
-    break;
-  case DisplayColor::BLUE:
-    colorFlag = "\033[" + CODE_COLOR_BLUE + 'm';
-    break;
-  default:
-    break;
-  }
-
-  coloredPlayer = colorFlag + 'P' + "\033[0m";
-
   
   lineText.replace(playerPosition, playerPosition + coloredPlayer.length(), coloredPlayer);
   lineText.append(std::string(coloredPlayer.length() - 1 + playerPosition, ' '));
   return lineText;
 }
 
-void DisplayConsole::displayCentered(int width, std::string text)
+void DisplayConsole::displayCentered(int width, std::string text, int coloredTextLength)
 {
-  width + 2; // +2 for borders
+  width += 2; // +2 for borders
   std::string lineContent = std::string(width, ' ');
-  int insertionPosition = (lineContent.length() / 2) - (text.length() / 2);
+  int insertionPosition = 0;
+
+  if (coloredTextLength == 0)
+  {
+    insertionPosition = (lineContent.length() / 2) - (text.length() / 2);
+  }
+  else
+  {
+    insertionPosition = (lineContent.length() / 2) - (coloredTextLength / 2);
+  }
+  
   lineContent.insert(insertionPosition, text);
   std::cout << lineContent << std::endl;
 }

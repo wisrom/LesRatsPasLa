@@ -14,13 +14,13 @@ public:
   void displayMessage(std::string message);
   void displaySession(FishingSession session);
 private:
-  const std::string CODE_COLOR_WHITE = "97";
-  const std::string CODE_COLOR_GREEN = "92";
-  const std::string CODE_COLOR_RED = "91";
-  const std::string CODE_COLOR_YELLOW = "93";
-  const std::string CODE_COLOR_BLUE = "94";
+  const std::string CODE_COLOR_WHITE = "\033[97m";
+  const std::string CODE_COLOR_GREEN = "\033[92m";
+  const std::string CODE_COLOR_RED = "\033[91m";
+  const std::string CODE_COLOR_YELLOW = "\033[93m";
+  const std::string CODE_COLOR_BLUE = "\033[94m";
 
   std::string getLine(FishingSession session, int lineNumber);
-  std::string getLinePlayerColored(std::string lineText, DisplayColor color);
-  void displayCentered(int width, std::string text);
+  std::string getLinePlayerColored(std::string lineText, std::string color);
+  void displayCentered(int width, std::string text, int coloredTextLength = 0);
 };

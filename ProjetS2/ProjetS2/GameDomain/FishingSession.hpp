@@ -17,6 +17,7 @@ public:
   ~FishingSession();
 
   int getScore();
+  Fish getNearFish();
   bool isPlayerNearFish();
   void processInput(InputAction input);
 private:
