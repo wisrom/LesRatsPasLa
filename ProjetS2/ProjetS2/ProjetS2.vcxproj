@@ -181,6 +181,7 @@
     <ClInclude Include="Types\InputAction.hpp" />
     <ClInclude Include="Types\Position.hpp" />
     <ClInclude Include="Types\RunSettings.hpp" />
+    <ClInclude Include="UI\Console\DisplayColor.hpp" />
     <ClInclude Include="UI\Console\DisplayConsole.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

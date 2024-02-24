@@ -29,7 +29,7 @@ void DisplayConsole::displaySession(FishingSession session)
   std::string lineContent;
   std::string fullLine = "+" + std::string(mapWidth, '-') + "+";
 
-  system("CLS");
+  system("CLS"); // Clear console
   displayCentered(mapWidth, scoreText);
   std::cout << fullLine << std::endl;
   for (int line = 0; line < map.getHeight(); line++)
@@ -61,10 +61,49 @@ std::string DisplayConsole::getLine(FishingSession session, int lineNumber)
   if (playerPosition.y == lineNumber)
   {
     lineContent[playerPosition.x] = 'P';
+    if (session.isPlayerNearFish())
+    {
+      lineContent = getLinePlayerColored(lineContent, DisplayColor::BLUE);
+    }
   }
 
   lineContent = "|" + lineContent + "|";
   return lineContent;
+}
+
+std::string DisplayConsole::getLinePlayerColored(std::string lineText, DisplayColor color)
+{
+  std::string colorFlag = "";
+  std::string coloredPlayer = "";
+  int playerPosition = lineText.find('P');
+
+  switch (color)
+  {
+  case DisplayColor::WHITE:
+    colorFlag = "\033[" + CODE_COLOR_WHITE + 'm';
+    break;
+  case DisplayColor::GREEN:
+    colorFlag = "\033[" + CODE_COLOR_GREEN + 'm';
+    break;
+  case DisplayColor::RED:
+    colorFlag = "\033[" + CODE_COLOR_RED + 'm';
+    break;
+  case DisplayColor::YELLOW:
+    colorFlag = "\033[" + CODE_COLOR_YELLOW + 'm';
+    break;
+  case DisplayColor::BLUE:
+    colorFlag = "\033[" + CODE_COLOR_BLUE + 'm';
+    break;
+  default:
+    break;
+  }
+
+  coloredPlayer = colorFlag + 'P' + "\033[0m";
+
+  
+  lineText.replace(playerPosition, playerPosition + coloredPlayer.length(), coloredPlayer);
+  lineText.append(std::string(coloredPlayer.length() - 1 + playerPosition, ' '));
+  return lineText;
 }
 
 void DisplayConsole::displayCentered(int width, std::string text)

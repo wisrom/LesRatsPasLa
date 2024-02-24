@@ -17,6 +17,7 @@ public:
   ~FishingSession();
 
   int getScore();
+  bool isPlayerNearFish();
   void processInput(InputAction input);
 private:
   Watershed watershed;

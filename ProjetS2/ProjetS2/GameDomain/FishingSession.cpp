@@ -51,6 +51,19 @@ void FishingSession::processInput(InputAction input)
   }
 }
 
+bool FishingSession::isPlayerNearFish()
+{
+  for (Fish fish : fishs)
+  {
+    if (abs(fish.getPosition().x - player.getPosition().x) <= CAPTURE_DISTANCE
+      && abs(fish.getPosition().y - player.getPosition().y) <= CAPTURE_DISTANCE)
+    {
+      return true;
+    }
+  }
+  return false;
+}
+
 bool FishingSession::checkMovement(Movement movement)
 {
   Position position = player.getPosition();
