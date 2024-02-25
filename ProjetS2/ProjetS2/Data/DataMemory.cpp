@@ -33,6 +33,7 @@ DataMemory::DataMemory()
 	fishPool1.push_back(Fish(2, captureSteps, "Saumon", 0.4f, 3.0f, 10));
 
 	watershed = Watershed(1, fishPool1);
+	watersheds.push_back(watershed);
 }
 
 DataMemory::~DataMemory()

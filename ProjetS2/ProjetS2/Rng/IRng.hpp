@@ -2,5 +2,7 @@
 
 class IRng
 {
-    virtual float getRandom() = 0;
+public:
+  virtual ~IRng() {};
+  virtual float getRandom() = 0;
 };

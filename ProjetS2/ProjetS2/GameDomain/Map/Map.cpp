@@ -5,6 +5,7 @@ Map::Map()
     id = 0;
     width = 0;
     height = 0;
+    rng = new RngClassic();
 }
 
 Map::Map(int id, int width, int height)
@@ -12,11 +13,12 @@ Map::Map(int id, int width, int height)
     this->id = id;
     this->width = width;
     this->height = height;
+    rng = new RngClassic();
 }
 
 Map::~Map()
 {
-
+  //delete rng;
 }
 
 int Map::getId()
@@ -32,6 +34,14 @@ int Map::getWidth()
 int Map::getHeight()
 {
     return height;
+}
+
+Position Map::getRandomPosition()
+{
+  Position position;
+  position.x = (int)(rng->getRandom() * (width - 1));
+  position.y = (int)(rng->getRandom() * (height - 1));
+  return position;
 }
 
 void Map::setWidth(int newWidth)

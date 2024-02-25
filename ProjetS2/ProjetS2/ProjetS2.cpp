@@ -1,5 +1,3 @@
-// Author : William Simard
-
 #include "UI/Console/DisplayConsole.hpp"
 #include "Input/InputConsole.hpp"
 #include "GameDomain/FishingRun.hpp"

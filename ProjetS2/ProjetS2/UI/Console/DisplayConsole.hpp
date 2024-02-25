@@ -21,6 +21,6 @@ private:
   const std::string CODE_COLOR_BLUE = "\033[94m";
 
   std::string getLine(FishingSession session, int lineNumber);
-  std::string getLinePlayerColored(std::string lineText, std::string color);
+  std::string getLinePlayerColored(int lineNumber, FishingSession session, std::string lineText, std::string color);
   void displayCentered(int width, std::string text, int coloredTextLength = 0);
 };

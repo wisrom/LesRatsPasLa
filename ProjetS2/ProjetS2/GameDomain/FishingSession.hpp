@@ -5,6 +5,8 @@
 #include "../Types/InputAction.hpp"
 #include "Map/Map.hpp"
 #include "Watershed.hpp"
+#include "../Data/IData.hpp"
+#include "../Data/DataMemory.hpp"
 
 class FishingSession
 {
@@ -14,15 +16,18 @@ public:
   Map map;
 
   FishingSession();
+  FishingSession(int fishAmount);
   ~FishingSession();
 
   int getScore();
   Fish getNearFish();
   bool isPlayerNearFish();
   void processInput(InputAction input);
+  bool isFishPositionOccupied(Position position);
 private:
   Watershed watershed;
   Environment environment;
+  IData* data;
   int score;
   const int CAPTURE_DISTANCE = 0;
 

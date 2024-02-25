@@ -2,7 +2,7 @@
 
 RngClassic::RngClassic()
 {
-
+  srand(time(0)); // Multiplier for good seed
 }
 
 RngClassic::~RngClassic()
@@ -12,5 +12,7 @@ RngClassic::~RngClassic()
 
 float RngClassic::getRandom()
 {
-    return 0.0f;
+  float random;
+  random = (double)rand() / (RAND_MAX); // BETWEEN 0 and 1
+  return random;
 }

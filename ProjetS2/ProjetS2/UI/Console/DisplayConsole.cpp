@@ -1,5 +1,3 @@
-// Author : William Simard
-
 #include "DisplayConsole.hpp"
 
 DisplayConsole::DisplayConsole()
@@ -81,7 +79,7 @@ std::string DisplayConsole::getLine(FishingSession session, int lineNumber)
         default:
           break;
       }
-      lineContent = getLinePlayerColored(lineContent, playerDisplayColor);
+      lineContent = getLinePlayerColored(lineNumber, session, lineContent, playerDisplayColor);
     }
   }
 
@@ -89,14 +87,30 @@ std::string DisplayConsole::getLine(FishingSession session, int lineNumber)
   return lineContent;
 }
 
-std::string DisplayConsole::getLinePlayerColored(std::string lineText, std::string color)
+std::string DisplayConsole::getLinePlayerColored(int lineNumber,FishingSession session, std::string lineText, std::string color)
 {
-  //std::string colorFlag = "";
   std::string coloredPlayer = color + 'P' + "\033[0m";
-  int playerPosition = lineText.find('P');
+  lineText.append(std::string(coloredPlayer.length(), ' '));
+  size_t lineTextLength = lineText.length();
+  size_t playerPosition = lineText.find('P');
+  Position position;
+  position.y = lineNumber;
   
   lineText.replace(playerPosition, playerPosition + coloredPlayer.length(), coloredPlayer);
-  lineText.append(std::string(coloredPlayer.length() - 1 + playerPosition, ' '));
+  while (lineText.length() <= lineTextLength - 2)
+  {
+    lineText.append(" ");
+  }
+
+  for (Fish fish : session.fishs)
+  {
+    Position fishPosition = fish.getPosition();
+    if (fishPosition.y == lineNumber && fishPosition.x > playerPosition + 1)
+    {
+      lineText[fishPosition.x + coloredPlayer.length() - 1] = 'F';
+    }
+  }
+
   return lineText;
 }
 
@@ -115,6 +129,11 @@ void DisplayConsole::displayCentered(int width, std::string text, int coloredTex
     insertionPosition = (lineContent.length() / 2) - (coloredTextLength / 2);
   }
   
+  if (insertionPosition < 0)
+  {
+    insertionPosition = 0;
+  }
+
   lineContent.insert(insertionPosition, text);
   std::cout << lineContent << std::endl;
 }

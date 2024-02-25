@@ -2,7 +2,7 @@
 
 FishingRun::FishingRun()
 {
-    FishingSession session;
+    FishingSession session = FishingSession(10);
     sessions.push_back(session); // WILL NEED TO BE REMOVED AFTER TESTS
     totalScore = 0;
 }

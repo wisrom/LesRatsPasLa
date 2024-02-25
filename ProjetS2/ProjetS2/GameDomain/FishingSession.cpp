@@ -4,11 +4,11 @@ FishingSession::FishingSession()
 {
     score = 0;
     player = Player();
+    data = new DataMemory();
     watershed = Watershed();
     environment = Environment();
 
-    // TEST, TO CHANGE
-    std::vector<CaptureStep> captureSteps;
+    /*std::vector<CaptureStep> captureSteps;
     CaptureStep captureStep;
     captureStep.duration_s = 0;
     captureStep.margin = 0;
@@ -24,13 +24,39 @@ FishingSession::FishingSession()
     captureSteps.push_back(captureStep);
     fish = Fish(2, captureSteps, "Fish", 0.25, 3.0f, 2);
     fish.setPosition({ 10, 6 });
-    fishs.push_back(fish);
+    fishs.push_back(fish);*/
     map = Map(1, 80, 20);
+}
+
+FishingSession::FishingSession(int fishAmount)
+{
+  score = 0;
+  player = Player();
+  data = new DataMemory();
+  watershed = data->getWatershed(1); // MODIFY DEPENDING ON SETTINGS
+  environment = Environment();
+
+  for (int i = 0; i < fishAmount; i++)
+  {
+    fishs.push_back(watershed.getRandomFish());
+  }
+
+  map = Map(1, 80, 20);
+  for (int i = 0; i < fishs.size(); i++)
+  {
+    Position randomPosition = map.getRandomPosition();
+    if (isFishPositionOccupied(randomPosition))
+    {
+      i--;
+      continue;
+    }
+    fishs[i].setPosition(randomPosition);
+  }
 }
 
 FishingSession::~FishingSession()
 {
-
+  //delete data;
 }
 
 int FishingSession::getScore()
@@ -49,6 +75,20 @@ void FishingSession::processInput(InputAction input)
   {
     captureNearFish(input.reelSpeed_rotPerSec, 1); // CHANGE 1 WHEN TIME HAS BEEN FIGURED OUT
   }
+}
+
+bool FishingSession::isFishPositionOccupied(Position position)
+{
+  Position fishPosition;
+  for (Fish fish : fishs)
+  {
+    fishPosition = fish.getPosition();
+    if (fishPosition.x == position.x && fishPosition.y == position.y)
+    {
+      return true;
+    }
+  }
+  return false;
 }
 
 Fish FishingSession::getNearFish()
