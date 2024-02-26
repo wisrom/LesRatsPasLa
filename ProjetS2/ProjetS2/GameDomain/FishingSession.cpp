@@ -7,24 +7,6 @@ FishingSession::FishingSession()
     data = new DataMemory();
     watershed = Watershed();
     environment = Environment();
-
-    /*std::vector<CaptureStep> captureSteps;
-    CaptureStep captureStep;
-    captureStep.duration_s = 0;
-    captureStep.margin = 0;
-    captureStep.speed_rotPerSec = 1;
-    captureSteps.push_back(captureStep);
-
-    Fish fish = Fish(1, captureSteps, "Fish", 0.25, 3.0f, 1);
-    fish.setPosition({ 5, 4 });
-
-    fishs.push_back(fish); // test
-
-    captureStep.speed_rotPerSec = 2;
-    captureSteps.push_back(captureStep);
-    fish = Fish(2, captureSteps, "Fish", 0.25, 3.0f, 2);
-    fish.setPosition({ 10, 6 });
-    fishs.push_back(fish);*/
     map = Map(1, 80, 20);
 }
 
@@ -64,7 +46,7 @@ int FishingSession::getScore()
   return score;
 }
 
-void FishingSession::processInput(InputAction input)
+void FishingSession::processInput(InputGame input)
 {
   if (checkMovement(input.movement))
   {

@@ -2,7 +2,7 @@
 
 #include "Entities/Player.hpp"
 #include "Entities/Fish.hpp"
-#include "../Types/InputAction.hpp"
+#include "../Types/InputGame.hpp"
 #include "Map/Map.hpp"
 #include "Watershed.hpp"
 #include "../Data/IData.hpp"
@@ -22,7 +22,7 @@ public:
   int getScore();
   Fish getNearFish();
   bool isPlayerNearFish();
-  void processInput(InputAction input);
+  void processInput(InputGame input);
   bool isFishPositionOccupied(Position position);
 private:
   Watershed watershed;

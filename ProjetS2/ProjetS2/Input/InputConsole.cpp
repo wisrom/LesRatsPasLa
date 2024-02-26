@@ -10,17 +10,15 @@ InputConsole::~InputConsole()
 
 }
 
-InputAction InputConsole::getGameInput()
+InputGame InputConsole::getGameInput()
 {
-  char key;
+  char key = _getch();
   Movement movement = MOVEMENT_NONE;
   float reelSpeed = 0.0f;
   bool menu = false;
   bool quit = false;
 
-  InputAction actions;
-
-  key = _getch();
+  InputGame actions;
 
   switch (key)
   {
@@ -64,4 +62,28 @@ InputAction InputConsole::getGameInput()
   actions.quit = quit;
 
   return actions;
+}
+
+InputMenu InputConsole::getMenuInput()
+{
+  InputMenu input = {false, false, false};
+
+  char key = _getch();
+
+  switch (key)
+  {
+    case 's':
+      input.pressedPrevious = true;
+      break;
+    case 'w':
+      input.pressedNext = true;
+      break;
+    case '\r': //enter
+      input.selectedOption = true;
+      break;
+    default:
+      break;
+  }
+
+  return input;
 }

@@ -2,7 +2,7 @@
 
 #include "Movement.hpp"
 
-struct InputAction
+struct InputGame
 {
     Movement movement;
     float reelSpeed_rotPerSec;

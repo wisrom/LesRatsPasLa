@@ -16,7 +16,7 @@ int main()
   for (;;) // In game
   {
     display.displaySession(*fishingRun.getCurrentSession());
-    InputAction actions = input->getInput();
+    InputGame actions = input->getGameInput();
 
     if (actions.quit)
     {
