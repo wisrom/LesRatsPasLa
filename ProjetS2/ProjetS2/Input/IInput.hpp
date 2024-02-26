@@ -5,5 +5,6 @@
 class IInput
 {
 public:
-    virtual InputAction getInput() = 0;
+    virtual InputAction getGameInput() = 0;
+    virtual InputMenu getMenuInput() = 0;
 };

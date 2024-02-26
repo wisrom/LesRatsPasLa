@@ -40,6 +40,15 @@ void DisplayConsole::displaySession(FishingSession session)
   displayCentered(mapWidth, reelControlText, std::string("Reel speed : [1, 2, 3, 4]").length());
 }
 
+void DisplayConsole::displayMainMenu()
+{
+  const int MENU_WIDTH = 40;
+
+  displayCentered(MENU_WIDTH, "Quick game");
+  displayCentered(MENU_WIDTH, "Custom game");
+  displayCentered(MENU_WIDTH, "Scores");
+}
+
 std::string DisplayConsole::getLine(FishingSession session, int lineNumber)
 {
   Position fishPosition;

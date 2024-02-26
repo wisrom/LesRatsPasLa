@@ -8,7 +8,12 @@ int main()
   IInput* input = new InputConsole();
   FishingRun fishingRun;
 
-  for (;;)
+  for (;;) //menu
+  {
+
+  }
+
+  for (;;) // In game
   {
     display.displaySession(*fishingRun.getCurrentSession());
     InputAction actions = input->getInput();

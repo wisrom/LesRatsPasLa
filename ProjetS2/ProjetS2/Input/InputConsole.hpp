@@ -11,5 +11,5 @@ public:
     InputConsole();
     ~InputConsole();
     
-    InputAction getInput() override;
+    InputAction getGameInput() override;
 };

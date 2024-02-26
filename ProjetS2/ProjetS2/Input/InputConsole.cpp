@@ -10,7 +10,7 @@ InputConsole::~InputConsole()
 
 }
 
-InputAction InputConsole::getInput()
+InputAction InputConsole::getGameInput()
 {
   char key;
   Movement movement = MOVEMENT_NONE;

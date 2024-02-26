@@ -13,6 +13,7 @@ public:
 
   void displayMessage(std::string message);
   void displaySession(FishingSession session);
+  void displayMainMenu();
 private:
   const std::string CODE_COLOR_WHITE = "\033[97m";
   const std::string CODE_COLOR_GREEN = "\033[92m";
