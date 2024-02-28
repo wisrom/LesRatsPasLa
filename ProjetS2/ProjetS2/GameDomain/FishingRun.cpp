@@ -2,8 +2,9 @@
 
 FishingRun::FishingRun()
 {
-    FishingSession session = FishingSession(4);
-    sessions.push_back(session); // WILL NEED TO BE REMOVED AFTER TESTS
+  data = new DataMemory();
+  FishingSession session = FishingSession(12);
+  sessions.push_back(session); // WILL NEED TO BE REMOVED AFTER TESTS
 }
 
 FishingRun::~FishingRun()
@@ -38,4 +39,9 @@ int FishingRun::getScore()
   }
 
   return totalScore;
+}
+
+void FishingRun::saveScore()
+{
+  data->addScore(getScore());
 }

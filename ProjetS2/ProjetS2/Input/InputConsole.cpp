@@ -49,7 +49,7 @@ InputGame InputConsole::getGameInput()
     case 'm':
       menu = true;
       break;
-    case 'q':
+    case 27: // Escape
       quit = true;
       break;
     default:
@@ -80,6 +80,9 @@ InputMenu InputConsole::getMenuInput()
       break;
     case '\r': //enter
       input.selectedOption = true;
+      break;
+    case 8:
+      input.pressedBack = true;
       break;
     default:
       break;

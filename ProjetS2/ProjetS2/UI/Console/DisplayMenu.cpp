@@ -2,6 +2,7 @@
 
 DisplayMenu::DisplayMenu()
 {
+  data = new DataMemory();
   currentMenu = Menu::MAIN_MENU;
 
   MenuOption menuOption = { 1, "Quick game" };
@@ -23,7 +24,7 @@ DisplayMenu::DisplayMenu()
 
 DisplayMenu::~DisplayMenu()
 {
-  
+  // delete data;
 }
 
 void DisplayMenu::displayCurrentMenu()
@@ -66,7 +67,7 @@ void DisplayMenu::displayMenu(std::vector<MenuOption> options, std::string menuN
   std::cout << '+' << std::string(MENU_WIDTH - 2, '-') << '+' << std::endl;
 }
 
-void DisplayMenu::processInput(InputMenu input)
+void DisplayMenu::processInput(InputMenu input, FishingRun& fishingRun)
 {
   if (input.pressedNext && selectedOptionIndex < mainOptions.size() - 1)
   {
@@ -80,7 +81,43 @@ void DisplayMenu::processInput(InputMenu input)
 
   if (input.selectedOption)
   {
-    openOption(mainOptions[selectedOptionIndex]);
+    openOption(getMenuOptions(currentMenu)[selectedOptionIndex]);
+  }
+
+  if (input.pressedBack)
+  {
+    selectedOptionIndex = 0;
+    currentMenu = Menu::MAIN_MENU;
+  }
+}
+
+std::vector<MenuOption> DisplayMenu::getMenuOptions(Menu menu)
+{
+  switch (menu)
+  {
+    case Menu::MAIN_MENU:
+      return mainOptions;
+    case Menu::QUICK_GAME_MENU:
+      return difficultyOptions;
+    case Menu::SCORES_MENU:
+      updateScoreOptions();
+      return scoreOptions;
+    default:
+      break;  
+  }
+}
+
+void DisplayMenu::updateScoreOptions()
+{
+  MenuOption option;
+  std::vector<int> scores = data->getScores();
+  scoreOptions.clear();
+
+  for (int i = 0; i < scores.size(); i++)
+  {
+    option.optionId = i;
+    option.optionName = std::to_string(scores[i]);
+    scoreOptions.push_back(option);
   }
 }
 

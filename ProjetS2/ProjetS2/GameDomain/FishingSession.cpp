@@ -65,7 +65,13 @@ bool FishingSession::isFishPositionOccupied(Position position)
   for (Fish fish : fishs)
   {
     fishPosition = fish.getPosition();
-    if (fishPosition.x == position.x && fishPosition.y == position.y)
+    // DÉCOMMENTER LORSQUE SUR QT
+    //if (fishPosition.x == position.x && fishPosition.y == position.y)
+    //{
+    //  return true;
+    //}
+
+    if (fishPosition.y == position.y)
     {
       return true;
     }

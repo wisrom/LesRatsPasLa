@@ -16,7 +16,7 @@ int main()
   //{
   //  displayMenu.displayCurrentMenu();
   //  menuInput = input->getMenuInput();
-  //  displayMenu.processInput(menuInput);
+  //  displayMenu.processInput(menuInput, fishingRun);
   //}
 
   for (;;) // In game

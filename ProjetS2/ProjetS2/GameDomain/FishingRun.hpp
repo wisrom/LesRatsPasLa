@@ -14,4 +14,7 @@ public:
   FishingSession* getCurrentSession();
   bool getIsFinished();
   int getScore();
+  void saveScore();
+private:
+  IData* data;
 };
