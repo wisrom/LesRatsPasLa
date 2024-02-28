@@ -21,6 +21,7 @@ public:
 
   int getScore();
   Fish getNearFish();
+  bool getIsFinished();
   bool isPlayerNearFish();
   void processInput(InputGame input);
   bool isFishPositionOccupied(Position position);

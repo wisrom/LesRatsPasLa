@@ -89,6 +89,15 @@ Fish FishingSession::getNearFish()
   return nearFish;
 }
 
+bool FishingSession::getIsFinished()
+{
+  if (fishs.size() == 0)
+  {
+    return true;
+  }
+  return false;
+}
+
 bool FishingSession::isPlayerNearFish()
 {
   if (getNearFish().getScore() != 0)

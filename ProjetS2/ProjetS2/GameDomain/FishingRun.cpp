@@ -2,9 +2,8 @@
 
 FishingRun::FishingRun()
 {
-    FishingSession session = FishingSession(10);
+    FishingSession session = FishingSession(4);
     sessions.push_back(session); // WILL NEED TO BE REMOVED AFTER TESTS
-    totalScore = 0;
 }
 
 FishingRun::~FishingRun()
@@ -15,4 +14,28 @@ FishingRun::~FishingRun()
 FishingSession* FishingRun::getCurrentSession()
 {
   return &sessions[0]; // IMPLEMENT
+}
+
+bool FishingRun::getIsFinished()
+{
+  for (int i = 0; i < sessions.size(); i++)
+  {
+    if (!sessions[i].getIsFinished())
+    {
+      return false;
+    }
+  }
+  return true;
+}
+
+int FishingRun::getScore()
+{
+  int totalScore = 0;
+
+  for (FishingSession session : sessions)
+  {
+    totalScore += session.getScore();
+  }
+
+  return totalScore;
 }

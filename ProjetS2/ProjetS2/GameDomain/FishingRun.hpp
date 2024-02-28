@@ -12,6 +12,6 @@ public:
   ~FishingRun();
 
   FishingSession* getCurrentSession();
-private:
-  int totalScore;
+  bool getIsFinished();
+  int getScore();
 };

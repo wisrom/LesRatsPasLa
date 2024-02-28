@@ -21,6 +21,12 @@ int main()
 
   for (;;) // In game
   {
+    if (fishingRun.getIsFinished())
+    {
+      displayGame.displayMessage("Run has been finished with " + std::to_string(fishingRun.getScore()) + " total score.");
+      exit(0);
+    }
+
     displayGame.displaySession(*fishingRun.getCurrentSession());
     actions = input->getGameInput();
 
