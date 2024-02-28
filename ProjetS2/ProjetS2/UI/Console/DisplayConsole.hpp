@@ -12,16 +12,12 @@ public:
   ~DisplayConsole();
 
   void displayMessage(std::string message);
-  void displaySession(FishingSession session);
-  void displayMainMenu();
-private:
+protected:
   const std::string CODE_COLOR_WHITE = "\033[97m";
   const std::string CODE_COLOR_GREEN = "\033[92m";
   const std::string CODE_COLOR_RED = "\033[91m";
   const std::string CODE_COLOR_YELLOW = "\033[93m";
   const std::string CODE_COLOR_BLUE = "\033[94m";
-
-  std::string getLine(FishingSession session, int lineNumber);
-  std::string getLinePlayerColored(int lineNumber, FishingSession session, std::string lineText, std::string color);
-  void displayCentered(int width, std::string text, int coloredTextLength = 0);
+  
+  void displayCentered(int width, std::string text, bool displaySideBars = false, int coloredTextLength = 0);
 };

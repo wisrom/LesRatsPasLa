@@ -156,6 +156,8 @@
     <ClCompile Include="Rng\RngClassic.cpp" />
     <ClCompile Include="Rng\RngMuons.cpp" />
     <ClCompile Include="UI\Console\DisplayConsole.cpp" />
+    <ClCompile Include="UI\Console\DisplayGame.cpp" />
+    <ClCompile Include="UI\Console\DisplayMenu.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Communication\ComSerialMaster.hpp" />
@@ -177,12 +179,17 @@
     <ClInclude Include="Rng\RngClassic.hpp" />
     <ClInclude Include="Rng\RngMuons.hpp" />
     <ClInclude Include="Types\CaptureStep.hpp" />
+    <ClInclude Include="Types\InputMenu.hpp" />
     <ClInclude Include="Types\Movement.hpp" />
-    <ClInclude Include="Types\InputAction.hpp" />
+    <ClInclude Include="Types\InputGame.hpp" />
     <ClInclude Include="Types\Position.hpp" />
     <ClInclude Include="Types\RunSettings.hpp" />
     <ClInclude Include="UI\Console\DisplayColor.hpp" />
     <ClInclude Include="UI\Console\DisplayConsole.hpp" />
+    <ClInclude Include="UI\Console\DisplayGame.hpp" />
+    <ClInclude Include="UI\Console\DisplayMenu.hpp" />
+    <ClInclude Include="UI\Console\Menu.hpp" />
+    <ClInclude Include="UI\Console\MenuOption.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

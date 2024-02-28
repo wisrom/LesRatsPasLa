@@ -1,28 +1,35 @@
-#include "UI/Console/DisplayConsole.hpp"
+#include "UI/Console/DisplayGame.hpp"
 #include "Input/InputConsole.hpp"
 #include "GameDomain/FishingRun.hpp"
+#include "UI/Console/DisplayMenu.hpp"
 
 int main()
 {
-  DisplayConsole display;
+  DisplayGame displayGame;
+  DisplayMenu displayMenu;
   IInput* input = new InputConsole();
+  InputGame actions;
+  InputMenu menuInput;
   FishingRun fishingRun;
 
-  for (;;) //menu
-  {
-
-  }
+  //for (;;) //menu
+  //{
+  //  displayMenu.displayCurrentMenu();
+  //  menuInput = input->getMenuInput();
+  //  displayMenu.processInput(menuInput);
+  //}
 
   for (;;) // In game
   {
-    display.displaySession(*fishingRun.getCurrentSession());
-    InputGame actions = input->getGameInput();
+    displayGame.displaySession(*fishingRun.getCurrentSession());
+    actions = input->getGameInput();
 
     if (actions.quit)
     {
-        display.displayMessage("Quit");
-        quick_exit(0);
+      displayGame.displayMessage("Quit");
+      quick_exit(0);
     }
+    // Check menu
     fishingRun.getCurrentSession()->processInput(actions);
   }
   delete input;

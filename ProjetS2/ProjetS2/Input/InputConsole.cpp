@@ -72,10 +72,10 @@ InputMenu InputConsole::getMenuInput()
 
   switch (key)
   {
-    case 's':
+    case 'w':
       input.pressedPrevious = true;
       break;
-    case 'w':
+    case 's':
       input.pressedNext = true;
       break;
     case '\r': //enter
