@@ -65,13 +65,13 @@ bool FishingSession::isFishPositionOccupied(Position position)
   for (Fish fish : fishs)
   {
     fishPosition = fish.getPosition();
-    // DÉCOMMENTER LORSQUE SUR QT
+    // DÉCOMMENTER LORSQUE SUR QT (CODES ANSI DE COULEURS)
     //if (fishPosition.x == position.x && fishPosition.y == position.y)
     //{
     //  return true;
     //}
 
-    if (fishPosition.y == position.y)
+    if (fishPosition.y == position.y || position.x < 1)
     {
       return true;
     }
