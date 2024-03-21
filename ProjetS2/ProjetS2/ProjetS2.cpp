@@ -12,12 +12,12 @@ int main()
   InputMenu menuInput;
   FishingRun fishingRun;
 
-  //for (;;) //menu
-  //{
-  //  displayMenu.displayCurrentMenu();
-  //  menuInput = input->getMenuInput();
-  //  displayMenu.processInput(menuInput, fishingRun);
-  //}
+  for (;;) //menu
+  {
+    displayMenu.displayCurrentMenu();
+    menuInput = input->getMenuInput();
+    displayMenu.processInput(menuInput, fishingRun);
+  }
 
   for (;;) // In game
   {
