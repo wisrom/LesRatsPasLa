@@ -3,6 +3,9 @@
 #include "GameDomain/FishingRun.hpp"
 #include "UI/Console/DisplayMenu.hpp"
 
+#include "Data/DataFile.hpp"
+
+
 int main()
 {
   DisplayGame displayGame;
@@ -11,6 +14,9 @@ int main()
   InputGame actions;
   InputMenu menuInput;
   FishingRun fishingRun;
+
+  DataFile MotherRussia;
+
 
   //for (;;) //menu
   //{
@@ -21,6 +27,8 @@ int main()
 
   for (;;) // In game
   {
+    MotherRussia.getRandomFish(1);
+    break;
     if (fishingRun.getIsFinished())
     {
       displayGame.displayMessage("Run has been finished with " + std::to_string(fishingRun.getScore()) + " total score.");
@@ -38,5 +46,7 @@ int main()
     // Check menu
     fishingRun.getCurrentSession()->processInput(actions);
   }
+
+  
   delete input;
 }

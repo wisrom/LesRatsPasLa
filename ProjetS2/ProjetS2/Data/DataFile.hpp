@@ -1,6 +1,11 @@
 #pragma once
-
 #include "IData.hpp"
+#include "FishDTO.hpp"
+#include <fstream>
+#include <string>
+#include <iostream>
+#include <sstream>
+#include <vector>
 
 class DataFile : public IData
 {
@@ -13,6 +18,8 @@ public:
     Map getMap(int mapId) override;
     void addScore(int score) override;
     int getHighScore() override;
+    std::vector<Fish> getRandomFish(int quantity) override;
+
 private:
     const std::string FISH_PATH = "../../GameData/Fish/Fish.csv";
     const std::string FISH_POOL_PATH = "../../GameData/Fish/FishPool.csv";
