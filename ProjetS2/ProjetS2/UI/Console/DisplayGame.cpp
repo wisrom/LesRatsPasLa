@@ -33,6 +33,14 @@ void DisplayGame::displaySession(FishingSession session)
   std::cout << fullLine << std::endl;
   displayCentered(mapWidth, movementControlsText);
   displayCentered(mapWidth, reelControlText, false, std::string("Reel speed : [1, 2, 3, 4]").length());
+  if (session.getNearFish().getIsCapturing())
+  {
+    displayCentered(mapWidth, "Is Capturing : True");
+  }
+  else
+  {
+    displayCentered(mapWidth, "Is Capturing : False");
+  }
 }
 
 std::string DisplayGame::getLine(FishingSession session, int lineNumber)
@@ -57,18 +65,18 @@ std::string DisplayGame::getLine(FishingSession session, int lineNumber)
     lineContent[playerPosition.x] = 'P';
     if (session.isPlayerNearFish())
     {
-      switch (session.getNearFish().getCurrentCaptureStep().speed_rotPerSec)
+      switch (session.getNearFish().getCurrentCaptureStep().speed_rpm)
       {
-        case 1:
+        case 60:
           playerDisplayColor = CODE_COLOR_RED;
           break;
-        case 2:
+        case 100:
           playerDisplayColor = CODE_COLOR_YELLOW;
           break;
-        case 3:
+        case 140:
           playerDisplayColor = CODE_COLOR_GREEN;
           break;
-        case 4:
+        case 180:
           playerDisplayColor = CODE_COLOR_BLUE;
           break;
         default:

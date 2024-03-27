@@ -13,21 +13,21 @@ DataMemory::DataMemory()
 	std::vector<Fish> fishPool1;
 	std::vector<CaptureStep> captureSteps;
 	CaptureStep captureStep;
-	captureStep.speed_rotPerSec = 1.0f;
-	captureStep.margin = 0.0f;
+	captureStep.speed_rpm = 60.0f;
+	captureStep.margin = 20.0f;
 	captureStep.duration_s = 0.0f;
 	captureSteps.push_back(captureStep);
 
-	captureStep.speed_rotPerSec = 2.0f;
-	captureStep.margin = 0.0f;
+	captureStep.speed_rpm = 100.0f;
+	captureStep.margin = 20.0f;
 	captureStep.duration_s = 0.0f;
 	captureSteps.push_back(captureStep);
 	fishPool1.push_back(Fish(1, captureSteps, "Truite", 0.25f, 1.0f, 5));
 
 	captureSteps.clear();
 
-	captureStep.speed_rotPerSec = 3.0f;
-	captureStep.margin = 0.0f;
+	captureStep.speed_rpm = 140.0f;
+	captureStep.margin = 20.0f;
 	captureStep.duration_s = 0.0f;
 	captureSteps.push_back(captureStep);
 	fishPool1.push_back(Fish(2, captureSteps, "Saumon", 0.4f, 3.0f, 10));

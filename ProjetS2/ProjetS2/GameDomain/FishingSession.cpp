@@ -53,9 +53,14 @@ void FishingSession::processInput(InputGame input)
     player.move(input.movement);
   }
 
-  if (input.reelSpeed_rotPerSec > 0)
+  if (input.reelSpeed_rpm > 0)
   {
-    captureNearFish(input.reelSpeed_rotPerSec, 1); // CHANGE 1 WHEN TIME HAS BEEN FIGURED OUT
+    captureNearFish(input.reelSpeed_rpm, input.inputDuration_s);
+  }
+
+  if (input.hasPulled)
+  {
+    getNearFishRef()->setIsCapturing(true);
   }
 }
 
@@ -93,6 +98,19 @@ Fish FishingSession::getNearFish()
     }
   }
   return nearFish;
+}
+
+Fish* FishingSession::getNearFishRef()
+{
+  for (int i = 0; i < fishs.size(); i++)
+  {
+    if (abs(fishs[i].getPosition().x - player.getPosition().x) <= CAPTURE_DISTANCE
+      && abs(fishs[i].getPosition().y - player.getPosition().y) <= CAPTURE_DISTANCE)
+    {
+      return &fishs[i];
+    }
+  }
+  return new Fish();
 }
 
 bool FishingSession::getIsFinished()

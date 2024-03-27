@@ -1,5 +1,7 @@
 #include "UI/Console/DisplayGame.hpp"
 #include "Input/InputConsole.hpp"
+#include "Input/InputArduino.hpp"
+#include "Output/OutputArduino.hpp"
 #include "GameDomain/FishingRun.hpp"
 #include "UI/Console/DisplayMenu.hpp"
 
@@ -9,12 +11,13 @@ int main()
 {
   DisplayGame displayGame;
   DisplayMenu displayMenu;
-  IInput* input = new InputConsole();
+  ComSerialJSON com;
+  com.init();
+  IInput* input = new InputArduino(&com);
+  OutputArduino output = OutputArduino(&com);
   InputGame actions;
   InputMenu menuInput;
   FishingRun fishingRun;
-
-  ComSerialJSON com;
 
   //for (;;) //menu
   //{
@@ -23,29 +26,25 @@ int main()
   //  displayMenu.processInput(menuInput, fishingRun);
   //}
 
-  for (;;)
+  for (;;) // In game
   {
-    com.comTest();
+    if (fishingRun.getIsFinished())
+    {
+      displayGame.displayMessage("Run has been finished with " + std::to_string(fishingRun.getScore()) + " total score.");
+      exit(0);
+    }
+  
+    //output.DisplayGameData(fishingRun.getCurrentSession()->getScore());
+    displayGame.displaySession(*fishingRun.getCurrentSession());
+    actions = input->getGameInput();
+  
+    if (actions.quit)
+    {
+      displayGame.displayMessage("Quit");
+      quick_exit(0);
+    }
+    // Check menu
+    fishingRun.getCurrentSession()->processInput(actions);
   }
-
-  //for (;;) // In game
-  //{
-  //  if (fishingRun.getIsFinished())
-  //  {
-  //    displayGame.displayMessage("Run has been finished with " + std::to_string(fishingRun.getScore()) + " total score.");
-  //    exit(0);
-  //  }
-  //
-  //  displayGame.displaySession(*fishingRun.getCurrentSession());
-  //  actions = input->getGameInput();
-  //
-  //  if (actions.quit)
-  //  {
-  //    displayGame.displayMessage("Quit");
-  //    quick_exit(0);
-  //  }
-  //  // Check menu
-  //  fishingRun.getCurrentSession()->processInput(actions);
-  //}
-  //delete input;
+  delete input;
 }

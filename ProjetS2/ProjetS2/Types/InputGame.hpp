@@ -5,7 +5,9 @@
 struct InputGame
 {
     Movement movement;
-    float reelSpeed_rotPerSec;
+    float reelSpeed_rpm;
+    float inputDuration_s;
     bool menu;
     bool quit;
+    bool hasPulled;
 };

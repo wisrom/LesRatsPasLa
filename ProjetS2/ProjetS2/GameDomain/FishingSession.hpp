@@ -21,6 +21,7 @@ public:
 
   int getScore();
   Fish getNearFish();
+  Fish* getNearFishRef(); 
   bool getIsFinished();
   bool isPlayerNearFish();
   void processInput(InputGame input);

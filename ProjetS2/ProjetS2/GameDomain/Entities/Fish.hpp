@@ -17,7 +17,9 @@ public:
   int getId();
   int getScore();
   CaptureStep getCurrentCaptureStep();
+  bool getIsCapturing();
   void setPosition(Position position);
+  void setIsCapturing(bool isCapturing);
   bool capture(float reelSpeed_rotPerSec, float duration_s);
 private:
   int id;
@@ -29,4 +31,5 @@ private:
   float length_m;
   float weight_kg;
   bool isCaptured;
+  bool isCapturing;
 };
