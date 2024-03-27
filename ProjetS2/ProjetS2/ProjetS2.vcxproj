@@ -139,7 +139,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Communication\ComSerialMaster.cpp" />
+    <ClCompile Include="Communication\ComSerialJSON.cpp" />
+    <ClCompile Include="Communication\include\serial\SerialPort.cpp" />
     <ClCompile Include="Data\DataFile.cpp" />
     <ClCompile Include="Data\DataMemory.cpp" />
     <ClCompile Include="GameDomain\Entities\Entity.cpp" />
@@ -160,7 +161,9 @@
     <ClCompile Include="UI\Console\DisplayMenu.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Communication\ComSerialMaster.hpp" />
+    <ClInclude Include="Communication\ComSerialJSON.hpp" />
+    <ClInclude Include="Communication\include\json.hpp" />
+    <ClInclude Include="Communication\include\serial\SerialPort.hpp" />
     <ClInclude Include="Data\DataFile.hpp" />
     <ClInclude Include="Data\DataMemory.hpp" />
     <ClInclude Include="Data\IData.hpp" />

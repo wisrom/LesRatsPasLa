@@ -75,7 +75,7 @@
     <ClCompile Include="ProjetS2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Communication\ComSerialMaster.cpp">
+    <ClCompile Include="Communication\ComSerialJSON.cpp">
       <Filter>Source Files\Communication</Filter>
     </ClCompile>
     <ClCompile Include="Data\DataFile.cpp">
@@ -129,9 +129,12 @@
     <ClCompile Include="UI\Console\DisplayMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Communication\include\serial\SerialPort.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Communication\ComSerialMaster.hpp">
+    <ClInclude Include="Communication\ComSerialJSON.hpp">
       <Filter>Header Files\Communication</Filter>
     </ClInclude>
     <ClInclude Include="Data\DataFile.hpp">
@@ -219,6 +222,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="UI\Console\Menu.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Communication\include\serial\SerialPort.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Communication\include\json.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
