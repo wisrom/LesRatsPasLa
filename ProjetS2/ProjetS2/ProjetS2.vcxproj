@@ -139,7 +139,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Communication\ComSerialMaster.cpp" />
     <ClCompile Include="Data\DataFile.cpp" />
     <ClCompile Include="Data\DataMemory.cpp" />
     <ClCompile Include="GameDomain\Entities\Entity.cpp" />

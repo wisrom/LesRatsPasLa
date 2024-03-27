@@ -75,9 +75,6 @@
     <ClCompile Include="ProjetS2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Communication\ComSerialMaster.cpp">
-      <Filter>Source Files\Communication</Filter>
-    </ClCompile>
     <ClCompile Include="Data\DataFile.cpp">
       <Filter>Source Files\Data</Filter>
     </ClCompile>
