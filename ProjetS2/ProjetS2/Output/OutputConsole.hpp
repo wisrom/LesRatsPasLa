@@ -1,8 +1,9 @@
 #pragma once
 
+#include "IOutput.hpp"
 #include "../Communication/ComSerialJSON.hpp"
 
-class OutputConsole
+class OutputConsole : public IOutput
 {
 public:
   OutputConsole();

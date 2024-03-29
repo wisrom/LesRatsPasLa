@@ -19,7 +19,7 @@ InputGame InputConsole::getGameInput()
   bool quit = false;
   bool hasPulled = false;
 
-  InputGame actions;
+  InputGame input;
 
   switch (key)
   {
@@ -59,13 +59,14 @@ InputGame InputConsole::getGameInput()
       break;
   }
 
-  actions.movement = movement;
-  actions.reelSpeed_rpm = reelSpeed;
-  actions.menu = menu;
-  actions.quit = quit;
-  actions.hasPulled = hasPulled;
+  input.movement = movement;
+  input.reelSpeed_rpm = reelSpeed;
+  input.inputDuration_s = 1.0f; // CHANGE
+  input.menu = menu;
+  input.quit = quit;
+  input.hasPulled = hasPulled;
 
-  return actions;
+  return input;
 }
 
 InputMenu InputConsole::getMenuInput()

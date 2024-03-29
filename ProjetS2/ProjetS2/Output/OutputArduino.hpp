@@ -1,8 +1,9 @@
 #pragma once
 
+#include "IOutput.hpp"
 #include "../Communication/ComSerialJSON.hpp"
 
-class OutputArduino
+class OutputArduino : public IOutput
 {
 public:
   OutputArduino(ComSerialJSON* com);

@@ -135,6 +135,9 @@
     <ClCompile Include="Output\OutputArduino.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Output\OutputConsole.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Communication\ComSerialJSON.hpp">
@@ -234,6 +237,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Output\OutputArduino.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Output\IOutput.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Output\OutputConsole.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

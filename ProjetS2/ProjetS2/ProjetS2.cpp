@@ -18,11 +18,12 @@ int main()
 {
   DisplayGame displayGame;
   DisplayMenu displayMenu;
-  ComSerialJSON com;
-  com.init();
+  //ComSerialJSON com;
+  //com.init();
   //IInput* input = new InputArduino(&com);
   IInput* input = new InputConsole();
-  OutputArduino output = OutputArduino(&com);
+  //IOutput* output = new OutputArduino(&com);
+  IOutput* output = new OutputConsole();
   InputGame actions;
   InputMenu menuInput;
   FishingRun fishingRun;
