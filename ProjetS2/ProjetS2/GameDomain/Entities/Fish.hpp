@@ -17,6 +17,7 @@ public:
   int getId();
   int getScore();
   CaptureStep getCurrentCaptureStep();
+  float getCurrentCaptureStepProgress();
   bool getIsCapturing();
   void setPosition(Position position);
   void setIsCapturing(bool isCapturing);

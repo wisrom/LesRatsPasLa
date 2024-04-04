@@ -3,7 +3,7 @@
 FishingRun::FishingRun()
 {
   data = new DataMemory();
-  FishingSession session = FishingSession(12);
+  FishingSession session = FishingSession(12, SESSION_DIFFICULTY_EASY);
   sessions.push_back(session); // WILL NEED TO BE REMOVED AFTER TESTS
 }
 

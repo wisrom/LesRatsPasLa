@@ -41,6 +41,12 @@ void DisplayGame::displaySession(FishingSession session)
   {
     displayCentered(mapWidth, "Is Capturing : False");
   }
+  double timeRemaining_s = session.getRemainingTime_s();
+
+  std::stringstream stream;
+  stream << std::fixed << std::setprecision(1) << timeRemaining_s;
+  std::string s = stream.str();
+  displayCentered(mapWidth, std::string("Time remaining : " + stream.str()));
 }
 
 std::string DisplayGame::getLine(FishingSession session, int lineNumber)

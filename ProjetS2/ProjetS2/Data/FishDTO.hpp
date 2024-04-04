@@ -9,4 +9,5 @@ struct FishDTO
 	int minWeight_g;
 	int maxWeight_g;
 	int score;
+	int difficulty;
 };
