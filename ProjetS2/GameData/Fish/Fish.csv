@@ -1,9 +1,119 @@
-id, 1
-name, truite
-minLength_m, 0.1
-maxLength_m, 0.3
-minWeight_kg, 0.15
-maxWeight_kg, 0.5
-score, 5
-step_1, 1.0, 0, 0
-step_2, 2.0, 0, 0
+id;name;minLenght_mm;maxLenght_mm;minWeight_g;maxWeight_g;score
+1;Lamproie du Nord;127;140;10;60;30
+2;Lamproie argentee;188;315;5;40;3
+3;Lamproie de l est;150;200;10;60;3
+4;Lamproie marine;145;800;100;700;4
+5;Lamproie brune;105;380;5;30;1
+6;Esturgeon jaune;515;1357;2000;75000;500
+7;Esturgeon noir;955;1510;7500;150000;800
+8;Lepososte osseux;750;1163;1000;8500;6
+9;Poisson-castor;285;774;500;4500;30
+10;Laquaiche aux yeux d or;290;420;500;3000;10
+11;Laquaiche argentee;263;354;500;3000;8
+12;Anguille d' Amerique;100;950;100;4000;12
+13;Gaspareau;98;208;50;700;3
+14;Alose savoureuse;108;612;100;2000;5
+15;Alose a gesier;155;433;50;300;2
+16;Alose d ete;260;300;100;700;5
+17;Carassin;178;252;20;200;20
+18;Carpe;177;750;500;20000;50
+19;Tanche;170;520;100;3000;10
+20;Mulet de lac;82;134;10;100;1
+21;Mene bec-de-lievre;47;119;10;100;2
+22;Mene laiton;60;100;5;30;1
+23;Mene d argent;55;111;5;30;2
+24;Mene jaune;103;145;10;100;2
+25;Mene emeraude;56;87;1;6;1
+26;Mene d herbe;40;59;1;5;1
+27;Mene a nageoire rouges;63;142;20;150;1
+28;Mene a menton noir;20;76;1;5;1
+29;Mene a museau noir;38;115;1;5;1
+30;Mene a tache noire;40;120;2;7;1
+31;Mene a tete rose;44;69;1;4;1
+32;Mene bleu;47;106;1;4;1
+33;Mene paille;55;64;1;4;1
+34;Mene pale;40;70;1;4;1
+35;Mene a ventre rouge;48;130;1;4;3
+36;Mene a ventre citron;49;61;1;3;2
+37;Mene a useau arrondi;30;77;1;4;1
+38;Mene a grosse tete;40;70;2;7;2
+39;Mene noir de l Est;45;88;1;4;1
+40;Naseaux des rapides;55;122;1;4;1
+41;Mulet a cornes;75;182;10;40;4
+42;Ouitouche;109;320;50;300;12
+43;Mulet perle;80;135;1;4;1
+44;Gardon rouge;200;300;50;300;23
+45;Couette;144;533;100;600;37
+46;Meunier rouge;184;496;100;600;18
+47;Meunier noir;293;450;100;600;17
+48;Chevalier blanc;400;580;100;600;100
+49;Chevalier de riviere;582;672;100;500;40
+50;Chevalier cuivre;535;680;100;550;42
+51;Chevalier rouge;317;465;100;600;40
+52;Chevalier jaune;522;611;200;700;51
+53;Barbotte jaune;200;300;50;300;23
+54;Barbotte brune;224;300;100;500;29
+55;Barbue de riviere;325;676;100;2000;95
+56;Chat-fou des rapides;51;200;10;40;14
+57;Chat-fou brun;36;92;5;20;4
+58;Chat-fou lisere;100;126;5;20;7
+59;Umbre de vase;54;113;5;20;3
+60;Brochet d Amerique;150;270;50;300;27
+61;Brochet vermicule;120;218;50;300;29
+62;Grand brochet;461;776;500;5000;20
+63;Maskinonge;245;1128;1000;10000;30
+64;Brochet maille;310;500;100;1000;10
+65;Cisco de lac;155;300;50;300;10
+66;Grand corégone;214;448;200;700;35
+67;Menormi rond;210;387;100;600;32
+68;Truite arc-en-ciel;136;470;100;1000;42
+69;Saumon atlantique;450;1100;1000;15000;100
+70;Saumon coho;452;712;2000;12000;80
+71;Saumon chinook;598;1002;5000;30000;90
+72;Truite fardée;300;380;100;1000;42
+73;Saumon rouge;200;230;2000;7000;10
+74;Truite brune;156;639;100;1000;80
+75;Omble de fontaine;148;320;100;1000;92
+76;Touladi;340;715;500;5000;20
+77;Omble chevalier;154;318;100;1000;40
+78;Éperlan arc-en-ciel;36;228;5;30;90
+79;Omisco;42;82;5;30;90
+80;Lotte;293;505;500;5000;154
+81;Poulamon atlantique;162;245;50;300;35
+82;Fondule barré;44;104;1;15;40
+83;Choquemort;70;130;1;20;20
+84;Crayon-d argent;31;61;1;15;30
+85;Baret;206;271;100;600;47
+86;Bar blanc;288;355;200;700;56
+87;Bar rayé;101;538;1000;15000;112
+88;Malachigan;372;562;500;5000;67
+89;Gobie a tache noir;30;123;10;50;50
+90;Epinoche a quatres epines;19;43;10;20;40
+91;Epinoche a cinq epines;43;58;1;10;20
+92;Epinoche a trois epines;39;100;1;10;20
+93;Epinoche tachetee;20;50;1;10;999
+94;Epinoche a neuf epines;44;62;1;10;20
+95;Chabot tachete;40;115;10;100;70
+96;Chabot visqueux;43;80;5;30;10
+97;Chabot a tete plate;50;70;5;30;20
+98;Chaboisseau a quatres cornes;40;310;50;300;17
+99;Chabot de profondeur;50;80;50;400;18
+100;Carpet de roche;105;212;100;500;28
+101;Carpet soleil;97;202;50;300;22
+102;Carpet atlequin;178;203;100;500;49
+103;Carpet a longue oreilles;76;152;50;300;34
+104;Carpet vert;26;127;50;300;26
+105;Archigan a petite bouche;216;446;200;1000;50
+106;Archigan a grande bouche;94;358;500;5000;52
+107;Marigane noire;76;289;200;1000;42
+108;Dard de sable;42;50;1;10;1
+109;Dard arc-en-ciel;40;65;1;10;2
+110;Dard a ventre jaune;25;51;1;10;2
+111;Dard barre;33;64;1;10;2
+112;Raseux-de-terre noir;27;68;1;10;3
+113;Raseux-de-terre gris;37;68;1;10;2
+114;Fouille-roche zebre;45;135;5;30;6
+115;Fouille-roche gris;50;78;5;30;2
+116;Perchaude;139;232;100;500;10
+117;Dore noir;277;450;200;2000;80
+118;Dore jaune;272;572;500;5000;100
