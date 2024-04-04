@@ -13,6 +13,7 @@ public:
     Map getMap(int mapId) override;
     void addScore(int score) override;
     int getHighScore() override;
+    std::vector<Fish> getRandomFish(int quantity) override;
 private:
     std::vector<Watershed> watersheds;
     std::vector<int> scores;

@@ -50,6 +50,11 @@ CaptureStep Fish::getCurrentCaptureStep()
   return captureSteps[currentCaptureStepIndex];
 }
 
+float Fish::getCurrentCaptureStepProgress()
+{
+  return currentCaptureProgress_s;
+}
+
 bool Fish::getIsCapturing()
 {
   return isCapturing;

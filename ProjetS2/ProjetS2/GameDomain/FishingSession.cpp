@@ -4,24 +4,26 @@ FishingSession::FishingSession()
 {
     score = 0;
     player = Player();
-    data = new DataMemory();
+    data = new DataFile();
     watershed = Watershed();
     environment = Environment();
     map = Map(1, 80, 20);
+    timer_s = 60.0f;
+    timeElapsed_s = 0.0;
 }
 
-FishingSession::FishingSession(int fishAmount)
+FishingSession::FishingSession(int fishAmount, int difficulty)
 {
   score = 0;
   player = Player();
-  data = new DataMemory();
+  data = new DataFile();
   watershed = data->getWatershed(1); // MODIFY DEPENDING ON SETTINGS
   environment = Environment();
+  setDifficulty(difficulty);
+  timeElapsed_s = 0.0;
+  startTime = std::chrono::system_clock::now();
 
-  for (int i = 0; i < fishAmount; i++)
-  {
-    fishs.push_back(watershed.getRandomFish());
-  }
+  fishs = data->getRandomFish(fishAmount);
 
   map = Map(1, 80, 20);
   for (int i = 0; i < fishs.size(); i++)
@@ -41,13 +43,62 @@ FishingSession::~FishingSession()
   //delete data;
 }
 
+void FishingSession::setDifficulty(int difficulty)
+{
+  this->difficulty = difficulty;
+  switch (difficulty)
+  {
+    case SESSION_DIFFICULTY_EASY:
+      timer_s = 60.0;
+      break;
+    case SESSION_DIFFICULTY_MEDIUM:
+      timer_s = 45.0;
+      break;
+    case SESSION_DIFFICULTY_HARD:
+      timer_s = 30.0;
+      break;
+    case SESSION_DIFFICULTY_DOOM:
+      timer_s = 30;
+      // DOOM
+      break;
+  default:
+    break;
+  }
+}
+
 int FishingSession::getScore()
 {
   return score;
 }
 
+void FishingSession::startTimer()
+{
+  startTime = std::chrono::system_clock::now();
+}
+
+void FishingSession::updateTimer()
+{
+  std::chrono::system_clock::time_point currentTime = std::chrono::system_clock::now();
+
+  std::chrono::duration<double> duration = currentTime - startTime;
+
+  timeElapsed_s = duration.count();
+}
+
+double FishingSession::getRemainingTime_s()
+{
+  return timer_s - timeElapsed_s;
+}
+
+int FishingSession::getDifficulty()
+{
+  return difficulty;
+}
+
 void FishingSession::processInput(InputGame input)
 {
+  updateTimer();
+
   if (checkMovement(input.movement))
   {
     player.move(input.movement);
@@ -115,7 +166,7 @@ Fish* FishingSession::getNearFishRef()
 
 bool FishingSession::getIsFinished()
 {
-  if (fishs.size() == 0)
+  if (fishs.size() == 0 || score >= 999 || timer_s - timeElapsed_s <= 0.0)
   {
     return true;
   }
@@ -150,7 +201,7 @@ void FishingSession::captureNearFish(float reelSpeed_rotPerSec, float duration_s
       if (fishs[fishIndex].capture(reelSpeed_rotPerSec, duration_s))
       {
         score += fishs[fishIndex].getScore();
-        // SAVE FISH
+        capturedFishs.push_back(fishs[fishIndex]);
         fishs.erase(fishs.begin() + fishIndex);
         return;
       }

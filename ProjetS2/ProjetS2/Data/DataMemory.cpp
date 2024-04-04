@@ -86,3 +86,9 @@ int DataMemory::getHighScore()
 	}
 	return highScore;
 }
+
+std::vector<Fish>DataMemory::getRandomFish(int quantity) 
+{
+	std::vector<Fish> fish;
+	return fish;
+}

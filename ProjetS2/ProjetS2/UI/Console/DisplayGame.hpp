@@ -1,6 +1,8 @@
 #pragma once
 
 #include "DisplayConsole.hpp"
+#include <iomanip>
+#include <sstream>
 
 class DisplayGame : public DisplayConsole
 {

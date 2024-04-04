@@ -245,5 +245,8 @@
     <ClInclude Include="Output\OutputConsole.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Data\FishDTO.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

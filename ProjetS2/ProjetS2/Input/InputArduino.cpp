@@ -18,5 +18,11 @@ InputGame InputArduino::getGameInput()
 InputMenu InputArduino::getMenuInput()
 {
 	InputMenu input;
+
+	input.pressedBack = false;
+	input.pressedNext = false;
+	input.pressedPrevious = false;
+	input.selectedOption = false;
+
 	return input;
 }
