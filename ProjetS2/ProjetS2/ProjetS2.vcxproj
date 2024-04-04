@@ -116,10 +116,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>C:\Qt\6.6.1\msvc2019_64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>C:\Qt\6.6.1\msvc2019_64\lib\Qt6Core.lib;C:\Qt\6.6.1\msvc2019_64\lib\Qt6Widgets.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -161,6 +163,8 @@
     <ClCompile Include="UI\Console\DisplayConsole.cpp" />
     <ClCompile Include="UI\Console\DisplayGame.cpp" />
     <ClCompile Include="UI\Console\DisplayMenu.cpp" />
+    <ClCompile Include="UI\Qt\DisplayGame.cpp" />
+    <ClCompile Include="UI\Qt\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Communication\ComSerialJSON.hpp" />
@@ -198,6 +202,11 @@
     <ClInclude Include="UI\Console\DisplayMenu.hpp" />
     <ClInclude Include="UI\Console\Menu.hpp" />
     <ClInclude Include="UI\Console\MenuOption.hpp" />
+    <ClInclude Include="UI\Qt\DisplayGame.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="projet.pro" />
+    <None Include="UI\Qt\styles.css" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

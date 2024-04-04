@@ -70,6 +70,9 @@
     <Filter Include="Header Files\UI\Console">
       <UniqueIdentifier>{10c0d0d9-07f4-45a5-bda6-2a88b576a222}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\UI\Qt">
+      <UniqueIdentifier>{c7e55dd5-78af-4b71-a417-97df19bdc791}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ProjetS2.cpp">
@@ -137,6 +140,12 @@
     </ClCompile>
     <ClCompile Include="Output\OutputConsole.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\Qt\DisplayGame.cpp">
+      <Filter>Source Files\UI\Qt</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\Qt\main.cpp">
+      <Filter>Source Files\UI\Qt</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -245,5 +254,16 @@
     <ClInclude Include="Output\OutputConsole.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="UI\Qt\DisplayGame.h">
+      <Filter>Source Files\UI\Qt</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="UI\Qt\styles.css">
+      <Filter>Source Files\UI\Qt</Filter>
+    </None>
+    <None Include="projet.pro">
+      <Filter>Source Files\UI\Qt</Filter>
+    </None>
   </ItemGroup>
 </Project>
