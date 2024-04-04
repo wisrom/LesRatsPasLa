@@ -1,13 +1,23 @@
 #include "UI/Console/DisplayGame.hpp"
 #include "Input/InputConsole.hpp"
+#include "Input/InputArduino.hpp"
+#include "Output/OutputArduino.hpp"
+#include "Output/OutputConsole.hpp"
 #include "GameDomain/FishingRun.hpp"
 #include "UI/Console/DisplayMenu.hpp"
+
+#include "Communication/ComSerialJSON.hpp"
 
 int main()
 {
   DisplayGame displayGame;
   DisplayMenu displayMenu;
+  //ComSerialJSON com;
+  //com.init();
+  //IInput* input = new InputArduino(&com);
   IInput* input = new InputConsole();
+  IOutput* output = new OutputConsole();
+  //IOutput* output = new OutputArduino(&com);
   InputGame actions;
   InputMenu menuInput;
   FishingRun fishingRun;
@@ -26,10 +36,11 @@ int main()
       displayGame.displayMessage("Run has been finished with " + std::to_string(fishingRun.getScore()) + " total score.");
       exit(0);
     }
-
+  
+    output->DisplayGameData(fishingRun.getCurrentSession()->getScore());
     displayGame.displaySession(*fishingRun.getCurrentSession());
     actions = input->getGameInput();
-
+  
     if (actions.quit)
     {
       displayGame.displayMessage("Quit");

@@ -17,6 +17,7 @@ InputGame InputConsole::getGameInput()
   float reelSpeed = 0.0f;
   bool menu = false;
   bool quit = false;
+  bool hasPulled = false;
 
   InputGame actions;
 
@@ -35,16 +36,16 @@ InputGame InputConsole::getGameInput()
       movement = MOVEMENT_EAST;
       break;
     case '1':
-      reelSpeed = 1.0f;
+      reelSpeed = 60.0f;
       break;
     case '2':
-      reelSpeed = 2.0f;
+      reelSpeed = 100.0f;
       break;
     case '3':
-      reelSpeed = 3.0f;
+      reelSpeed = 140.0f;
       break;
     case '4':
-      reelSpeed = 4.0f;
+      reelSpeed = 180.0f;
       break;
     case 'm':
       menu = true;
@@ -52,14 +53,18 @@ InputGame InputConsole::getGameInput()
     case 27: // Escape
       quit = true;
       break;
+    case 32:
+      hasPulled = true;
     default:
       break;
   }
 
   actions.movement = movement;
-  actions.reelSpeed_rotPerSec = reelSpeed;
+  actions.reelSpeed_rpm = reelSpeed;
+  actions.inputDuration_s = 1.0f;
   actions.menu = menu;
   actions.quit = quit;
+  actions.hasPulled = hasPulled;
 
   return actions;
 }

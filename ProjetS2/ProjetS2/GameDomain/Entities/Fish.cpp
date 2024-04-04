@@ -27,6 +27,7 @@ Fish::Fish(int id, std::vector<CaptureStep> captureSteps, std::string name, floa
   currentCaptureStepIndex = 0;
   currentCaptureProgress_s = 0;
   isCaptured = false;
+  isCapturing = false;
 }
 
 Fish::~Fish()
@@ -49,18 +50,28 @@ CaptureStep Fish::getCurrentCaptureStep()
   return captureSteps[currentCaptureStepIndex];
 }
 
+bool Fish::getIsCapturing()
+{
+  return isCapturing;
+}
+
 void Fish::setPosition(Position position)
 {
   this->position = position;
 }
 
-bool Fish::capture(float reelSpeed_rotPerSec, float duration_s)
+void Fish::setIsCapturing(bool isCapturing)
+{
+  this->isCapturing = isCapturing;
+}
+
+bool Fish::capture(float reelSpeed_rpm, float duration_s)
 {
   CaptureStep captureStep = captureSteps[currentCaptureStepIndex];
-  float lowThreshold = captureStep.speed_rotPerSec - captureStep.margin;
-  float highThreshold = captureStep.speed_rotPerSec + captureStep.margin;
+  float lowThreshold = captureStep.speed_rpm - captureStep.margin;
+  float highThreshold = captureStep.speed_rpm + captureStep.margin;
 
-  if (reelSpeed_rotPerSec >= lowThreshold && reelSpeed_rotPerSec <= highThreshold)
+  if (isCapturing && reelSpeed_rpm >= lowThreshold && reelSpeed_rpm <= highThreshold)
   {
     currentCaptureProgress_s += duration_s;
 
@@ -73,6 +84,10 @@ bool Fish::capture(float reelSpeed_rotPerSec, float duration_s)
       currentCaptureProgress_s = 0;
       currentCaptureStepIndex++;
     }
+  }
+  else if (isCapturing)
+  {
+    //currentCaptureProgress_s -= duration_s;
   }
 
   return isCaptured;

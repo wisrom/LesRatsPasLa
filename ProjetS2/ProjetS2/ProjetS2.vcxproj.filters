@@ -75,6 +75,9 @@
     <ClCompile Include="ProjetS2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Communication\ComSerialJSON.cpp">
+      <Filter>Source Files\Communication</Filter>
+    </ClCompile>
     <ClCompile Include="Data\DataFile.cpp">
       <Filter>Source Files\Data</Filter>
     </ClCompile>
@@ -126,9 +129,18 @@
     <ClCompile Include="UI\Console\DisplayMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Communication\include\serial\SerialPort.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Output\OutputArduino.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Output\OutputConsole.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Communication\ComSerialMaster.hpp">
+    <ClInclude Include="Communication\ComSerialJSON.hpp">
       <Filter>Header Files\Communication</Filter>
     </ClInclude>
     <ClInclude Include="Data\DataFile.hpp">
@@ -216,6 +228,21 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="UI\Console\Menu.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Communication\include\serial\SerialPort.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Communication\include\json.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Output\OutputArduino.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Output\IOutput.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Output\OutputConsole.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -139,6 +139,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Communication\ComSerialJSON.cpp" />
+    <ClCompile Include="Communication\include\serial\SerialPort.cpp" />
     <ClCompile Include="Data\DataFile.cpp" />
     <ClCompile Include="Data\DataMemory.cpp" />
     <ClCompile Include="GameDomain\Entities\Entity.cpp" />
@@ -151,6 +153,8 @@
     <ClCompile Include="GameDomain\Watershed.cpp" />
     <ClCompile Include="Input\InputArduino.cpp" />
     <ClCompile Include="Input\InputConsole.cpp" />
+    <ClCompile Include="Output\OutputArduino.cpp" />
+    <ClCompile Include="Output\OutputConsole.cpp" />
     <ClCompile Include="ProjetS2.cpp" />
     <ClCompile Include="Rng\RngClassic.cpp" />
     <ClCompile Include="Rng\RngMuons.cpp" />
@@ -159,7 +163,9 @@
     <ClCompile Include="UI\Console\DisplayMenu.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Communication\ComSerialMaster.hpp" />
+    <ClInclude Include="Communication\ComSerialJSON.hpp" />
+    <ClInclude Include="Communication\include\json.hpp" />
+    <ClInclude Include="Communication\include\serial\SerialPort.hpp" />
     <ClInclude Include="Data\DataFile.hpp" />
     <ClInclude Include="Data\DataMemory.hpp" />
     <ClInclude Include="Data\IData.hpp" />
@@ -174,6 +180,9 @@
     <ClInclude Include="Input\IInput.hpp" />
     <ClInclude Include="Input\InputArduino.hpp" />
     <ClInclude Include="Input\InputConsole.hpp" />
+    <ClInclude Include="Output\IOutput.hpp" />
+    <ClInclude Include="Output\OutputArduino.hpp" />
+    <ClInclude Include="Output\OutputConsole.hpp" />
     <ClInclude Include="Rng\IRng.hpp" />
     <ClInclude Include="Rng\RngClassic.hpp" />
     <ClInclude Include="Rng\RngMuons.hpp" />
