@@ -2,6 +2,7 @@
 #include "Input/InputConsole.hpp"
 #include "Input/InputArduino.hpp"
 #include "Output/OutputArduino.hpp"
+#include "Output/OutputConsole.hpp"
 #include "GameDomain/FishingRun.hpp"
 #include "UI/Console/DisplayMenu.hpp"
 
@@ -11,10 +12,12 @@ int main()
 {
   DisplayGame displayGame;
   DisplayMenu displayMenu;
-  ComSerialJSON com;
-  com.init();
-  IInput* input = new InputArduino(&com);
-  OutputArduino output = OutputArduino(&com);
+  //ComSerialJSON com;
+  //com.init();
+  //IInput* input = new InputArduino(&com);
+  IInput* input = new InputConsole();
+  IOutput* output = new OutputConsole();
+  //IOutput* output = new OutputArduino(&com);
   InputGame actions;
   InputMenu menuInput;
   FishingRun fishingRun;
@@ -34,7 +37,7 @@ int main()
       exit(0);
     }
   
-    //output.DisplayGameData(fishingRun.getCurrentSession()->getScore());
+    output->DisplayGameData(fishingRun.getCurrentSession()->getScore());
     displayGame.displaySession(*fishingRun.getCurrentSession());
     actions = input->getGameInput();
   
