@@ -61,6 +61,7 @@ InputGame InputConsole::getGameInput()
 
   actions.movement = movement;
   actions.reelSpeed_rpm = reelSpeed;
+  actions.inputDuration_s = 1.0f;
   actions.menu = menu;
   actions.quit = quit;
   actions.hasPulled = hasPulled;
