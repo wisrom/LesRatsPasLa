@@ -1,4 +1,4 @@
-id;name;minLenght_mm;maxLenght_mm;minWeight_g;maxWeight_g;score
+﻿id;name;minLenght_mm;maxLenght_mm;minWeight_g;maxWeight_g;score
 1;Lamproie du Nord;127;140;10;60;30
 2;Lamproie argentee;188;315;5;40;3
 3;Lamproie de l est;150;200;10;60;3
