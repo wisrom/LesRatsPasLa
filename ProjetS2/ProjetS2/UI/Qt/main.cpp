@@ -1,4 +1,4 @@
-#include "UI/qt/DisplayGame.h"
+#include "UI/Qt/DisplayGameQt.h"
 #include <QtWidgets\\QApplication>
 #include <QFile>
 #include <QtWidgets>
@@ -7,7 +7,7 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    DisplayGame w;
+    DisplayGameQt w;
     //QFile file("C:\\Users\\kgo20\\Desktop\\t\\styles.css");
     QFile file(":/styles.css");
 

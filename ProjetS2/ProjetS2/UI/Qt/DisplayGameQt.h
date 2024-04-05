@@ -2,13 +2,13 @@
 
 #include <QtWidgets/QMainWindow>
 
-class DisplayGame : public QMainWindow
+class DisplayGameQt : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    DisplayGame(QWidget *parent = nullptr);
-    ~DisplayGame();
+    DisplayGameQt(QWidget *parent = nullptr);
+    ~DisplayGameQt();
 
 private slots:
     void boutonClicked();

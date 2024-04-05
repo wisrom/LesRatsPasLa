@@ -1,4 +1,4 @@
-#include "UI/qt/DisplayGame.h"
+#include "UI/Qt/DisplayGameQt.h"
 #include "GameView.h"
 
 #include <QPushButton>
@@ -6,7 +6,7 @@
 #include <QDebug>
 #include <QLabel>
 
-DisplayGame::DisplayGame(QWidget *parent)
+DisplayGameQt::DisplayGameQt(QWidget *parent)
     : QMainWindow(parent)
 {
     //setWindowTitle(tr("Analog Clock"));
@@ -77,10 +77,10 @@ DisplayGame::DisplayGame(QWidget *parent)
 }
 
 // Impl�menter la fonction boutonClicked()
-void DisplayGame::boutonClicked()
+void DisplayGameQt::boutonClicked()
 {
     qDebug() << "Bouton cliqu� !";
 }
 
-DisplayGame::~DisplayGame()
+DisplayGameQt::~DisplayGameQt()
 {}
