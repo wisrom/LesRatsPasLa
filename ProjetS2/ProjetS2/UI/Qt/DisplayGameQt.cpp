@@ -22,6 +22,7 @@ DisplayGameQt::DisplayGameQt(QWidget *parent)
     // Grille secondaire
     QWidget* scoreWidget = new QWidget(this);
     QGridLayout* scoreLayout = new QGridLayout();
+    QWidget* lblScore = new QLabel("Score : SCORE_VALUE");
     scoreWidget->setLayout(scoreLayout);
     scoreWidget->setObjectName("scoreWidget");
 
@@ -32,6 +33,9 @@ DisplayGameQt::DisplayGameQt(QWidget *parent)
 
     QWidget* gaugeWidget = new QWidget(this);
     QGridLayout* gaugeLayout = new QGridLayout();
+    QWidget* lblReelSpeed = new QLabel("Reel Speed");
+    QWidget* bghReelGauge = new ReelGauge(gaugeWidget);
+    bghReelGauge->setObjectName("gaugeBar");
     gaugeWidget->setLayout(gaugeLayout);
     gaugeWidget->setObjectName("gaugeWidget");
 
@@ -42,6 +46,8 @@ DisplayGameQt::DisplayGameQt(QWidget *parent)
 
     QWidget* timerWidget = new QWidget(this);
     QGridLayout* timerLayout = new QGridLayout();
+    QWidget* lblTimer = new QLabel("Time : TIMER_VALUE");
+    //QLabel lblTimer = QLabel("Score : ");
     timerWidget->setLayout(timerLayout);
     timerWidget->setObjectName("timerWidget");
 
@@ -63,8 +69,6 @@ DisplayGameQt::DisplayGameQt(QWidget *parent)
     // Connecter le signal clicked() du bouton � la fonction boutonClicked()
     //connect(button1, &QPushButton::clicked, this, &DisplayGame::boutonClicked);
 
-
-
     //Game
     // Créer une instance de votre classe GameView
     GameView *gameView = new GameView(gameWidget);
@@ -74,6 +78,16 @@ DisplayGameQt::DisplayGameQt(QWidget *parent)
     gameLayout->addWidget(gameView);
     gameWidget->setLayout(gameLayout);
 
+    // Ajouter le score widget au layout
+    scoreLayout->addWidget(lblScore);
+    scoreLayout->setAlignment(Qt::AlignCenter);
+
+    // Ajouter le timer widget au layout
+    timerLayout->addWidget(lblTimer);
+    timerLayout->setAlignment(Qt::AlignRight);
+
+    // Ajouter la gauge de reel speed
+    gaugeLayout->addWidget(bghReelGauge);
 }
 
 // Impl�menter la fonction boutonClicked()

@@ -4,6 +4,7 @@ CONFIG += qt warn_on debug windows
 HEADERS += \
 UI/Qt/DisplayGameQt.h \
 UI/Qt/GameView.h \
+UI/Qt/ReelGauge.hpp \
 UI/Console/DisplayColor.hpp \
 UI/Console/DisplayConsole.hpp \
 UI/Console/DisplayGame.hpp \
@@ -46,6 +47,7 @@ ProjetS2.cpp \
 UI/Qt/DisplayGameQt.cpp \
 UI/Qt/GameView.cpp \
 UI/Qt/main.cpp \
+UI/Qt/ReelGauge.cpp \
 UI/Console/DisplayConsole.cpp \
 UI/Console/DisplayGame.cpp \
 UI/Console/DisplayMenu.cpp \

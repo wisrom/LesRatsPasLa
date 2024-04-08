@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QtWidgets/QMainWindow>
+#include "UI/Qt/ReelGauge.hpp"
 
 class DisplayGameQt : public QMainWindow
 {
