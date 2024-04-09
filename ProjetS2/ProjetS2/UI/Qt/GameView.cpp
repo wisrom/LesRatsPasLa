@@ -14,7 +14,7 @@ GameView::GameView(QWidget* parent) {
 	int numCols = scene->width() / cellSize;*/
 	int numRows = 20;
 	int numCols = 20;
-	int cellSize = qMin(this->size().width() / numCols, this->size().height() / numRows);
+	cellSize = qMin(this->size().width() / numCols, this->size().height() / numRows);
 
 	// Parcourir toutes les lignes et colonnes pour créer la grille
 	for (int row = 0; row < numRows; ++row) {
@@ -31,7 +31,7 @@ GameView::GameView(QWidget* parent) {
 		}
 	}
 
-	QGraphicsEllipseItem* fish = scene->addEllipse(0, 0, 50, 50);
+	fish = scene->addEllipse(0, 0, 50, 50);
 	fish->setBrush(Qt::blue);
 	fish->setPos(0, 0);
 	//connect(this, &GameView::resizeEvent, this, &GameView::ResizeGrid); // Connexion de l'événement de redimensionnement
@@ -46,9 +46,7 @@ void GameView::resizeEvent(QResizeEvent* event) {
 
 // Slot pour redimensionner la grille
 void GameView::ResizeGrid(QResizeEvent* event) {
-	int numCols = 20;
-	int numRows = 20;
-	int cellSize = qMin(event->size().width() / numCols, event->size().height() / numRows);
+	cellSize = qMin(event->size().width() / numCols, event->size().height() / numRows);
 
 	for (int row = 0; row < numRows; ++row) {
 		for (int col = 0; col < numCols; ++col) {
@@ -59,4 +57,22 @@ void GameView::ResizeGrid(QResizeEvent* event) {
 			cell->setRect(x, y, cellSize, cellSize);
 		}
 	}
+}
+
+void GameView::refreshMove(FishingRun* fishingRun)
+{
+	Position playerPosition = fishingRun->getCurrentSession()->player.getPosition();
+	if (playerPosition.x >= numCols -1) {
+		Position position = {numCols -1, playerPosition.y};
+		fishingRun->getCurrentSession()->player.setPosition(position);
+
+	}
+	if (playerPosition.y >= numRows -1) {
+		Position position = { playerPosition.x, numRows -1};
+		fishingRun->getCurrentSession()->player.setPosition(position);
+
+	}
+	Position playerPosition2 = fishingRun->getCurrentSession()->player.getPosition();
+
+	fish->setPos(playerPosition2.x * cellSize, playerPosition2.y * cellSize);
 }

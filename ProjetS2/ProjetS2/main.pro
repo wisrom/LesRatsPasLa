@@ -70,5 +70,11 @@ Communication/include/serial/SerialPort.cpp \
 
 
 
-RESOURCES += UI/Qt/styles.css
+RESOURCES += \
+UI/Qt/styles.css \
+GameData/Fish/Fish.csv \
+GameData/Fish/FishPool.csv \
+GameData/Maps/Maps.csv \
+GameData/Scores/Scores.csv \
+
 QT += widgets

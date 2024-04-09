@@ -12,6 +12,7 @@ public:
 
   Position getPosition();
   void move(Movement movement);
+  void setPosition(Position position);
 protected:
   Position position;
 };

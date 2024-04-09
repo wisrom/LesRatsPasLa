@@ -1,15 +1,31 @@
 #pragma once
 
 #include <QtWidgets/QMainWindow>
+#include <Input/IInput.hpp>
+#include "GameDomain/FishingRun.hpp"
+#include "GameView.h"
+#include <QTimer>
 
 class DisplayGameQt : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    DisplayGameQt(QWidget *parent = nullptr);
+    DisplayGameQt(IInput* input, InputGame actions, FishingRun fishingRun, QWidget* parent = nullptr);
     ~DisplayGameQt();
+    GameView* gameView;
+    void refreshMove();
+
+protected:
+    void keyPressEvent(QKeyEvent* event) override;
 
 private slots:
+    void handleTimer();
     void boutonClicked();
+
+private:
+    FishingRun fishingRun;
+    IInput* input;
+    InputGame actions;
+    QTimer* timer;
 };

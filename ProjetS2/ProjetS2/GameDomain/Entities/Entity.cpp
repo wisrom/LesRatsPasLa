@@ -26,3 +26,9 @@ void Entity::move(Movement movement)
   position.x += movement.x;
   position.y += movement.y;
 }
+
+void Entity::setPosition(Position pos)
+{
+    position.x = pos.x;
+    position.y = pos.y;
+}
