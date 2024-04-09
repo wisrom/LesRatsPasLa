@@ -22,7 +22,6 @@ protected:
 
 private slots:
     void handleTimer();
-    void boutonClicked();
 
 private:
     FishingRun fishingRun;
