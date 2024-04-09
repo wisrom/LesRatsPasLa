@@ -22,32 +22,51 @@ DisplayGameQt::DisplayGameQt(IInput* sInput, InputGame sActions, FishingRun sFis
 	mainWidget->setLayout(mainLayout);
 	setCentralWidget(mainWidget);
 	mainWidget->setObjectName("mainWidget");
+    // Grille secondaire
+    QWidget* scoreWidget = new QWidget(this);
+    QGridLayout* scoreLayout = new QGridLayout();
+    QWidget* lblScore = new QLabel("Score : SCORE_VALUE");
+    scoreWidget->setLayout(scoreLayout);
+    scoreWidget->setObjectName("scoreWidget");
 
-	// Grille secondaire
-	QWidget* scoreWidget = new QWidget(this);
-	QGridLayout* scoreLayout = new QGridLayout();
-	scoreWidget->setLayout(scoreLayout);
-	scoreWidget->setObjectName("scoreWidget");
+	// // Grille secondaire
+	// QWidget* scoreWidget = new QWidget(this);
+	// QGridLayout* scoreLayout = new QGridLayout();
+	// scoreWidget->setLayout(scoreLayout);
+	// scoreWidget->setObjectName("scoreWidget");
 
 	QWidget* gameWidget = new QWidget(this);
 	QGridLayout* gameLayout = new QGridLayout(gameWidget);
 	//gameWidget->setLayout(gameLayout);
 	gameWidget->setObjectName("gameWidget");
+    QWidget* gaugeWidget = new QWidget(this);
+    QGridLayout* gaugeLayout = new QGridLayout();
+    QWidget* lblReelSpeed = new QLabel("Reel Speed");
+    QWidget* bghReelGauge = new ReelGauge(gaugeWidget);
+    bghReelGauge->setObjectName("gaugeBar");
+    gaugeWidget->setLayout(gaugeLayout);
+    gaugeWidget->setObjectName("gaugeWidget");
 
-	QWidget* gaugeWidget = new QWidget(this);
-	QGridLayout* gaugeLayout = new QGridLayout();
-	gaugeWidget->setLayout(gaugeLayout);
-	gaugeWidget->setObjectName("gaugeWidget");
+	// QWidget* gaugeWidget = new QWidget(this);
+	// QGridLayout* gaugeLayout = new QGridLayout();
+	// gaugeWidget->setLayout(gaugeLayout);
+	// gaugeWidget->setObjectName("gaugeWidget");
 
 	QWidget* catchingFishWidget = new QWidget(this);
 	QGridLayout* catchingFishLayout = new QGridLayout();
 	catchingFishWidget->setLayout(catchingFishLayout);
 	catchingFishWidget->setObjectName("catchingfishwidget");
+    QWidget* timerWidget = new QWidget(this);
+    QGridLayout* timerLayout = new QGridLayout();
+    QWidget* lblTimer = new QLabel("Time : TIMER_VALUE");
+    //QLabel lblTimer = QLabel("Score : ");
+    timerWidget->setLayout(timerLayout);
+    timerWidget->setObjectName("timerWidget");
 
-	QWidget* timerWidget = new QWidget(this);
-	QGridLayout* timerLayout = new QGridLayout();
-	timerWidget->setLayout(timerLayout);
-	timerWidget->setObjectName("timerWidget");
+	// QWidget* timerWidget = new QWidget(this);
+	// QGridLayout* timerLayout = new QGridLayout();
+	// timerWidget->setLayout(timerLayout);
+	// timerWidget->setObjectName("timerWidget");
 
 	// Ajout des widget et layout secondaire au principale
 	mainLayout->addWidget(scoreWidget, 0, 0, 1, 3);
@@ -62,13 +81,28 @@ DisplayGameQt::DisplayGameQt(IInput* sInput, InputGame sActions, FishingRun sFis
 	mainLayout->addLayout(catchingFishLayout, 0, 3, 7, 1);
 	mainLayout->addLayout(timerLayout, 7, 3, 1, 1);
 
-	//Game
-	gameView = new GameView(gameWidget);
+	// //Game
+	// gameView = new GameView(gameWidget);
 
-	// Ajouter le GameView au layout principal
-	gameLayout->setContentsMargins(5, 5, 5, 5);
-	gameLayout->addWidget(gameView);
-	gameWidget->setLayout(gameLayout);
+    //Game
+    // Créer une instance de votre classe GameView
+    GameView *gameView = new GameView(gameWidget);
+
+    // Ajouter le GameView au layout principal
+    gameLayout->setContentsMargins(5, 5, 5, 5);
+    gameLayout->addWidget(gameView);
+    gameWidget->setLayout(gameLayout);
+
+    // Ajouter le score widget au layout
+    scoreLayout->addWidget(lblScore);
+    scoreLayout->setAlignment(Qt::AlignCenter);
+
+    // Ajouter le timer widget au layout
+    timerLayout->addWidget(lblTimer);
+    timerLayout->setAlignment(Qt::AlignRight);
+
+    // Ajouter la gauge de reel speed
+    gaugeLayout->addWidget(bghReelGauge);
 }
 
 void DisplayGameQt::keyPressEvent(QKeyEvent* event)

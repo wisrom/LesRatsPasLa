@@ -5,6 +5,7 @@
 #include "GameDomain/FishingRun.hpp"
 #include "GameView.h"
 #include <QTimer>
+#include "UI/Qt/ReelGauge.hpp"
 
 class DisplayGameQt : public QMainWindow
 {
