@@ -93,39 +93,6 @@ std::vector<FishDTO> DataFile::getAllFish()
 	file.close();
 
 	return fishs;
-
-	//std::ifstream file(":/GameData/Fish/Fish.csv");
-	//std::string line;
-	//std::vector<FishDTO> fishs;
-	//FishDTO fish;
-	//std::getline(file, line); // skip first line
-
-	//while (std::getline(file, line))
-	//{
-	//	std::string s = line;
-	//	std::string delimiter = ";";
-
-	//	size_t pos = 0;
-	//	std::vector<std::string> fields;
-
-	//	while ((pos = s.find(delimiter)) != std::string::npos) {
-	//		fields.push_back(s.substr(0, pos));
-	//		s.erase(0, pos + delimiter.length());
-	//	}
-
-	//	fish.id = std::stoi(fields[0]);
-	//	fish.name = fields[1];
-	//	fish.minLength_mm = std::stoi(fields[2]);
-	//	fish.maxLength_mm = std::stoi(fields[3]);
-	//	fish.minWeight_g = std::stoi(fields[4]);
-	//	fish.maxWeight_g = std::stoi(fields[5]);
-	//	fish.score = std::stoi(fields[6]);
-	//	fish.difficulty = std::stoi(s);
-
-	//	fishs.push_back(fish);
-	//}
-
-	//return fishs;
 }
 
 

@@ -134,11 +134,6 @@ void DisplayGameQt::keyPressEvent(QKeyEvent* event)
 DisplayGameQt::~DisplayGameQt()
 {}
 
-//void DisplayGameQt::refreshMove()
-//{
-//	gameView->refreshMove(fishingRun);
-//}
-
 void DisplayGameQt::handleTimer() {
 	gameView->refreshMove(fishingRun);
 	gameView->removeFishToGet();
