@@ -19,6 +19,7 @@ public:
   CaptureStep getCurrentCaptureStep();
   float getCurrentCaptureStepProgress();
   bool getIsCapturing();
+  std::string getName();
   void setPosition(Position position);
   void setIsCapturing(bool isCapturing);
   bool capture(float reelSpeed_rotPerSec, float duration_s);

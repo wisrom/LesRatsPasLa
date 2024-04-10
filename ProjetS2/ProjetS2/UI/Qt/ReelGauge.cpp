@@ -21,7 +21,7 @@ void ReelGauge::paintEvent(QPaintEvent* event)
   painter.setRenderHint(QPainter::Antialiasing);
 
   // Color variation
-  QLinearGradient gradient(0, 0, width(), 0);
+  QLinearGradient gradient(0, 0, width(), 0); 
   gradient.setColorAt(0, QColor(0, 255, 0));
   gradient.setColorAt(1, QColor(255, 0, 0));
 

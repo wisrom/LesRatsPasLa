@@ -212,7 +212,7 @@ std::vector<CaptureStep> DataFile::getCaptureSteps_veryEasy(int margin)
 {
 	std::vector<CaptureStep> captureSteps;
 	CaptureStep captureStep;
-	int baseMargin_rpm = 40;
+	int baseMargin_rpm = 35;
 
 	captureStep.duration_s = 2.0f;
 	captureStep.margin = (int)(baseMargin_rpm / margin);
@@ -283,7 +283,7 @@ std::vector<CaptureStep> DataFile::getCaptureSteps_hard(int margin)
 
 	captureStep.duration_s = 1.0f;
 	captureStep.margin = (int)(baseMargin_rpm / margin);
-	captureStep.speed_rpm = 140.0f;
+	captureStep.speed_rpm = 80.0f;
 	captureSteps.push_back(captureStep);
 
 	return captureSteps;
@@ -297,17 +297,17 @@ std::vector<CaptureStep> DataFile::getCaptureSteps_veryHard(int margin)
 
 	captureStep.duration_s = 1.0f;
 	captureStep.margin = (int)(baseMargin_rpm / margin);
-	captureStep.speed_rpm = 140.0f;
+	captureStep.speed_rpm = 100.0f;
 	captureSteps.push_back(captureStep);
 
 	captureStep.duration_s = 2.0f;
 	captureStep.margin = (int)(baseMargin_rpm / margin);
-	captureStep.speed_rpm = 100.0f;
+	captureStep.speed_rpm = 80.0f;
 	captureSteps.push_back(captureStep);
 
 	captureStep.duration_s = 1.0f;
 	captureStep.margin = (int)(baseMargin_rpm / margin);
-	captureStep.speed_rpm = 140.0f;
+	captureStep.speed_rpm = 120.0f;
 	captureSteps.push_back(captureStep);
 
 	captureStep.duration_s = 1.0f;
@@ -326,27 +326,27 @@ std::vector<CaptureStep> DataFile::getCaptureSteps_extreme(int margin)
 
 	captureStep.duration_s = 3.0f;
 	captureStep.margin = (int)(baseMargin_rpm / margin);
-	captureStep.speed_rpm = 180.0f;
+	captureStep.speed_rpm = 120.0f;
 	captureSteps.push_back(captureStep);
 
 	captureStep.duration_s = 2.0f;
 	captureStep.margin = (int)(baseMargin_rpm / margin);
-	captureStep.speed_rpm = 140.0f;
+	captureStep.speed_rpm = 110.0f;
 	captureSteps.push_back(captureStep);
 
 	captureStep.duration_s = 3.0f;
-	captureStep.margin = (int)(baseMargin_rpm / margin);
-	captureStep.speed_rpm = 180.0f;
-	captureSteps.push_back(captureStep);
-
-	captureStep.duration_s = 1.0f;
 	captureStep.margin = (int)(baseMargin_rpm / margin);
 	captureStep.speed_rpm = 100.0f;
 	captureSteps.push_back(captureStep);
 
 	captureStep.duration_s = 1.0f;
 	captureStep.margin = (int)(baseMargin_rpm / margin);
-	captureStep.speed_rpm = 30.0f;
+	captureStep.speed_rpm = 60.0f;
+	captureSteps.push_back(captureStep);
+
+	captureStep.duration_s = 1.0f;
+	captureStep.margin = (int)(baseMargin_rpm / margin);
+	captureStep.speed_rpm = 120.0f;
 	captureSteps.push_back(captureStep);
 
 	return captureSteps;

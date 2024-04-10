@@ -22,35 +22,40 @@ DisplayGameQt::DisplayGameQt(IInput* sInput, InputGame sActions, FishingRun sFis
 	mainWidget->setLayout(mainLayout);
 	setCentralWidget(mainWidget);
 	mainWidget->setObjectName("mainWidget");
-    // Grille secondaire
-    QWidget* scoreWidget = new QWidget(this);
-    QGridLayout* scoreLayout = new QGridLayout();
-    QWidget* lblScore = new QLabel("Score : SCORE_VALUE");
-    scoreWidget->setLayout(scoreLayout);
-    scoreWidget->setObjectName("scoreWidget");
+	// Grille secondaire
+	QWidget* scoreWidget = new QWidget(this);
+	QGridLayout* scoreLayout = new QGridLayout();
+	QWidget* lblScore = new QLabel("Score : SCORE_VALUE");
+	scoreWidget->setLayout(scoreLayout);
+	scoreWidget->setObjectName("scoreWidget");
 
 	QWidget* gameWidget = new QWidget(this);
 	QGridLayout* gameLayout = new QGridLayout(gameWidget);
 	//gameWidget->setLayout(gameLayout);
 	gameWidget->setObjectName("gameWidget");
-    QWidget* gaugeWidget = new QWidget(this);
-    QGridLayout* gaugeLayout = new QGridLayout();
-    QWidget* lblReelSpeed = new QLabel("Reel Speed");
-    QWidget* bghReelGauge = new ReelGauge(gaugeWidget);
-    bghReelGauge->setObjectName("gaugeBar");
-    gaugeWidget->setLayout(gaugeLayout);
-    gaugeWidget->setObjectName("gaugeWidget");
+	QWidget* gaugeWidget = new QWidget(this);
+	QGridLayout* gaugeLayout = new QGridLayout();
+	QWidget* lblReelSpeed = new QLabel("Reel Speed");
+	QWidget* bghReelGauge = new ReelGauge(gaugeWidget);
+	bghReelGauge->setObjectName("gaugeBar");
+	gaugeWidget->setLayout(gaugeLayout);
+	gaugeWidget->setObjectName("gaugeWidget");
 
 	QWidget* catchingFishWidget = new QWidget(this);
 	QGridLayout* catchingFishLayout = new QGridLayout();
 	catchingFishWidget->setLayout(catchingFishLayout);
 	catchingFishWidget->setObjectName("catchingfishwidget");
-    QWidget* timerWidget = new QWidget(this);
-    QGridLayout* timerLayout = new QGridLayout();
-    QWidget* lblTimer = new QLabel("Time : TIMER_VALUE");
-    //QLabel lblTimer = QLabel("Score : ");
-    timerWidget->setLayout(timerLayout);
-    timerWidget->setObjectName("timerWidget");
+
+	capturedFishWidget = new QTableWidget();
+	capturedFishWidget->setColumnCount(2);
+	capturedFishWidget->setHorizontalHeaderLabels({ "Name", "Score" });
+
+	QWidget* timerWidget = new QWidget(this);
+	QGridLayout* timerLayout = new QGridLayout();
+	QWidget* lblTimer = new QLabel("Time : TIMER_VALUE");
+	//QLabel lblTimer = QLabel("Score : ");
+	timerWidget->setLayout(timerLayout);
+	timerWidget->setObjectName("timerWidget");
 
 	// Ajout des widget et layout secondaire au principale
 	mainLayout->addWidget(scoreWidget, 0, 0, 1, 3);
@@ -68,56 +73,59 @@ DisplayGameQt::DisplayGameQt(IInput* sInput, InputGame sActions, FishingRun sFis
 	//Game
 	gameView = new GameView(fishingRun, gameWidget);
 
-    // Ajouter le GameView au layout principal
-    gameLayout->setContentsMargins(5, 5, 5, 5);
-    gameLayout->addWidget(gameView);
-    gameWidget->setLayout(gameLayout);
+	// Ajouter le GameView au layout principal
+	gameLayout->setContentsMargins(5, 5, 5, 5);
+	gameLayout->addWidget(gameView);
+	gameWidget->setLayout(gameLayout);
 
-    // Ajouter le score widget au layout
-    scoreLayout->addWidget(lblScore);
-    scoreLayout->setAlignment(Qt::AlignCenter);
+	// Ajouter le score widget au layout
+	scoreLayout->addWidget(lblScore);
+	scoreLayout->setAlignment(Qt::AlignCenter);
 
-    // Ajouter le timer widget au layout
-    timerLayout->addWidget(lblTimer);
-    timerLayout->setAlignment(Qt::AlignRight);
+	// Ajouter les poissons captures au layout
+	catchingFishLayout->addWidget(capturedFishWidget);
 
-    // Ajouter la gauge de reel speed
-    gaugeLayout->addWidget(bghReelGauge);
+	// Ajouter le timer widget au layout
+	timerLayout->addWidget(lblTimer);
+	timerLayout->setAlignment(Qt::AlignRight);
+
+	// Ajouter la gauge de reel speed
+	gaugeLayout->addWidget(bghReelGauge);
 }
 
 void DisplayGameQt::keyPressEvent(QKeyEvent* event)
 {
-    int key = event->key();
-    Movement m;
-    // WASD
-    switch (key) {
-    case Qt::Key_W:
-        // Déplacement vers le haut
-        m.x = 0;
-        m.y = -1;
-        break;
-    case Qt::Key_A:
-        // Déplacement vers la gauche
-        m.x = -1;
-        m.y = 0;
-        break;
-    case Qt::Key_S:
-        // Déplacement vers le bas
-        m.x = 0;
-        m.y = 1;
-        break;
-    case Qt::Key_D:
-        // Déplacement vers la droite
-        m.x = 1;
-        m.y = 0;
-        break;
-    default:
-        // Ne rien faire pour les autres touches
-        return;
-    }
+	int key = event->key();
+	Movement m;
+	// WASD
+	switch (key) {
+	case Qt::Key_W:
+		// Déplacement vers le haut
+		m.x = 0;
+		m.y = -1;
+		break;
+	case Qt::Key_A:
+		// Déplacement vers la gauche
+		m.x = -1;
+		m.y = 0;
+		break;
+	case Qt::Key_S:
+		// Déplacement vers le bas
+		m.x = 0;
+		m.y = 1;
+		break;
+	case Qt::Key_D:
+		// Déplacement vers la droite
+		m.x = 1;
+		m.y = 0;
+		break;
+	default:
+		// Ne rien faire pour les autres touches
+		return;
+	}
 
-    // Appliquer le mouvement
-    fishingRun.getCurrentSession()->player.move(m);
+	// Appliquer le mouvement
+	fishingRun.getCurrentSession()->player.move(m);
 }
 
 DisplayGameQt::~DisplayGameQt()
@@ -128,11 +136,14 @@ void DisplayGameQt::refreshMove()
 	gameView->refreshMove(&fishingRun);
 }
 
-void DisplayGameQt::handleTimer() {
+void DisplayGameQt::handleTimer() 
+{
 	this->refreshMove();
 
 	// TODO refresh le score
 	// TODO refresh le timer
+
+	//updateCapturedFishWidget()
 
 	//if (fishingRun.getIsFinished())
 	//{
@@ -150,4 +161,18 @@ void DisplayGameQt::handleTimer() {
 
 	// Check menu
 	//fishingRun.getCurrentSession()->processInput(actions);
+}
+
+void DisplayGameQt::updateCapturedFishWidget(std::vector<Fish> capturedFish)
+{
+	capturedFishWidget->clear();
+
+	for (int i = 0; i < capturedFish.size(); i++)
+	{
+		QString fishName = QString::fromStdString(capturedFish[i].getName());
+		int fishScore = capturedFish[i].getScore();
+		capturedFishWidget->insertRow(i);
+		capturedFishWidget->setItem(i, 0, new QTableWidgetItem(fishName));
+		capturedFishWidget->setItem(i, 0, new QTableWidgetItem(fishScore));
+	}
 }
