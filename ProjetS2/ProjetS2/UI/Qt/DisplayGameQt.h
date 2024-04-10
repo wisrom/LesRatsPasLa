@@ -30,6 +30,9 @@ private:
     InputGame actions;
     QTimer* timer;
     QTableWidget* capturedFishWidget;
+    QLabel* lblScore;
+    QLabel* lblTimer;
+    bool quit = false;
 
     void updateCapturedFishWidget(std::vector<Fish> capturedFish);
 };

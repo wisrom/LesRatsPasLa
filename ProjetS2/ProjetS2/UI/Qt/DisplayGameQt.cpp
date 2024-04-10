@@ -25,7 +25,7 @@ DisplayGameQt::DisplayGameQt(IInput* sInput, InputGame sActions, FishingRun* sFi
 	// Grille secondaire
 	QWidget* scoreWidget = new QWidget(this);
 	QGridLayout* scoreLayout = new QGridLayout();
-	QWidget* lblScore = new QLabel("Score : SCORE_VALUE");
+	lblScore = new QLabel("Score : SCORE_VALUE");
 	scoreWidget->setLayout(scoreLayout);
 	scoreWidget->setObjectName("scoreWidget");
 
@@ -52,7 +52,7 @@ DisplayGameQt::DisplayGameQt(IInput* sInput, InputGame sActions, FishingRun* sFi
 
 	QWidget* timerWidget = new QWidget(this);
 	QGridLayout* timerLayout = new QGridLayout();
-	QWidget* lblTimer = new QLabel("Time : TIMER_VALUE");
+	lblTimer = new QLabel("Time : TIMER_VALUE");
 	//QLabel lblTimer = QLabel("Score : ");
 	timerWidget->setLayout(timerLayout);
 	timerWidget->setObjectName("timerWidget");
@@ -83,7 +83,7 @@ DisplayGameQt::DisplayGameQt(IInput* sInput, InputGame sActions, FishingRun* sFi
 	scoreLayout->setAlignment(Qt::AlignCenter);
 
 	// Ajouter les poissons captures au layout
-	catchingFishLayout->addWidget(capturedFishWidget);
+	//catchingFishLayout->addWidget(capturedFishWidget);
 
 	// Ajouter le timer widget au layout
 	timerLayout->addWidget(lblTimer);
@@ -119,6 +119,9 @@ void DisplayGameQt::keyPressEvent(QKeyEvent* event)
 		m.x = 1;
 		m.y = 0;
 		break;
+	case Qt::Key_Escape:
+		quit = true;
+		break;
 	default:
 		// Ne rien faire pour les autres touches
 		return;
@@ -148,23 +151,20 @@ void DisplayGameQt::handleTimer() {
 			actions.reelSpeed_rpm);
 	}
 
-	// TODO refresh le score
-	// TODO refresh le timer
+	lblScore->setText("Score: " + QString::number(fishingRun->getCurrentSession()->getScore()));
+	lblTimer->setText(QString::number(fishingRun->getCurrentSession()->getRemainingTime_s()));
 
 	if (fishingRun->getIsFinished())
 	{
-		qDebug() << "Jeu fini";
 		// TODO retourner au menu
 	}
 
-	//output->DisplayGameData(fishingRun.getCurrentSession()->getScore());
-	//displayGame.displaySession(*fishingRun.getCurrentSession());
-	actions = input->getGameInput();
 	fishingRun->getCurrentSession()->processInput(actions);
 
-	if (actions.quit)
+	actions = input->getGameInput();
+	if (quit)
 	{
-		qDebug() << "Retour menu";
+		quit = false;
 		//TODO retour au menu
 	}
 }
