@@ -19,11 +19,11 @@ int main(int argc, char* argv[])
 {
 	DisplayGame displayGame;
 	//DisplayMenu displayMenu;
-	//ComSerialJSON com;
-	//com.init();
-	//IInput* input = new InputArduino(&com);
+	/*ComSerialJSON com;
+	com.init();
+	IInput* input = new InputArduino(&com);*/
 	IInput* input = new InputConsole();
-	IOutput* output = new OutputConsole();
+	//IOutput* output = new OutputConsole();
 	//IOutput* output = new OutputArduino(&com);
 	InputGame actions;
 	InputMenu menuInput;

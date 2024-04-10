@@ -12,7 +12,7 @@ DisplayGameQt::DisplayGameQt(IInput* sInput, InputGame sActions, FishingRun* sFi
 {
 	timer = new QTimer(this);
 	connect(timer, &QTimer::timeout, this, &DisplayGameQt::handleTimer);
-	timer->start(100);
+	timer->start(30);
 
 	resize(800, 600); // Taille initiale de la fenêtre
 
@@ -36,7 +36,7 @@ DisplayGameQt::DisplayGameQt(IInput* sInput, InputGame sActions, FishingRun* sFi
 	QWidget* gaugeWidget = new QWidget(this);
 	QGridLayout* gaugeLayout = new QGridLayout();
 	QWidget* lblReelSpeed = new QLabel("Reel Speed");
-	QWidget* bghReelGauge = new ReelGauge(gaugeWidget);
+	bghReelGauge = new ReelGauge(gaugeWidget);
 	bghReelGauge->setObjectName("gaugeBar");
 	gaugeWidget->setLayout(gaugeLayout);
 	gaugeWidget->setObjectName("gaugeWidget");
@@ -131,23 +131,32 @@ DisplayGameQt::~DisplayGameQt()
 void DisplayGameQt::handleTimer() {
 	gameView->refreshMove(fishingRun);
 	gameView->removeFishToGet();
+
+	Fish fishEmpty = Fish();
+	if (fishingRun->getCurrentSession()->getNearFish().getId() != fishEmpty.getId()) {
+		bghReelGauge->updateValues(
+			fishingRun->getCurrentSession()->getNearFish().getCurrentCaptureStep().speed_rpm - fishingRun->getCurrentSession()->getNearFish().getCurrentCaptureStep().margin,
+			fishingRun->getCurrentSession()->getNearFish().getCurrentCaptureStep().margin + fishingRun->getCurrentSession()->getNearFish().getCurrentCaptureStep().speed_rpm,
+			actions.reelSpeed_rpm);
+	}
+
 	// TODO refresh le score
 	// TODO refresh le timer
 
-	//if (fishingRun.getIsFinished())
-	//{
-	//    // TODO retourner au menu
-	//}
+	if (fishingRun->getIsFinished())
+	{
+		qDebug() << "Jeu fini";
+		// TODO retourner au menu
+	}
 
 	//output->DisplayGameData(fishingRun.getCurrentSession()->getScore());
 	//displayGame.displaySession(*fishingRun.getCurrentSession());
-	//actions = input->getGameInput();
+	actions = input->getGameInput();
+	fishingRun->getCurrentSession()->processInput(actions);
 
-	//if (actions.quit)
-	//{
-	//    //TODO retour au menu
-	//}
-
-	// Check menu
-	//fishingRun.getCurrentSession()->processInput(actions);
+	if (actions.quit)
+	{
+		qDebug() << "Retour menu";
+		//TODO retour au menu
+	}
 }

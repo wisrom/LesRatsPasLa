@@ -18,6 +18,9 @@ private:
   int reelSpeedMin_rpm;
   int reelSpeedMax_rpm;
   int reelSpeed_rpm;
+  QPainter* painter;
+  void gauge();
+
 
   void paintEvent(QPaintEvent* event) override;
 };

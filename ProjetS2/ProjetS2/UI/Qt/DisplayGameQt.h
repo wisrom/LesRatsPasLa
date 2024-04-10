@@ -24,6 +24,7 @@ private slots:
     void handleTimer();
 
 private:
+    ReelGauge* bghReelGauge;
     FishingRun* fishingRun;
     IInput* input;
     InputGame actions;

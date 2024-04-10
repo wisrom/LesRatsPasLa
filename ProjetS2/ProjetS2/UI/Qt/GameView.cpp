@@ -25,10 +25,7 @@ GameView::GameView(FishingRun* sFishingRun, QWidget* parent) : fishingRun(sFishi
 		}
 	}
 
-	QPixmap playerImg(playerImgPath);
-	fish = scene->addPixmap(playerImg);
-	scaleImg(playerImg, fish);
-	fish->setPos(0, 0);
+	
 
 	Position fishPosition;
 	for (Fish fish : fishingRun->getCurrentSession()->fishs)
@@ -43,18 +40,25 @@ GameView::GameView(FishingRun* sFishingRun, QWidget* parent) : fishingRun(sFishi
 		scene->addItem(fishImg);
 		fishsToGet.append(fishImg);
 	}
+
+	QPixmap playerImg(playerImgPath);
+	fish = scene->addPixmap(playerImg);
+	scaleImg(playerImg, fish);
+	fish->setPos(0, 0);
 }
 
 void GameView::removeFishToGet()
 {
+	std::vector<Fish> capturedFishsLocal = fishingRun->getCurrentSession()->capturedFishs;
+	std::vector<Fish> fishsLocal = fishingRun->getCurrentSession()->fishs;
 
-
-	Fish fishToRemove = fishingRun->getCurrentSession()->getNearFish();
-	Position posfishToRemove = fishToRemove.getPosition();
 	for (int i = 0; i < fishsToGet.count(); i++) {
-		if (fishsToGet[i]->pos().x() / cellSize == posfishToRemove.x && fishsToGet[i]->pos().y() / cellSize == posfishToRemove.y) {
-			scene->removeItem(fishsToGet[i]);
-			fishsToGet.removeOne(fishsToGet[i]);
+		for (int ii = 0; ii < capturedFishsLocal.size(); ii++)
+		{
+			if (fishsToGet[i]->pos().x() / cellSize == capturedFishsLocal[ii].getPosition().x && fishsToGet[i]->pos().y() / cellSize == capturedFishsLocal[ii].getPosition().y) {
+				scene->removeItem(fishsToGet[i]);
+				fishsToGet.removeOne(fishsToGet[i]);
+			}
 		}
 	}
 }

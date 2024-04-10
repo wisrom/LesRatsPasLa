@@ -19,6 +19,7 @@ class FishingSession
 public:
   Player player;
   std::vector<Fish> fishs;
+  std::vector<Fish> capturedFishs;
   Map map;
 
   FishingSession();
@@ -41,7 +42,6 @@ private:
   Environment environment;
   IData* data;
   int score;
-  std::vector<Fish> capturedFishs;
   double timer_s;
   double timeElapsed_s;
   int difficulty;

@@ -13,9 +13,9 @@ ComSerialJSON::~ComSerialJSON()
 void ComSerialJSON::init()
 {
   // Initialisation du port de communication
-  std::string com;
-  std::cout << "Entrer le port de communication du Arduino: ";
-  std::cin >> com;
+  std::string com = "COM4";
+  //std::cout << "Entrer le port de communication du Arduino: ";
+  //std::cin >> com;
   arduino = new SerialPort(com.c_str(), BAUD);
 
   if (!arduino->isConnected()) 
