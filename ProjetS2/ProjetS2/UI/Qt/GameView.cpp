@@ -2,18 +2,11 @@
 #include <QDebug>
 
 
-GameView::GameView(QWidget* parent) {
+GameView::GameView(FishingRun sFishingRun, QWidget* parent) : fishingRun(sFishingRun) {
 	// Créer une scène
 	scene = new QGraphicsScene(this);
 	setScene(scene);
 
-	// Taille de chaque cellule de la grille
-
-	// Nombre de lignes et de colonnes dans la grille
-	/*int numRows = scene->height() / cellSize;
-	int numCols = scene->width() / cellSize;*/
-	int numRows = 20;
-	int numCols = 20;
 	cellSize = qMin(this->size().width() / numCols, this->size().height() / numRows);
 
 	// Parcourir toutes les lignes et colonnes pour créer la grille
@@ -23,38 +16,76 @@ GameView::GameView(QWidget* parent) {
 			qreal x = col * cellSize;
 			qreal y = row * cellSize;
 
-			// Ajouter un rectangle représentant une cellule de la grille
-			QGraphicsRectItem* cell = scene->addRect(x, y, cellSize, cellSize);
-			cell->setPen(QPen(Qt::black));  // Pas de contour pour les cellules
-			cell->setBrush(Qt::red); // Pas de couleur de remplissage
+			QPixmap waterPixmap(waterImgPath);
+			QGraphicsPixmapItem* cell = new QGraphicsPixmapItem;
+			cell->setPixmap(waterPixmap.scaled(cellSize, cellSize, Qt::KeepAspectRatio));
+			cell->setPos(x, y);
+			scene->addItem(cell);
 			cells.append(cell);
 		}
 	}
 
-	fish = scene->addEllipse(0, 0, 50, 50);
-	fish->setBrush(Qt::blue);
+	QPixmap playerImg(playerImgPath);
+	fish = scene->addPixmap(playerImg);
+	scaleImg(playerImg, fish);
 	fish->setPos(0, 0);
-	//connect(this, &GameView::resizeEvent, this, &GameView::ResizeGrid); // Connexion de l'événement de redimensionnement
+
+	Position fishPosition;
+	for (Fish fish : fishingRun.getCurrentSession()->fishs)
+	{
+		fishPosition = fish.getPosition();
+
+		QPixmap fishPixmap(fishImgPath);
+		QGraphicsPixmapItem* fishImg = new QGraphicsPixmapItem;
+		fishImg->setPixmap(fishPixmap.scaled(cellSize, cellSize, Qt::KeepAspectRatio));
+		fishImg->setPos(fishPosition.x * cellSize, fishPosition.y * cellSize);
+		scaleImg(fishPixmap, fishImg);
+		scene->addItem(fishImg);
+		fishsToGet.append(fishImg);
+	}
+}
+
+void GameView::scaleImg(QPixmap imagePath, QGraphicsPixmapItem* pixmapItem) {
+	pixmapItem->setPixmap(imagePath.scaled(cellSize, cellSize, Qt::KeepAspectRatio));
 }
 
 GameView::~GameView() {}
 
 void GameView::resizeEvent(QResizeEvent* event) {
 	ResizeGrid(event);
+	QPixmap playerImg(playerImgPath);
+	scaleImg(playerImg, fish);
+
+	// Resize fish to get
+	std::vector<Fish> lstFish = fishingRun.getCurrentSession()->fishs;
+	Position fishPosition;
+	QPixmap fishImg(fishImgPath);
+	for (int i = 0; i < fishsToGet.count(); i++)
+	{
+		fishPosition = lstFish[i].getPosition();
+		fishsToGet[i]->setPos(fishPosition.x * cellSize, fishPosition.y * cellSize);
+		scaleImg(fishImg, fishsToGet[i]);
+	}
+
 	QGraphicsView::resizeEvent(event);
 }
 
-// Slot pour redimensionner la grille
 void GameView::ResizeGrid(QResizeEvent* event) {
 	cellSize = qMin(event->size().width() / numCols, event->size().height() / numRows);
+	QPixmap waterImg(waterImgPath);
 
 	for (int row = 0; row < numRows; ++row) {
 		for (int col = 0; col < numCols; ++col) {
 			qreal x = col * cellSize;
 			qreal y = row * cellSize;
 
-			QGraphicsRectItem* cell = cells.at(row * numCols + col); // Récupérer la cellule de la liste
-			cell->setRect(x, y, cellSize, cellSize);
+			QGraphicsPixmapItem* cell = cells.at(row * numCols + col);
+			cell->setPos(x, y);
+			cell->setPixmap(waterImg.scaled(cellSize, cellSize, Qt::KeepAspectRatio));
+
+			/*QGraphicsPixmapItem* fishh = fishsToGet.at(row * numCols + col);
+			fishh->setPos(x, y);
+			fishh->setPixmap(fishImg.scaled(cellSize, cellSize, Qt::KeepAspectRatio));*/
 		}
 	}
 }
@@ -62,15 +93,23 @@ void GameView::ResizeGrid(QResizeEvent* event) {
 void GameView::refreshMove(FishingRun* fishingRun)
 {
 	Position playerPosition = fishingRun->getCurrentSession()->player.getPosition();
-	if (playerPosition.x >= numCols -1) {
-		Position position = {numCols -1, playerPosition.y};
+	if (playerPosition.x > numCols - 1) {
+		Position position = { numCols - 1, playerPosition.y };
 		fishingRun->getCurrentSession()->player.setPosition(position);
 
 	}
-	if (playerPosition.y >= numRows -1) {
-		Position position = { playerPosition.x, numRows -1};
+	if (playerPosition.y > numRows - 1) {
+		Position position = { playerPosition.x, numRows - 1 };
 		fishingRun->getCurrentSession()->player.setPosition(position);
 
+	}
+	if (playerPosition.y < 0) {
+		Position position = { playerPosition.x, 0 };
+		fishingRun->getCurrentSession()->player.setPosition(position);
+	}
+	if (playerPosition.x < 0) {
+		Position position = { 0, playerPosition.y };
+		fishingRun->getCurrentSession()->player.setPosition(position);
 	}
 	Position playerPosition2 = fishingRun->getCurrentSession()->player.getPosition();
 

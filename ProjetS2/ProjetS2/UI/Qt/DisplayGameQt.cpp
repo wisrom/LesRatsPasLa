@@ -66,7 +66,7 @@ DisplayGameQt::DisplayGameQt(IInput* sInput, InputGame sActions, FishingRun sFis
 	mainLayout->addLayout(timerLayout, 7, 3, 1, 1);
 
 	//Game
-	gameView = new GameView(gameWidget);
+	gameView = new GameView(fishingRun, gameWidget);
 
     // Ajouter le GameView au layout principal
     gameLayout->setContentsMargins(5, 5, 5, 5);
@@ -87,11 +87,37 @@ DisplayGameQt::DisplayGameQt(IInput* sInput, InputGame sActions, FishingRun sFis
 
 void DisplayGameQt::keyPressEvent(QKeyEvent* event)
 {
-	int e = event->key();
-	Movement m;
-	m.x = 1;
-	m.y = 0;
-	fishingRun.getCurrentSession()->player.move(m);
+    int key = event->key();
+    Movement m;
+    // WASD
+    switch (key) {
+    case Qt::Key_W:
+        // Déplacement vers le haut
+        m.x = 0;
+        m.y = -1;
+        break;
+    case Qt::Key_A:
+        // Déplacement vers la gauche
+        m.x = -1;
+        m.y = 0;
+        break;
+    case Qt::Key_S:
+        // Déplacement vers le bas
+        m.x = 0;
+        m.y = 1;
+        break;
+    case Qt::Key_D:
+        // Déplacement vers la droite
+        m.x = 1;
+        m.y = 0;
+        break;
+    default:
+        // Ne rien faire pour les autres touches
+        return;
+    }
+
+    // Appliquer le mouvement
+    fishingRun.getCurrentSession()->player.move(m);
 }
 
 DisplayGameQt::~DisplayGameQt()
