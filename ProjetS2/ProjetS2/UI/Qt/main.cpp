@@ -27,7 +27,7 @@ int main(int argc, char* argv[])
 	//IOutput* output = new OutputArduino(&com);
 	InputGame actions;
 	InputMenu menuInput;
-	FishingRun fishingRun;
+	FishingRun* fishingRun = new FishingRun();
 
 	QApplication a(argc, argv);
 	DisplayGameQt w(input, actions, fishingRun);
