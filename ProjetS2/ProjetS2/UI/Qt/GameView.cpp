@@ -2,7 +2,7 @@
 #include <QDebug>
 
 
-GameView::GameView(FishingRun sFishingRun, QWidget* parent) : fishingRun(sFishingRun) {
+GameView::GameView(FishingRun* sFishingRun, QWidget* parent) : fishingRun(sFishingRun) {
 	// Créer une scène
 	scene = new QGraphicsScene(this);
 	setScene(scene);
@@ -31,7 +31,7 @@ GameView::GameView(FishingRun sFishingRun, QWidget* parent) : fishingRun(sFishin
 	fish->setPos(0, 0);
 
 	Position fishPosition;
-	for (Fish fish : fishingRun.getCurrentSession()->fishs)
+	for (Fish fish : fishingRun->getCurrentSession()->fishs)
 	{
 		fishPosition = fish.getPosition();
 
@@ -45,11 +45,27 @@ GameView::GameView(FishingRun sFishingRun, QWidget* parent) : fishingRun(sFishin
 	}
 }
 
+void GameView::removeFishToGet()
+{
+
+
+	Fish fishToRemove = fishingRun->getCurrentSession()->getNearFish();
+	Position posfishToRemove = fishToRemove.getPosition();
+	for (int i = 0; i < fishsToGet.count(); i++) {
+		if (fishsToGet[i]->pos().x() / cellSize == posfishToRemove.x && fishsToGet[i]->pos().y() / cellSize == posfishToRemove.y) {
+			scene->removeItem(fishsToGet[i]);
+			fishsToGet.removeOne(fishsToGet[i]);
+		}
+	}
+}
+
 void GameView::scaleImg(QPixmap imagePath, QGraphicsPixmapItem* pixmapItem) {
 	pixmapItem->setPixmap(imagePath.scaled(cellSize, cellSize, Qt::KeepAspectRatio));
 }
 
 GameView::~GameView() {}
+
+
 
 void GameView::resizeEvent(QResizeEvent* event) {
 	ResizeGrid(event);
@@ -57,7 +73,7 @@ void GameView::resizeEvent(QResizeEvent* event) {
 	scaleImg(playerImg, fish);
 
 	// Resize fish to get
-	std::vector<Fish> lstFish = fishingRun.getCurrentSession()->fishs;
+	std::vector<Fish> lstFish = fishingRun->getCurrentSession()->fishs;
 	Position fishPosition;
 	QPixmap fishImg(fishImgPath);
 	for (int i = 0; i < fishsToGet.count(); i++)
@@ -82,10 +98,6 @@ void GameView::ResizeGrid(QResizeEvent* event) {
 			QGraphicsPixmapItem* cell = cells.at(row * numCols + col);
 			cell->setPos(x, y);
 			cell->setPixmap(waterImg.scaled(cellSize, cellSize, Qt::KeepAspectRatio));
-
-			/*QGraphicsPixmapItem* fishh = fishsToGet.at(row * numCols + col);
-			fishh->setPos(x, y);
-			fishh->setPixmap(fishImg.scaled(cellSize, cellSize, Qt::KeepAspectRatio));*/
 		}
 	}
 }

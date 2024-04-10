@@ -7,7 +7,7 @@
 #include <QDebug>
 #include <QLabel>
 
-DisplayGameQt::DisplayGameQt(IInput* sInput, InputGame sActions, FishingRun sFishingRun, QWidget* parent)
+DisplayGameQt::DisplayGameQt(IInput* sInput, InputGame sActions, FishingRun* sFishingRun, QWidget* parent)
 	: QMainWindow(parent), fishingRun(sFishingRun), input(sInput), actions(sActions)
 {
 	timer = new QTimer(this);
@@ -125,21 +125,20 @@ void DisplayGameQt::keyPressEvent(QKeyEvent* event)
 	}
 
 	// Appliquer le mouvement
-	fishingRun.getCurrentSession()->player.move(m);
+	fishingRun->getCurrentSession()->player.move(m);
 }
 
 DisplayGameQt::~DisplayGameQt()
 {}
 
-void DisplayGameQt::refreshMove()
-{
-	gameView->refreshMove(&fishingRun);
-}
+//void DisplayGameQt::refreshMove()
+//{
+//	gameView->refreshMove(fishingRun);
+//}
 
-void DisplayGameQt::handleTimer() 
-{
-	this->refreshMove();
-
+void DisplayGameQt::handleTimer() {
+	gameView->refreshMove(fishingRun);
+	gameView->removeFishToGet();
 	// TODO refresh le score
 	// TODO refresh le timer
 

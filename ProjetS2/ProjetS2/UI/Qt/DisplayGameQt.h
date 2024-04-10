@@ -12,10 +12,10 @@ class DisplayGameQt : public QMainWindow
     Q_OBJECT
 
 public:
-    DisplayGameQt(IInput* input, InputGame actions, FishingRun fishingRun, QWidget* parent = nullptr);
+    DisplayGameQt(IInput* input, InputGame actions, FishingRun* fishingRun, QWidget* parent = nullptr);
     ~DisplayGameQt();
     GameView* gameView;
-    void refreshMove();
+    /*void refreshMove();*/
 
 protected:
     void keyPressEvent(QKeyEvent* event) override;
@@ -24,7 +24,7 @@ private slots:
     void handleTimer();
 
 private:
-    FishingRun fishingRun;
+    FishingRun* fishingRun;
     IInput* input;
     InputGame actions;
     QTimer* timer;
