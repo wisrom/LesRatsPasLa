@@ -60,6 +60,11 @@ bool Fish::getIsCapturing()
   return isCapturing;
 }
 
+std::string Fish::getName()
+{
+  return name;
+}
+
 void Fish::setPosition(Position position)
 {
   this->position = position;

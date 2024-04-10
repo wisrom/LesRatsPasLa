@@ -29,4 +29,7 @@ private:
     IInput* input;
     InputGame actions;
     QTimer* timer;
+    QTableWidget* capturedFishWidget;
+
+    void updateCapturedFishWidget(std::vector<Fish> capturedFish);
 };

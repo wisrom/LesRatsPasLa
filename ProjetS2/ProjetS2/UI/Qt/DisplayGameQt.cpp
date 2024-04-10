@@ -45,6 +45,11 @@ DisplayGameQt::DisplayGameQt(IInput* sInput, InputGame sActions, FishingRun* sFi
 	QGridLayout* catchingFishLayout = new QGridLayout();
 	catchingFishWidget->setLayout(catchingFishLayout);
 	catchingFishWidget->setObjectName("catchingfishwidget");
+
+	capturedFishWidget = new QTableWidget();
+	capturedFishWidget->setColumnCount(2);
+	capturedFishWidget->setHorizontalHeaderLabels({ "Name", "Score" });
+
 	QWidget* timerWidget = new QWidget(this);
 	QGridLayout* timerLayout = new QGridLayout();
 	QWidget* lblTimer = new QLabel("Time : TIMER_VALUE");
@@ -76,6 +81,9 @@ DisplayGameQt::DisplayGameQt(IInput* sInput, InputGame sActions, FishingRun* sFi
 	// Ajouter le score widget au layout
 	scoreLayout->addWidget(lblScore);
 	scoreLayout->setAlignment(Qt::AlignCenter);
+
+	// Ajouter les poissons captures au layout
+	catchingFishLayout->addWidget(capturedFishWidget);
 
 	// Ajouter le timer widget au layout
 	timerLayout->addWidget(lblTimer);
