@@ -2,7 +2,8 @@
 
 struct InputMenu
 {
-  Movement movement;
+  bool pressedNext;
+  bool pressedPrevious;
   bool selectedOption;
   bool pressedBack;
 };

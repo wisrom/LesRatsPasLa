@@ -90,6 +90,10 @@ QWidget* DisplayGameQt::createGamePage() {
 	catchingFishWidget->setLayout(catchingFishLayout);
 	catchingFishWidget->setObjectName("catchingfishwidget");
 
+	capturedFishWidget = new QTableWidget();
+	capturedFishWidget->setColumnCount(2);
+	capturedFishWidget->setHorizontalHeaderLabels({ "Name", "Score" });
+
 	QWidget* timerWidget = new QWidget(this);
 	QGridLayout* timerLayout = new QGridLayout();
 	lblTimer = new QLabel("Time : TIMER_VALUE");
@@ -222,30 +226,5 @@ void DisplayGameQt::handleTimer() {
 		quit = false;
 		backToMenu();
 		// TODO réinitialiser
-	}
-}
-
-void DisplayGameQt::updateCapturedFish(std::vector<Fish> capturedFish, QGridLayout* layout)
-{
-	// Add labels to the layout
-	capturedFishWidget.clear();
-	//layout.remo
-
-	for (Fish fish : capturedFish)
-	{
-		capturedFishWidget << QString::fromStdString(fish.getName()) << QString::number(fish.getScore());
-	}
-
-	int row = 0;
-	int column = 0;
-	for (const QString& text : capturedFishWidget) 
-	{
-		QLabel* label = new QLabel(text);
-		layout->addWidget(label, row, column);
-		// Switch between columns
-		column = (column + 1) % 2;
-		// Increment row every two columns
-		if (column == 0)
-			++row;
 	}
 }
