@@ -18,20 +18,25 @@ public:
     QGraphicsPixmapItem* fish = nullptr;
     void removeFishToGet();
     void resizeLbl(QLabel* lbl);
+    void changeImageFish();
+    void changeImageBubble();
 protected:
     void resizeEvent(QResizeEvent* event) override;
 
 private:
-    QString playerImgPath = ":/Img/hamecon.png";
-    QString waterImgPath = ":/Img/eau.png";
-    QString fishImgPath = ":/Img/poisson";
+    QString playerImgPath = ":/Img/boat.png";
+    QString waterImgPath = ":/Img/water.jpg";
+    QString bubbleImgPath = ":/Img/bulles.png";
+    QString fishImgPath = ":/Img/poisson.png";
 
+    bool isReady = false;
+    QGraphicsPixmapItem* fishPopItem;
+    QVector<QGraphicsPixmapItem*> fishsToGet;
     void scaleImg(QPixmap imagePath, QGraphicsPixmapItem* pixmapItem);
     void ResizeGrid(QResizeEvent* event);
     QGraphicsScene *scene;
     FishingRun* fishingRun;
     QVector<QGraphicsPixmapItem*> cells;
-    QVector<QGraphicsPixmapItem*> fishsToGet;
     QVector <QLabel*> lbls;
 
     int cellSize;

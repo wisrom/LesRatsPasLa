@@ -13,6 +13,7 @@ DisplayGameQt::DisplayGameQt(IInput* sInput, InputGame sActions, FishingRun* sFi
 	: QMainWindow(parent), fishingRun(sFishingRun), input(sInput), actions(sActions)
 {
 	QWidget* mainmainWidget = new QWidget(this);
+
 	QVBoxLayout* layout = new QVBoxLayout(this);
 	layout->setSpacing(0);
 	layout->setContentsMargins(0, 0, 0, 0);
@@ -90,6 +91,10 @@ QWidget* DisplayGameQt::createGamePage() {
 	catchingFishWidget->setLayout(catchingFishLayout);
 	catchingFishWidget->setObjectName("catchingfishwidget");
 
+	capturedFishWidget = new QTableWidget();
+	capturedFishWidget->setColumnCount(2);
+	capturedFishWidget->setHorizontalHeaderLabels({ "Name", "Score" });
+
 	QWidget* timerWidget = new QWidget(this);
 	QGridLayout* timerLayout = new QGridLayout();
 	lblTimer = new QLabel("Time : TIMER_VALUE");
@@ -137,9 +142,12 @@ QWidget* DisplayGameQt::createGamePage() {
 	//Resize Label
 	gameView->resizeLbl(lblScore);
 	gameView->resizeLbl(lblTimer);
-	QPushButton* backButton = new QPushButton("Back to Menu");
-	gaugeLayout->addWidget(backButton);
-	connect(backButton, &QPushButton::clicked, this, &DisplayGameQt::backToMenu);
+
+	QPalette palette;
+	palette.setBrush(QPalette::Window, QBrush(QPixmap(":/Img/nemo.jpg").scaled(this->size())));
+	mainWidget->setAutoFillBackground(true);
+	mainWidget->setPalette(palette);
+
 	return mainWidget;
 }
 
@@ -195,10 +203,17 @@ DisplayGameQt::~DisplayGameQt()
 void DisplayGameQt::handleTimer() {
 	gameView->refreshMove(fishingRun);
 	gameView->removeFishToGet();
-	
+
+	if (fishingRun->getCurrentSession()->getNearFish().getIsCapturing()) {
+		gameView->changeImageFish();
+	}
+	else {
+		gameView->changeImageBubble();
+	}
 
 	Fish fishEmpty = Fish();
 	if (fishingRun->getCurrentSession()->getNearFish().getId() != fishEmpty.getId()) {
+
 		bghReelGauge->updateValues(
 			fishingRun->getCurrentSession()->getNearFish().getCurrentCaptureStep().speed_rpm - fishingRun->getCurrentSession()->getNearFish().getCurrentCaptureStep().margin,
 			fishingRun->getCurrentSession()->getNearFish().getCurrentCaptureStep().margin + fishingRun->getCurrentSession()->getNearFish().getCurrentCaptureStep().speed_rpm,
@@ -222,30 +237,5 @@ void DisplayGameQt::handleTimer() {
 		quit = false;
 		backToMenu();
 		// TODO réinitialiser
-	}
-}
-
-void DisplayGameQt::updateCapturedFish(std::vector<Fish> capturedFish, QGridLayout* layout)
-{
-	// Add labels to the layout
-	capturedFishWidget.clear();
-	//layout.remo
-
-	for (Fish fish : capturedFish)
-	{
-		capturedFishWidget << QString::fromStdString(fish.getName()) << QString::number(fish.getScore());
-	}
-
-	int row = 0;
-	int column = 0;
-	for (const QString& text : capturedFishWidget) 
-	{
-		QLabel* label = new QLabel(text);
-		layout->addWidget(label, row, column);
-		// Switch between columns
-		column = (column + 1) % 2;
-		// Increment row every two columns
-		if (column == 0)
-			++row;
 	}
 }
