@@ -45,7 +45,7 @@ void DisplayGameQt::backToMenu() {
 }
 
 QWidget* DisplayGameQt::createMenuPage() {
-	DisplayMenuQt* displayMenu = new DisplayMenuQt(new int(1), fishingRun, this);
+	DisplayMenuQt* displayMenu = new DisplayMenuQt(new int(1), fishingRun, input, actions, this);
 	connect(displayMenu, &DisplayMenuQt::startClicked, this, &DisplayGameQt::startGame);
 
 	return displayMenu->widget;

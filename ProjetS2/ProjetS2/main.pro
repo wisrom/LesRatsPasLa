@@ -85,4 +85,4 @@ Img/eau.png \
 Img/hamecon.png \
 Img/poisson.png \
 
-QT += widgets
+QT += widgets multimedia

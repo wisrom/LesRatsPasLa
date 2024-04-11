@@ -1,107 +1,193 @@
 #include "DisplayMenuQt.h"
 
-DisplayMenuQt::DisplayMenuQt(int* sdifficulty, FishingRun* sFishingRun, QWidget* parent) : QMainWindow(parent), fishingRun(sFishingRun), difficulty(sdifficulty){
-   writeMenu();
-}
 
-//DisplayMenuQt::DisplayMenuQt(int* intValue, FishingRun* sFishingRun, QWidget* parent) : difficulty(intValue), QMainWindow(parent), fishingRun(sFishingRun) {
-//    writeMenu();    
-//}
-
-//DisplayMenuQt::DisplayMenuQt(int argc_, char** argv_, int* intValue) : DisplayMenuQt(intValue){
-//    argc = argc_;
-//    argv = argv_;
-//}DisplayMenuQt::DisplayMenuQt(int argc_, char** argv_, int* intValue) : DisplayMenuQt(intValue){
-//    argc = argc_;
-//    argv = argv_;
-//}
-//DisplayMenuQt::DisplayMenuQt(QWidget* parent) : argc(argc_), argv(argv_) ,QMainWindow(parent) {
-
-
-void DisplayMenuQt::resizeEvent(QResizeEvent* event) {
-    QMainWindow::resizeEvent(event); // Call base class implementation
-
-    // Call the function to adjust button positions
-    adjustButtonPositions();
-}
-
-void DisplayMenuQt::adjustButtonPositions() {
-    // Calculate x position for centering buttons
-    
-    int windowWidth = this->geometry().width();
-    int windowHeight = this->geometry().height();
-    
-    int buttonsWidth = windowWidth / 3;
-    int buttonsHeight = (windowHeight/2) / 5;
-
-    int xPos = int((windowWidth - buttonsWidth) / 2);
-    int yPos = int(int((windowHeight - (buttonsHeight)) / 6));
-
-    startButton->setGeometry(xPos, yPos, buttonsWidth, buttonsHeight);
-    optionButton->setGeometry(xPos, yPos*2, buttonsWidth, buttonsHeight);
-    scoreButton->setGeometry(xPos, yPos*3, buttonsWidth, buttonsHeight);
-    
-    difficultyLabel->setGeometry(xPos, yPos * 4, buttonsWidth, buttonsHeight);
-    increaseButton->setGeometry(xPos, yPos*5, buttonsWidth/2, buttonsHeight);
-    decreaseButton->setGeometry(xPos+ buttonsWidth/2, yPos*5, buttonsWidth/2, buttonsHeight);
-}
-
-void DisplayMenuQt::writeMenu(){
+DisplayMenuQt::DisplayMenuQt(int* intValue, FishingRun* sFishingRun, IInput* input_, InputGame actions_, QWidget* parent) :
+    difficulty(intValue), fishingRun(sFishingRun), QMainWindow(parent), actions(actions_), input(input_)
+{
     widget = new QWidget;
+    writeMenu();
+    startSound();
+}
+
+
+void DisplayMenuQt::startSound() {
+    QMediaPlayer* _mediaPlayer = new QMediaPlayer;
+    QAudioOutput* _audioOutput = new QAudioOutput;
+
+    _mediaPlayer->setAudioOutput(_audioOutput);
+    _mediaPlayer->setSource(QUrl("C:/Users/jacob/Downloads/harbour_seagulls_day_2-22341.mp3"));
+    _audioOutput->setVolume(100);
+    _mediaPlayer->setLoops(QMediaPlayer::Infinite);
+    _mediaPlayer->play();
+}
+
+void DisplayMenuQt::exitMenu() {
+    widget->parentWidget()->window()->close();
+}
+
+void DisplayMenuQt::setLabels() {
+
+    difficultyLabel = new QLabel(QString("Difficulty : " + QString::number(*difficulty)));
+
+    DataFile data;
+    std::vector<int> Scores = data.getScores();
+    Scores.push_back(0);
+    std::sort(Scores.begin(), Scores.end(), std::greater<int>());
+    int highestScore = Scores[0];
+    highestScoreLabel = new QLabel(QString("Highest score : " + QString::number(highestScore)));
+
+    highestScoreLabel->setAlignment(Qt::AlignCenter);
+    highestScoreLabel->setMaximumHeight(75);
+
+    difficultyLabel->setAlignment(Qt::AlignCenter);
+    difficultyLabel->setMaximumHeight(75);
+
+}
+
+void DisplayMenuQt::writeMenu() {
     setWindowTitle("Menu");
-    resize(800, 600);
-    layout = new QVBoxLayout(widget);
-    
-    //difficultyLabel = new QLabel(QString("Difficulty set to " + QString::number(*difficulty)), this);
-    difficultyLabel = new QLabel(QString("Difficulty set to " + QString::number(*difficulty)), this);
-    layout->addWidget(difficultyLabel);
+
+    mainlayout = new QVBoxLayout(widget);
+
+    buttonsLayout = new QVBoxLayout;
+    startLayout = new QHBoxLayout;
+    scoreLayout = new QHBoxLayout;
+    optionsLayout = new QHBoxLayout;
+    difficultyShowLayout = new QVBoxLayout;
+    difficultyControlLayout = new QHBoxLayout;
+    exitLayout = new QHBoxLayout;
+    labelWidget = new QWidget;
+
+    setLabels();
 
     QFont font1("Arial", 22, QFont::Bold);
     QFont font2("Arial", 18, QFont::Bold);
     QFont font3("Arial", 16, QFont::Bold);
-    difficultyLabel->setFont(font1);
 
-    startButton = new QPushButton("Start", this);
-    optionButton = new QPushButton("Options", this);
-    scoreButton = new QPushButton("Scores", this);
-    increaseButton = new QPushButton("Increase", this);
-    decreaseButton = new QPushButton("Decrease", this);
-    /*
+    difficultyLabel->setFont(font1);
+    highestScoreLabel->setFont(font1);
+
     startButton = new QPushButton("Start");
     optionButton = new QPushButton("Options");
     scoreButton = new QPushButton("Scores");
     increaseButton = new QPushButton("Increase");
     decreaseButton = new QPushButton("Decrease");
-    */
+    exitButton = new QPushButton("Exit");
 
     startButton->setFont(font2);
     optionButton->setFont(font2);
     scoreButton->setFont(font2);
     increaseButton->setFont(font3);
     decreaseButton->setFont(font3);
+    exitButton->setFont(font2);
 
-    layout->addWidget(startButton);
-    layout->addWidget(optionButton);
-    layout->addWidget(scoreButton);
-    layout->addWidget(increaseButton);
-    layout->addWidget(decreaseButton);
+    int space = 600;
+    startLayout->addSpacing(space);
+    startLayout->addWidget(startButton);
+    startLayout->addSpacing(space);
 
-    adjustButtonPositions();
+    optionsLayout->addSpacing(space);
+    optionsLayout->addWidget(optionButton);
+    optionsLayout->addSpacing(space);
 
-    connect(startButton, &QPushButton::clicked, [this]() {
-        emit startClicked();
-        });
+    scoreLayout->addSpacing(space);
+    scoreLayout->addWidget(scoreButton);
+    scoreLayout->addSpacing(space);
+
+    difficultyShowLayout->addWidget(difficultyLabel);
+    difficultyShowLayout->addWidget(highestScoreLabel);
+
+    labelWidget->setLayout(difficultyShowLayout);
+    labelWidget->setMaximumHeight(150);
+    labelWidget->setStyleSheet("background:transparent;");
+
+    difficultyControlLayout->addSpacing(space);
+    difficultyControlLayout->addWidget(increaseButton);
+    difficultyControlLayout->addSpacing(10);
+    difficultyControlLayout->addWidget(decreaseButton);
+    difficultyControlLayout->addSpacing(space);
+
+    exitLayout->addSpacing(space);
+    exitLayout->addWidget(exitButton);
+    exitLayout->addSpacing(space);
+
+    buttonsLayout->addSpacing(10);
+
+
+    buttonsLayout->addLayout(startLayout);
+    buttonsLayout->addLayout(optionsLayout);
+    buttonsLayout->addLayout(scoreLayout);
+
+    buttonsLayout->addWidget(labelWidget);
+    //buttonsLayout->addLayout(difficultyShowLayout);
+
+    buttonsLayout->addLayout(difficultyControlLayout);
+    buttonsLayout->addLayout(exitLayout);
+
+    buttonsLayout->addSpacing(10);
+    mainlayout->addLayout(buttonsLayout);
+
+
+    //adjustButtonPositions();
+
+    connect(startButton, &QPushButton::clicked, [this]() {emit startClicked(); });
+
     connect(optionButton, &QPushButton::clicked, this, &DisplayMenuQt::getOptions);
-    connect(scoreButton, &QPushButton::clicked, this, &DisplayMenuQt::getScores);
+    connect(scoreButton, &QPushButton::clicked, this, &DisplayMenuQt::getScoresPage);
     connect(increaseButton, &QPushButton::clicked, this, &DisplayMenuQt::handleIncrease);
     connect(decreaseButton, &QPushButton::clicked, this, &DisplayMenuQt::handleDecrease);
+    connect(exitButton, &QPushButton::clicked, this, &DisplayMenuQt::exitMenu);
 
-    connect(this, &DisplayMenuQt::resizeEvent, this, &DisplayMenuQt::adjustButtonPositions);
-    
-    setLayout(layout);
-    
+    optionButton->setShortcut(Qt::Key::Key_O);
+    scoreButton->setShortcut(Qt::Key::Key_P);
+    exitButton->setShortcut(Qt::Key::Key_C);
+
+    std::vector<QPushButton*> buttons = { startButton, optionButton, increaseButton, decreaseButton, scoreButton, exitButton };
+    buttonsList = buttons;
+    setButtonsStyle(buttons);
+    setBackground();
+
+    widget->setLayout(mainlayout);
+    QPixmap cursorImage("C:/Users/jacob/OneDrive/Bureau/Images projet s2/Bateau/mouseImg.png");
+    QCursor cursor(cursorImage);
+
+    widget->setCursor(cursor);
+    currentSelected = new int(0);
+    //currentSelectedButton = startButton;
+    setMousePos();
 }
-//
+
+void DisplayMenuQt::setMousePos() {
+
+    (*currentSelected)++;
+    int y = *currentSelected * 50 + 25;
+    //if(currentSelected)
+    //changeLabelValue(difficultyLabel, QString("value : " + QString::number(*currentSelected)));
+    //QCursor::setPos(globalButtonCenter);
+    //QPoint cursorPos;   
+
+
+    //QCursor::setPos(100, 100);
+
+    //widgetAtMouse->setCursor()
+    //widgetAtMouse->grabMouse();
+    //QCursor.setPosition(widgetAtMouse->getPosi);
+    //QPushButton* clickedButton = qobject_cast<QPushButton*>(widgetAtMouse);
+}
+
+void DisplayMenuQt::toNext() {
+    if (*currentSelected > 1) { (*currentSelected)--; }
+    else { *currentSelected = 4; }
+    //changeLabelValue(difficultyLabel, QString("Difficulty set to " + QString::number(*currentSelected)));
+    setMousePos();
+}
+void DisplayMenuQt::toPrevious() {
+    if (*currentSelected < 4) { (*currentSelected)++; }
+    else { *currentSelected = 1; }
+    //changeLabelValue(difficultyLabel, QString("Difficulty set to " + QString::number(*currentSelected)));
+    setMousePos();
+}
+
 void DisplayMenuQt::keyPressEvent(QKeyEvent* event) {
     /*
     * Arrows : move from choice to choice
@@ -114,28 +200,30 @@ void DisplayMenuQt::keyPressEvent(QKeyEvent* event) {
     */
 
     switch (event->key()) {
-    //Movements
+        //Movements
     case Qt::Key_Up:
-        move(0, y() - 10); break;
+        toNext(); break;
     case Qt::Key_Down:
-        move(0, y() + 10); break;
+        toPrevious(); break;
     case Qt::Key_Left:
-        move(x() - 10, 0); break;
+        toNext(); break;
     case Qt::Key_Right:
-        move(x() + 10, 0); break;
+        toPrevious(); break;
 
-    //Quick access
+        //Quick access
     case Qt::Key_C:
         *difficulty = -1;
-        close(); break;
+        exitMenu();
+        break;
     case Qt::Key_O:
         getOptions(); break;
     case Qt::Key_P:
-        getScores(); break;
-    
+        getScoresPage(); break;
+
     case Qt::Key_1:
         *difficulty = 1;
-        startClicked(); break;
+        startClicked();
+        break;
     case Qt::Key_2:
         *difficulty = 2;
         startClicked(); break;
@@ -146,7 +234,7 @@ void DisplayMenuQt::keyPressEvent(QKeyEvent* event) {
         *difficulty = 4;
         startClicked(); break;
 
-    //Normal press
+        //Normal press
     case Qt::Key_Space:
         selectActual(); break;
     case Qt::Key_Enter:
@@ -158,48 +246,50 @@ void DisplayMenuQt::keyPressEvent(QKeyEvent* event) {
         //QWidget::keyPressEvent(event);
     }
 }
-//
+
 void DisplayMenuQt::selectActual() {
     QPoint mousePos = QCursor::pos();
     QWidget* widgetAtMouse = childAt(mousePos);
-
-    // Check if the widget at the mouse position is a QPushButton
     QPushButton* clickedButton = qobject_cast<QPushButton*>(widgetAtMouse);
-    //if (clickedButton) {qDebug() << "Mouse is over the perimeter of button:" << clickedButton->text();}
-    //else {qDebug() << "Mouse is not over the perimeter of any button.";}
-    
 }
-//
-////to complete
-void DisplayMenuQt::getScores() {
+
+
+//to complete
+void DisplayMenuQt::getScoresPage() {
     QDialog* dialog = new QDialog(this);
     dialog->setWindowTitle("Scores logs");
-    
+
     dialog->resize(300, 400);
 
     QLabel* Infos = new QLabel("\nList of the best scores\nGood Luck Beating them!\n", dialog);
 
-    //get the top 5 scores!!!
-    int vtop1 = 1000;
-    int vtop2 = 800;
-    int vtop3 = 700;
-    int vtop4 = 600;
-    int vtop5 = 500;
-    
-    QLabel* top1 = new QLabel("Score to beat : " + QString::number(vtop1), dialog);
-    QLabel* top2 = new QLabel("Second : "+QString::number(vtop2), dialog);
-    QLabel* top3 = new QLabel("Third : " + QString::number(vtop3), dialog);
-    QLabel* top4 = new QLabel("4th : " + QString::number(vtop4), dialog);
-    QLabel* top5 = new QLabel("5th : " + QString::number(vtop5), dialog);
-    
+    DataFile data;
+    std::vector<int> scores = data.getScores();
+    for (int i = 0; i < 7; i++) { scores.push_back(i * 3); }
+
+    std::sort(scores.begin(), scores.end(), std::greater<int>());
+    std::vector<int> vtop = { 0, 0, 0, 0, 0 };
+
+    for (int i = 0; i < 5; i++) { vtop[i] = scores[i]; }
+
+    QFont fontscore("Arial", 18, QFont::Bold);
+
+    QLabel* top1 = new QLabel("Score to beat : " + QString::number(vtop[0]), dialog);
+    QLabel* top2 = new QLabel("Second : " + QString::number(vtop[1]), dialog);
+    QLabel* top3 = new QLabel("Third : " + QString::number(vtop[2]), dialog);
+    QLabel* top4 = new QLabel("4th : " + QString::number(vtop[3]), dialog);
+    QLabel* top5 = new QLabel("5th : " + QString::number(vtop[4]), dialog);
+    Infos->setFont(fontscore);
+    top1->setFont(fontscore); top2->setFont(fontscore); top3->setFont(fontscore); top4->setFont(fontscore); top5->setFont(fontscore);
     // Align the text to the left
     Infos->setAlignment(Qt::AlignCenter);
-    top1->setAlignment(Qt::AlignLeft); 
-    top2->setAlignment(Qt::AlignLeft);
-    top3->setAlignment(Qt::AlignLeft);
-    top4->setAlignment(Qt::AlignLeft);
-    top5->setAlignment(Qt::AlignLeft);
+    top1->setAlignment(Qt::AlignCenter);
+    top2->setAlignment(Qt::AlignCenter);
+    top3->setAlignment(Qt::AlignCenter);
+    top4->setAlignment(Qt::AlignCenter);
+    top5->setAlignment(Qt::AlignCenter);
 
+    //dialog-
     //QLabel* scores = new QLabel("Score to beat : \nSecond : \n Third : \n \n\n4:\n5:\n6:", dialog);
     //scores->setAlignment(Qt::AlignRight); // Align the text to the left
 
@@ -216,6 +306,34 @@ void DisplayMenuQt::getScores() {
     dialog->exec(); // Use exec() for modal dialog or show() for modeless dialog
 }
 
+void DisplayMenuQt::setBackground() {
+    //mainlayout
+    widget->setStyleSheet("background-image: url(C:/Users/jacob/OneDrive/Bureau/imageback.png);"
+        "background-repeat: no-repeat;"
+        "background-position: center;"
+        "background-color: #000000;"
+    );
+
+
+    //this->cursor() = cursor;
+}
+
+void DisplayMenuQt::setButtonsStyle(std::vector<QPushButton*> buttons) {
+    for (size_t i = 0; i < buttons.size(); i++) {
+        buttons[i]->setStyleSheet("QPushButton {"
+            //"background-color: #4CAF50;" // Green background color
+            "background: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 1, stop: 0 #00A0FF, stop: 1 #000FFF);"
+            "color: white;"               // Text color
+            "border-style: outset;"       // Border style
+            "border-width: 2px;"           // Border width
+            "border-radius: 10px;"         // Border radius
+            "border-color: #000000;"      // Border color
+            "padding: 6px;"                // Padding
+            "}");
+
+    }
+
+}
 void DisplayMenuQt::getOptions() {
     qDebug() << "\nOptions button clicked!";
 
@@ -225,82 +343,45 @@ void DisplayMenuQt::getOptions() {
 
 
     QLabel* Infos = new QLabel("Set the difficulty (1 to 4)", dialog);
-    
+
     QVBoxLayout* layoutDialog = new QVBoxLayout(dialog);
-    
+
     QPushButton* increaseBut = new QPushButton("Increase", this);
     QPushButton* decreaseBut = new QPushButton("Decrease", this);
-    
+
     increaseBut->setGeometry(100, 50, 100, 50);
     increaseBut->setGeometry(100, 150, 100, 50);
 
     connect(increaseBut, &QPushButton::clicked, this, &DisplayMenuQt::handleIncrease);
     connect(decreaseBut, &QPushButton::clicked, this, &DisplayMenuQt::handleDecrease);
-    
+
     Infos->setAlignment(Qt::AlignCenter);
-    
+
     layoutDialog->addWidget(increaseBut);
     layoutDialog->addWidget(decreaseBut);
     // Align the text to the left
-    
 
 
     //QLabel* scores = new QLabel("Score to beat : \nSecond : \n Third : \n \n\n4:\n5:\n6:", dialog);
     //scores->setAlignment(Qt::AlignRight); // Align the text to the left
 
-
     QVBoxLayout* layout = new QVBoxLayout(dialog);
-
     layout->addWidget(Infos);
-
     dialog->exec(); // Use exec() for modal dialog or show() for modeless dialog
 
 }
-//
-void DisplayMenuQt::changeLabelValue(QLabel* label, QString value){
+
+void DisplayMenuQt::changeLabelValue(QLabel* label, QString value) {
     label->setText(value);
 }
-//
-//void DisplayMenuQt::drawGameWindow() {
-//
-//}
-//
-//void DisplayMenuQt::openGameWindow() {
-//    InputGame actions = InputGame();
-//    FishingRun fishingRun = FishingRun();
-//    fishingRun.getCurrentSession()->difficulty = *difficulty;
-//    
-//   /* GameWindowQt gameWindow(actions, fishingRun);
-//    gameWindow.show();
-//    
-//    Sleep(4000);
-//    gameWindow.start();*/
-//    
-//}
-// 
-//    
-//void DisplayMenuQt::openGame() {
-//    this->hide();
-//    openGameWindow();
-//    //Sleep(1000);
-//    this->show();
-//}
-//
-
-//
-//
 void DisplayMenuQt::handleIncrease() {
-    if (*difficulty<4) {(*difficulty)++;}
+    if (*difficulty < 4) { (*difficulty)++; }
     else { *difficulty = 1; }
-    qDebug() << "Value increased to" << *difficulty;
     changeLabelValue(difficultyLabel, QString("Difficulty set to " + QString::number(*difficulty)));
-
 }
-
 void DisplayMenuQt::handleDecrease() {
-    if (*difficulty>1) {(*difficulty)--;}
+    if (*difficulty > 1) { (*difficulty)--; }
     else { *difficulty = 4; }
-    qDebug() << "Value decreased to" << *difficulty;
     changeLabelValue(difficultyLabel, QString("Difficulty set to " + QString::number(*difficulty)));
 }
 
