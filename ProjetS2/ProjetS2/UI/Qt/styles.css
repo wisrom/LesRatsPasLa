@@ -7,32 +7,31 @@ QLabel {
 }
 
 #scoreWidget {
-    background-color: rgba(170, 170, 172, 0.2);
+    background-color: rgba(231, 231, 231, 0.2);
 }
 
 #lblScore {
-    border-bottom: 5px dotted black;
 }
 
 #gameView {
     border: 5px double black;
-    background-color: rgb(49, 179, 217); /* Blue */
+    background-color: rgb(27, 170, 249);
 }
 
 #gameWidget {
-    background-color: rgb(49, 179, 217); /* Blue */
+    background-color: rgb(27, 170, 249);
 }
 
 #gaugeWidget {
-    background-color: rgba(0, 255, 0, 0.2); /* Vert */
+    background-color: rgba(231, 231, 231, 0.2);
 }
 
 #catchingfishwidget {
-    background-color: rgba(255, 0, 0, 0.2); /* Rouge */
+    background-color: rgba(231, 231, 231, 0.2);
 }
 
 #timerWidget {
-    background-color: rgba(0, 0, 255, 0.2); /* Bleu */
+    background-color: rgba(231, 231, 231, 0.2);
 }
 
 

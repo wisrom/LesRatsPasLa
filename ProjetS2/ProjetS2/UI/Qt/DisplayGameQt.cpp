@@ -13,6 +13,7 @@ DisplayGameQt::DisplayGameQt(IInput* sInput, InputGame sActions, FishingRun* sFi
 	: QMainWindow(parent), fishingRun(sFishingRun), input(sInput), actions(sActions)
 {
 	QWidget* mainmainWidget = new QWidget(this);
+
 	QVBoxLayout* layout = new QVBoxLayout(this);
 	layout->setSpacing(0);
 	layout->setContentsMargins(0, 0, 0, 0);
@@ -141,9 +142,12 @@ QWidget* DisplayGameQt::createGamePage() {
 	//Resize Label
 	gameView->resizeLbl(lblScore);
 	gameView->resizeLbl(lblTimer);
-	QPushButton* backButton = new QPushButton("Back to Menu");
-	gaugeLayout->addWidget(backButton);
-	connect(backButton, &QPushButton::clicked, this, &DisplayGameQt::backToMenu);
+
+	QPalette palette;
+	palette.setBrush(QPalette::Window, QBrush(QPixmap(":/Img/nemo.jpg").scaled(this->size())));
+	mainWidget->setAutoFillBackground(true);
+	mainWidget->setPalette(palette);
+
 	return mainWidget;
 }
 
@@ -199,10 +203,17 @@ DisplayGameQt::~DisplayGameQt()
 void DisplayGameQt::handleTimer() {
 	gameView->refreshMove(fishingRun);
 	gameView->removeFishToGet();
-	
+
+	if (fishingRun->getCurrentSession()->getNearFish().getIsCapturing()) {
+		gameView->changeImageFish();
+	}
+	else {
+		gameView->changeImageBubble();
+	}
 
 	Fish fishEmpty = Fish();
 	if (fishingRun->getCurrentSession()->getNearFish().getId() != fishEmpty.getId()) {
+
 		bghReelGauge->updateValues(
 			fishingRun->getCurrentSession()->getNearFish().getCurrentCaptureStep().speed_rpm - fishingRun->getCurrentSession()->getNearFish().getCurrentCaptureStep().margin,
 			fishingRun->getCurrentSession()->getNearFish().getCurrentCaptureStep().margin + fishingRun->getCurrentSession()->getNearFish().getCurrentCaptureStep().speed_rpm,

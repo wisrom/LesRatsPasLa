@@ -30,7 +30,7 @@ GameView::GameView(FishingRun* sFishingRun, QWidget* parent) : fishingRun(sFishi
 	{
 		fishPosition = fish.getPosition();
 
-		QPixmap fishPixmap(fishImgPath);
+		QPixmap fishPixmap(bubbleImgPath);
 		QGraphicsPixmapItem* fishImg = new QGraphicsPixmapItem;
 		fishImg->setPixmap(fishPixmap.scaled(cellSize, cellSize, Qt::KeepAspectRatio));
 		fishImg->setPos(fishPosition.x * cellSize, fishPosition.y * cellSize);
@@ -61,6 +61,43 @@ void GameView::removeFishToGet()
 	}
 }
 
+void GameView::changeImageFish() {
+	QPixmap fishImg(fishImgPath);
+	fishPopItem = new QGraphicsPixmapItem;
+	Position pos = fishingRun->getCurrentSession()->player.getPosition();
+	scene->addItem(fishPopItem);
+	fishPopItem->setPos(pos.x, pos.y);
+	scaleImg(fishImg, fishPopItem);
+	isReady = true;
+
+	/*Fish fish = fishingRun->getCurrentSession()->getNearFish();
+	Position pos = fish.getPosition();
+	std::vector<Fish> lstFishs = fishingRun->getCurrentSession()->fishs;
+	QPixmap fishImg(fishImgPath);
+	for (int i = 0; i < lstFishs.size(); i++)
+	{
+		if (lstFishs[i].getPosition().x == pos.x && lstFishs[i].getPosition().y == pos.y) {
+			fishsToGet[i]->setPixmap(fishImg);
+			scaleImg(fishImg, fishsToGet[i]);
+		}
+	}*/
+}
+
+void GameView::changeImageBubble() {
+	if (isReady) {
+		scene->removeItem(fishPopItem);
+		isReady = false;
+	}
+
+
+	/*QPixmap bubbleImg(bubbleImgPath);
+	for (int i = 0; i < fishsToGet.size(); i++)
+	{
+		fishsToGet[i]->setPixmap(bubbleImg);
+		scaleImg(bubbleImg, fishsToGet[i]);
+	}*/
+}
+
 void GameView::resizeLbl(QLabel* lbl)
 {
 	lbls.append(lbl);
@@ -71,8 +108,6 @@ void GameView::scaleImg(QPixmap imagePath, QGraphicsPixmapItem* pixmapItem) {
 }
 
 GameView::~GameView() {}
-
-
 
 void GameView::resizeEvent(QResizeEvent* event) {
 	ResizeGrid(event);
@@ -88,7 +123,7 @@ void GameView::resizeEvent(QResizeEvent* event) {
 	// Resize fish to get
 	std::vector<Fish> lstFish = fishingRun->getCurrentSession()->fishs;
 	Position fishPosition;
-	QPixmap fishImg(fishImgPath);
+	QPixmap fishImg(bubbleImgPath);
 	for (int i = 0; i < fishsToGet.count(); i++)
 	{
 		fishPosition = lstFish[i].getPosition();
