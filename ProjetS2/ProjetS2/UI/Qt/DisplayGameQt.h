@@ -21,8 +21,17 @@ protected:
 
 private slots:
     void handleTimer();
+    void startGame();
+    void backToMenu();
 
 private:
+    QStackedWidget* stackedWidget;
+    QWidget* createMenuPage();
+    QWidget* createGamePage();
+    QPushButton* startButton;
+    //QWidget* gamePage = new QWidget();
+    
+
     ReelGauge* bghReelGauge;
     FishingRun* fishingRun;
     IInput* input;

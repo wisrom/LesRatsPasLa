@@ -17,7 +17,7 @@ public:
     void refreshMove(FishingRun* fishingRun);
     QGraphicsPixmapItem* fish = nullptr;
     void removeFishToGet();
-
+    void resizeLbl(QLabel* lbl);
 protected:
     void resizeEvent(QResizeEvent* event) override;
 
@@ -31,6 +31,7 @@ private:
     FishingRun* fishingRun;
     QVector<QGraphicsPixmapItem*> cells;
     QVector<QGraphicsPixmapItem*> fishsToGet;
+    QVector <QLabel*> lbls;
 
     int cellSize;
     int numCols = 29;

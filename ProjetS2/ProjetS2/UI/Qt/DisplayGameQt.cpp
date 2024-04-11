@@ -10,14 +10,58 @@
 DisplayGameQt::DisplayGameQt(IInput* sInput, InputGame sActions, FishingRun* sFishingRun, QWidget* parent)
 	: QMainWindow(parent), fishingRun(sFishingRun), input(sInput), actions(sActions)
 {
-	timer = new QTimer(this);
-	connect(timer, &QTimer::timeout, this, &DisplayGameQt::handleTimer);
+	QWidget* mainmainWidget = new QWidget(this);
+
+	QVBoxLayout* layout = new QVBoxLayout(this);
+	layout->setSpacing(0);
+	layout->setContentsMargins(0, 0, 0, 0);
+	stackedWidget = new QStackedWidget;
+	QWidget* menuPage = createMenuPage(); // Widget du menu
+	QWidget* gamePage = createGamePage(); // Widget du jeu
+
+	// Ajout de widget principale dans le stack
+	stackedWidget->addWidget(menuPage);
+	stackedWidget->addWidget(gamePage);
+	mainmainWidget->setLayout(layout);
+	layout->addWidget(stackedWidget);
+	setCentralWidget(mainmainWidget);
+	connect(startButton, &QPushButton::clicked, this, &DisplayGameQt::startGame);
+}
+
+void DisplayGameQt::startGame() {
+	//QTimer timerCheck;
+	if (timer == NULL) {
+		timer = new QTimer(this);
+		connect(timer, &QTimer::timeout, this, &DisplayGameQt::handleTimer);
+	}
 	timer->start(30);
+	stackedWidget->setCurrentIndex(1);
+}
+
+void DisplayGameQt::backToMenu() {
+	timer->stop();
+	stackedWidget->setCurrentIndex(0);
+}
+
+QWidget* DisplayGameQt::createMenuPage() {
+	QWidget* widget = new QWidget;
+	QGridLayout* layout = new QGridLayout(widget);
+
+	QLabel* label = new QLabel("Menu Page");
+	startButton = new QPushButton("Start");
+
+	layout->addWidget(label);
+	layout->addWidget(startButton);
+
+	return widget;
+}
+
+QWidget* DisplayGameQt::createGamePage() {
+	
 	this->setWindowState(Qt::WindowFullScreen);
-	//resize(800, 600); // Taille initiale de la fenêtre
 
 	// Grille principale
-	QWidget* mainWidget = new QWidget(this);
+	QWidget* mainWidget = new QWidget(this); // Widget du jeu
 	QGridLayout* mainLayout = new QGridLayout();
 	mainLayout->setSpacing(0);
 	mainLayout->setContentsMargins(0, 0, 0, 0);
@@ -29,6 +73,7 @@ DisplayGameQt::DisplayGameQt(IInput* sInput, InputGame sActions, FishingRun* sFi
 	QWidget* scoreWidget = new QWidget(this);
 	QGridLayout* scoreLayout = new QGridLayout();
 	lblScore = new QLabel("Score : SCORE_VALUE");
+	lblScore->setObjectName("lblScore");
 	scoreWidget->setLayout(scoreLayout);
 	scoreWidget->setObjectName("scoreWidget");
 
@@ -93,10 +138,18 @@ DisplayGameQt::DisplayGameQt(IInput* sInput, InputGame sActions, FishingRun* sFi
 
 	// Ajouter le timer widget au layout
 	timerLayout->addWidget(lblTimer);
-	timerLayout->setAlignment(Qt::AlignRight);
+	timerLayout->setAlignment(Qt::AlignCenter);
 
 	// Ajouter la gauge de reel speed
 	gaugeLayout->addWidget(bghReelGauge);
+
+	//Resize Label
+	gameView->resizeLbl(lblScore);
+	gameView->resizeLbl(lblTimer);
+	QPushButton* backButton = new QPushButton("Back to Menu");
+	gaugeLayout->addWidget(backButton);
+	connect(backButton, &QPushButton::clicked, this, &DisplayGameQt::backToMenu);
+	return mainWidget;
 }
 
 void DisplayGameQt::keyPressEvent(QKeyEvent* event)
@@ -151,6 +204,7 @@ DisplayGameQt::~DisplayGameQt()
 void DisplayGameQt::handleTimer() {
 	gameView->refreshMove(fishingRun);
 	gameView->removeFishToGet();
+	
 
 	Fish fishEmpty = Fish();
 	if (fishingRun->getCurrentSession()->getNearFish().getId() != fishEmpty.getId()) {
@@ -165,7 +219,8 @@ void DisplayGameQt::handleTimer() {
 
 	if (fishingRun->getIsFinished())
 	{
-		// TODO retourner au menu
+		backToMenu();
+		// TODO réinitialiser
 	}
 
 	fishingRun->getCurrentSession()->processInput(actions);
@@ -174,6 +229,7 @@ void DisplayGameQt::handleTimer() {
 	if (quit)
 	{
 		quit = false;
-		//TODO retour au menu
+		backToMenu();
+		// TODO réinitialiser
 	}
 }

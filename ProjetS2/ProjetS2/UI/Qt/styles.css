@@ -3,11 +3,15 @@
 }
 
 QLabel {
-    font-size: 20px;
+    /* font-size: 20px;*/
 }
 
 #scoreWidget {
     background-color: rgba(170, 170, 172, 0.2);
+}
+
+#lblScore {
+    border-bottom: 5px dotted black;
 }
 
 #gameView {

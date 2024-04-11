@@ -1,8 +1,8 @@
 #include "GameView.h"
 #include <QDebug>
 
-
 GameView::GameView(FishingRun* sFishingRun, QWidget* parent) : fishingRun(sFishingRun) {
+
 	// Créer une scène
 	scene = new QGraphicsScene(this);
 	setScene(scene);
@@ -24,8 +24,6 @@ GameView::GameView(FishingRun* sFishingRun, QWidget* parent) : fishingRun(sFishi
 			cells.append(cell);
 		}
 	}
-
-	
 
 	Position fishPosition;
 	for (Fish fish : fishingRun->getCurrentSession()->fishs)
@@ -63,6 +61,11 @@ void GameView::removeFishToGet()
 	}
 }
 
+void GameView::resizeLbl(QLabel* lbl)
+{
+	lbls.append(lbl);
+}
+
 void GameView::scaleImg(QPixmap imagePath, QGraphicsPixmapItem* pixmapItem) {
 	pixmapItem->setPixmap(imagePath.scaled(cellSize, cellSize, Qt::KeepAspectRatio));
 }
@@ -75,6 +78,12 @@ void GameView::resizeEvent(QResizeEvent* event) {
 	ResizeGrid(event);
 	QPixmap playerImg(playerImgPath);
 	scaleImg(playerImg, fish);
+	if (lbls.size() != 0) {
+		for (QLabel* lbl : lbls) {
+			int fontSize = qMin(event->size().width(), event->size().height()) / 10; // Taille de police basée sur la taille de la fenêtre
+			lbl->setStyleSheet(QString("QLabel { font-size: %1px; }").arg(fontSize)); // Mettre à jour la taille de la police
+		}
+	}
 
 	// Resize fish to get
 	std::vector<Fish> lstFish = fishingRun->getCurrentSession()->fishs;
