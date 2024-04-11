@@ -86,8 +86,6 @@ void GameView::resizeEvent(QResizeEvent* event) {
 		fishsToGet[i]->setPos(fishPosition.x * cellSize, fishPosition.y * cellSize);
 		scaleImg(fishImg, fishsToGet[i]);
 	}
-
-	QGraphicsView::resizeEvent(event);
 }
 
 void GameView::ResizeGrid(QResizeEvent* event) {

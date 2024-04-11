@@ -13,15 +13,18 @@ DisplayGameQt::DisplayGameQt(IInput* sInput, InputGame sActions, FishingRun* sFi
 	timer = new QTimer(this);
 	connect(timer, &QTimer::timeout, this, &DisplayGameQt::handleTimer);
 	timer->start(30);
-
-	resize(800, 600); // Taille initiale de la fenêtre
+	this->setWindowState(Qt::WindowFullScreen);
+	//resize(800, 600); // Taille initiale de la fenêtre
 
 	// Grille principale
 	QWidget* mainWidget = new QWidget(this);
 	QGridLayout* mainLayout = new QGridLayout();
+	mainLayout->setSpacing(0);
+	mainLayout->setContentsMargins(0, 0, 0, 0);
 	mainWidget->setLayout(mainLayout);
 	setCentralWidget(mainWidget);
 	mainWidget->setObjectName("mainWidget");
+
 	// Grille secondaire
 	QWidget* scoreWidget = new QWidget(this);
 	QGridLayout* scoreLayout = new QGridLayout();
@@ -33,6 +36,7 @@ DisplayGameQt::DisplayGameQt(IInput* sInput, InputGame sActions, FishingRun* sFi
 	QGridLayout* gameLayout = new QGridLayout(gameWidget);
 	//gameWidget->setLayout(gameLayout);
 	gameWidget->setObjectName("gameWidget");
+
 	QWidget* gaugeWidget = new QWidget(this);
 	QGridLayout* gaugeLayout = new QGridLayout();
 	QWidget* lblReelSpeed = new QLabel("Reel Speed");
@@ -58,10 +62,10 @@ DisplayGameQt::DisplayGameQt(IInput* sInput, InputGame sActions, FishingRun* sFi
 	timerWidget->setObjectName("timerWidget");
 
 	// Ajout des widget et layout secondaire au principale
-	mainLayout->addWidget(scoreWidget, 0, 0, 1, 3);
-	mainLayout->addWidget(gameWidget, 1, 0, 6, 3);
+	mainLayout->addWidget(scoreWidget, 0, 3, 1, 1);
+	mainLayout->addWidget(gameWidget, 0, 0, 7, 3);
 	mainLayout->addWidget(gaugeWidget, 7, 0, 1, 3);
-	mainLayout->addWidget(catchingFishWidget, 0, 3, 7, 1);
+	mainLayout->addWidget(catchingFishWidget, 1, 3, 6, 1);
 	mainLayout->addWidget(timerWidget, 7, 3, 1, 1);
 
 	mainLayout->addLayout(scoreLayout, 0, 0, 1, 3);
@@ -72,9 +76,11 @@ DisplayGameQt::DisplayGameQt(IInput* sInput, InputGame sActions, FishingRun* sFi
 
 	//Game
 	gameView = new GameView(fishingRun, gameWidget);
-
+	gameView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+	gameView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+	gameView->setObjectName("gameView");
 	// Ajouter le GameView au layout principal
-	gameLayout->setContentsMargins(5, 5, 5, 5);
+	gameLayout->setContentsMargins(1, 1, 0, 0);
 	gameLayout->addWidget(gameView);
 	gameWidget->setLayout(gameLayout);
 
@@ -97,6 +103,8 @@ void DisplayGameQt::keyPressEvent(QKeyEvent* event)
 {
 	int key = event->key();
 	Movement m;
+	m.x = 0;
+	m.y = 0;
 	// WASD
 	switch (key) {
 	case Qt::Key_W:
@@ -121,6 +129,12 @@ void DisplayGameQt::keyPressEvent(QKeyEvent* event)
 		break;
 	case Qt::Key_Escape:
 		quit = true;
+		break;
+	case Qt::Key_N:
+		this->showNormal(); // Restaurer en mode fenêtré
+		break;
+	case Qt::Key_M:
+		this->setWindowState(Qt::WindowFullScreen); // Full Screen
 		break;
 	default:
 		// Ne rien faire pour les autres touches

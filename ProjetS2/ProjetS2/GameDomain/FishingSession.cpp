@@ -7,7 +7,7 @@ FishingSession::FishingSession()
     data = new DataFile();
     watershed = Watershed();
     environment = Environment();
-    map = Map(1, 20, 20);
+    map = Map(1, 29, 19);
     timer_s = 60.0f;
     timeElapsed_s = 0.0;
 }
@@ -25,7 +25,7 @@ FishingSession::FishingSession(int fishAmount, int difficulty)
 
   fishs = data->getRandomFish(fishAmount);
 
-  map = Map(1, 20, 20);
+  map = Map(1, 29, 19);
   for (int i = 0; i < fishs.size(); i++)
   {
     Position randomPosition = map.getRandomPosition();

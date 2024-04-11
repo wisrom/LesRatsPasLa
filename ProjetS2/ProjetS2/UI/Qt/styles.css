@@ -1,49 +1,34 @@
-QWidget#mainWidget {
-    background-image: url("C:/Users/kgo20/Pictures/blue1.jpg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-}
-
-
-#scoreWidget {
-    background-color: rgba(170, 170, 172, 0.2);
-    border: 1px solid black;
-    padding: 10px;
-}
-
 #gaugeBar {
     border: 1px solid black;
-    
 }
 
 QLabel {
     font-size: 20px;
 }
 
+#scoreWidget {
+    background-color: rgba(170, 170, 172, 0.2);
+}
+
+#gameView {
+    border: 5px double black;
+    background-color: rgb(49, 179, 217); /* Blue */
+}
+
 #gameWidget {
-    background-color: rgba(255, 255, 0, 0.2); /* Jaune */
-    border: 5px solid black;
-   /* padding: 10px;*/
+    background-color: rgb(49, 179, 217); /* Blue */
 }
 
 #gaugeWidget {
     background-color: rgba(0, 255, 0, 0.2); /* Vert */
-    border: 1px solid black;
-    padding: 10px;
 }
 
 #catchingfishwidget {
     background-color: rgba(255, 0, 0, 0.2); /* Rouge */
-    border: 1px solid black;
-    padding: 10px;
 }
 
 #timerWidget {
     background-color: rgba(0, 0, 255, 0.2); /* Bleu */
-    border: 1px solid black;
-    padding: 10px;
 }
 
 

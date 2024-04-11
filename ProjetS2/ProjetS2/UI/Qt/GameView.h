@@ -18,7 +18,6 @@ public:
     QGraphicsPixmapItem* fish = nullptr;
     void removeFishToGet();
 
-
 protected:
     void resizeEvent(QResizeEvent* event) override;
 
@@ -34,6 +33,6 @@ private:
     QVector<QGraphicsPixmapItem*> fishsToGet;
 
     int cellSize;
-    int numCols = 20;
-    int numRows = 20;
+    int numCols = 29;
+    int numRows = 19;
 };
