@@ -17,12 +17,6 @@ FishingSession* FishingRun::getCurrentSession()
   return &sessions[0]; // IMPLEMENT
 }
 
-void FishingRun::resetSession()
-{
-  sessions.pop_back();
-  sessions.push_back(FishingSession(12, SESSION_DIFFICULTY_EASY));
-}
-
 bool FishingRun::getIsFinished()
 {
   for (int i = 0; i < sessions.size(); i++)
