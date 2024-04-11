@@ -69,15 +69,15 @@ void DisplayMenu::displayMenu(std::vector<MenuOption> options, std::string menuN
 
 void DisplayMenu::processInput(InputMenu input, FishingRun& fishingRun)
 {
-  if (input.pressedNext && selectedOptionIndex < mainOptions.size() - 1)
-  {
-    selectedOptionIndex++;
-  }
-
-  if (input.pressedPrevious && selectedOptionIndex > 0)
-  {
-    selectedOptionIndex--;
-  }
+  //if (input.pressedNext && selectedOptionIndex < mainOptions.size() - 1)
+  //{
+  //  selectedOptionIndex++;
+  //}
+  //
+  //if (input.pressedPrevious && selectedOptionIndex > 0)
+  //{
+  //  selectedOptionIndex--;
+  //}
 
   if (input.selectedOption)
   {

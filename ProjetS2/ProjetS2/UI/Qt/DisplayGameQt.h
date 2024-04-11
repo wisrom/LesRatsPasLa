@@ -39,10 +39,10 @@ private:
     IInput* input;
     InputGame actions;
     QTimer* timer;
-    QTableWidget* capturedFishWidget;
+    QStringList capturedFishWidget;
     QLabel* lblScore;
     QLabel* lblTimer;
     bool quit = false;
 
-    //void updateCapturedFishWidget(std::vector<Fish> capturedFish);
+    void updateCapturedFish(std::vector<Fish> capturedFish, QGridLayout* layout);
 };
