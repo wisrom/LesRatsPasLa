@@ -2,6 +2,7 @@ TEMPLATE = vcapp
 TARGET = Game
 CONFIG += qt warn_on debug windows
 HEADERS += \
+UI/Qt/DisplayMenuQt.h \
 UI/Qt/DisplayGameQt.h \
 UI/Qt/GameView.h \
 UI/Qt/ReelGauge.hpp \
@@ -44,6 +45,7 @@ Communication/include/serial/SerialPort.hpp \
 
 SOURCES += \
 ProjetS2.cpp \
+UI/Qt/DisplayMenuQt.cpp \
 UI/Qt/DisplayGameQt.cpp \
 UI/Qt/GameView.cpp \
 UI/Qt/main.cpp \

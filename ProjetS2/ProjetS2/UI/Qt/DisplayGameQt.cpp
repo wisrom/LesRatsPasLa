@@ -1,4 +1,6 @@
 #include "UI/Qt/DisplayGameQt.h"
+#include "UI/Qt/DisplayMenuQt.h"
+
 #include "GameView.h"
 #include <conio.h>
 
@@ -11,13 +13,14 @@ DisplayGameQt::DisplayGameQt(IInput* sInput, InputGame sActions, FishingRun* sFi
 	: QMainWindow(parent), fishingRun(sFishingRun), input(sInput), actions(sActions)
 {
 	QWidget* mainmainWidget = new QWidget(this);
-
 	QVBoxLayout* layout = new QVBoxLayout(this);
 	layout->setSpacing(0);
 	layout->setContentsMargins(0, 0, 0, 0);
 	stackedWidget = new QStackedWidget;
+		
 	QWidget* menuPage = createMenuPage(); // Widget du menu
 	QWidget* gamePage = createGamePage(); // Widget du jeu
+
 
 	// Ajout de widget principale dans le stack
 	stackedWidget->addWidget(menuPage);
@@ -25,11 +28,9 @@ DisplayGameQt::DisplayGameQt(IInput* sInput, InputGame sActions, FishingRun* sFi
 	mainmainWidget->setLayout(layout);
 	layout->addWidget(stackedWidget);
 	setCentralWidget(mainmainWidget);
-	connect(startButton, &QPushButton::clicked, this, &DisplayGameQt::startGame);
 }
 
 void DisplayGameQt::startGame() {
-	//QTimer timerCheck;
 	if (timer == NULL) {
 		timer = new QTimer(this);
 		connect(timer, &QTimer::timeout, this, &DisplayGameQt::handleTimer);
@@ -44,16 +45,10 @@ void DisplayGameQt::backToMenu() {
 }
 
 QWidget* DisplayGameQt::createMenuPage() {
-	QWidget* widget = new QWidget;
-	QGridLayout* layout = new QGridLayout(widget);
+	DisplayMenuQt* displayMenu = new DisplayMenuQt(new int(1), fishingRun, this);
+	connect(displayMenu, &DisplayMenuQt::startClicked, this, &DisplayGameQt::startGame);
 
-	QLabel* label = new QLabel("Menu Page");
-	startButton = new QPushButton("Start");
-
-	layout->addWidget(label);
-	layout->addWidget(startButton);
-
-	return widget;
+	return displayMenu->widget;
 }
 
 QWidget* DisplayGameQt::createGamePage() {

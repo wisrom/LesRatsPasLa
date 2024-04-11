@@ -6,6 +6,8 @@
 #include "GameView.h"
 #include <QTimer>
 #include "UI/Qt/ReelGauge.hpp"
+#include <UI/Qt/DisplayMenuQt.h>
+
 
 class DisplayGameQt : public QMainWindow
 {
@@ -19,7 +21,7 @@ public:
 protected:
     void keyPressEvent(QKeyEvent* event) override;
 
-private slots:
+public slots:
     void handleTimer();
     void startGame();
     void backToMenu();
@@ -42,5 +44,5 @@ private:
     QLabel* lblTimer;
     bool quit = false;
 
-    void updateCapturedFishWidget(std::vector<Fish> capturedFish);
+    //void updateCapturedFishWidget(std::vector<Fish> capturedFish);
 };

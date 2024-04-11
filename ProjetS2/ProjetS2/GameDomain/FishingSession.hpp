@@ -37,6 +37,7 @@ public:
   bool isPlayerNearFish();
   void processInput(InputGame input);
   bool isFishPositionOccupied(Position position);
+  int difficulty;
 private:
   Watershed watershed;
   Environment environment;
@@ -44,7 +45,6 @@ private:
   int score;
   double timer_s;
   double timeElapsed_s;
-  int difficulty;
   std::chrono::system_clock::time_point startTime;
   const int CAPTURE_DISTANCE = 0;
 
