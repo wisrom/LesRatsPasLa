@@ -80,5 +80,9 @@ GameData/Fish/Fish.csv \
 GameData/Fish/FishPool.csv \
 GameData/Maps/Maps.csv \
 GameData/Scores/Scores.csv \
+Img/bulles.png \
+Img/eau.png \
+Img/hamecon.png \
+Img/poisson.png \
 
 QT += widgets
