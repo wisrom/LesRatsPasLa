@@ -47,6 +47,39 @@ GameView::GameView(FishingRun* sFishingRun, QWidget* parent) : fishingRun(sFishi
 	
 }
 
+void GameView::refreshFishscatch(QGridLayout* layout) {
+	std::vector<Fish> capturedFishsLocal = fishingRun->getCurrentSession()->capturedFishs;
+	//std::vector<Fish> capturedFishsLocal = fishingRun->getCurrentSession()->fishs;
+
+	QLayoutItem* child;
+	while ((child = layout->takeAt(0)) != nullptr) {
+		delete child->widget();
+		delete child;
+	}
+
+	QScreen* screen = QGuiApplication::primaryScreen();
+	QSize screenSize = screen->size();
+	int fontSize = screenSize.width() / 85;
+
+	int row = 0;
+	for (int i = 0; i < capturedFishsLocal.size(); i++)
+	{
+		QLabel* nameLabel = new QLabel(QString::fromStdString(capturedFishsLocal[i].getName()));
+		QLabel* scoreLabel = new QLabel(QString::number(capturedFishsLocal[i].getScore()));
+
+		QFont font = nameLabel->font();
+		font.setPointSize(fontSize);
+		font.setBold(true);
+		nameLabel->setFont(font);
+		scoreLabel->setFont(font);
+
+		layout->addWidget(nameLabel, row, 0);
+		layout->addWidget(scoreLabel, row, 1);
+
+		++row;
+	}
+}
+
 void GameView::removeFishToGet()
 {
 	std::vector<Fish> capturedFishsLocal = fishingRun->getCurrentSession()->capturedFishs;

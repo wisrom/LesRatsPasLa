@@ -16,6 +16,7 @@ Fish::Fish()
 Fish::Fish(int id, std::vector<CaptureStep> captureSteps, std::string name, float length_m, float weight_kg, int score)
 {
   this->id = id;
+  this->name = name;
   std::vector<CaptureStep> tmpCaptureSteps;
   for (CaptureStep captureStep : captureSteps)
   {

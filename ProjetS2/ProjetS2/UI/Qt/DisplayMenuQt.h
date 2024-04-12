@@ -1,4 +1,5 @@
 #pragma once
+
 #include <QApplication>
 #include <QMainWindow>
 #include <QtWidgets>
@@ -10,6 +11,7 @@
 #include <QPushButton>
 #include <QDialog>
 #include <QLabel>
+#include <QScreen>
 //#include "GameWindowQt.h"
 #include "GameDomain/FishingRun.hpp"
 //for try
@@ -23,70 +25,79 @@
 
 #include "Communication/ComSerialJSON.hpp"
 
+//#include <QMediaPlayer>
+//#include <QAudioOutput>
+#include <QUrl>
 
 
 class DisplayMenuQt : public QMainWindow {
 	Q_OBJECT
 public:
-	DisplayMenuQt(int* difficulty, FishingRun* sFishingRun, QWidget* parent = nullptr);
-	//DisplayMenuQt(int argc_, char** argv_, int* intValue);
+	DisplayMenuQt(int* difficulty, FishingRun* sFishingRun, IInput* input_, InputGame actions_, QWidget* parent = nullptr);
+	DisplayMenuQt(int* difficulty, FishingRun* sFishingRun, int width, int height, QWidget* parent = nullptr);
 	QWidget* widget;
 	QPushButton* startButton;
 	FishingRun* fishingRun;
 	int* difficulty;
 
 protected:
-	void resizeEvent(QResizeEvent* event) override;
 	void keyPressEvent(QKeyEvent* event) override;
-
+	bool eventFilter(QObject* obj, QEvent* event);
 private:
+	QTimer timerMenu;
+	std::vector<QPushButton*> buttonsList;
+	//QPushButton* currentSelectedButton;
+	int* currentSelected;
+	IInput* input;
+	InputGame actions;
+
 	QPushButton* optionButton;
 	QPushButton* scoreButton;
 	QPushButton* increaseButton;
 	QPushButton* decreaseButton;
+	QPushButton* exitButton;
+	QLabel* highestScoreLabel;
 	QLabel* difficultyLabel;
-	QVBoxLayout* layout;
+	int WidWidth = 0;
+	int WidHeight = 0;
+	QVBoxLayout* mainlayout;
+
+	QHBoxLayout* startLayout;
+	QVBoxLayout* buttonsLayout;
+	QHBoxLayout* scoreLayout;
+	QHBoxLayout* optionsLayout;
+	QVBoxLayout* difficultyShowLayout;
+
+	QHBoxLayout* difficultyControlLayout;
+	QHBoxLayout* exitLayout;
+	QWidget* labelWidget;
 	void writeMenu();
-	void adjustButtonPositions();
+	void setBackground();
+	void setButtonsStyle(std::vector<QPushButton*> buttons);
+
+
 
 private slots:
 	void changeLabelValue(QLabel* label, QString value);
 	void selectActual();
+	void toNext();
+	void toPrevious();
+	void setMousePos();
+
 	void getOptions();
-	void getScores();
+	void getScoresPage();
 	void handleIncrease();
 	void handleDecrease();
+	void exitMenu();
 
+	void setLabels();
+	void startSound();
+	void startSecondSound();
+
+	void handleTimerMenu();
 signals:
 	void startClicked();
 };
 
-//protected:
-//    void keyPressEvent(QKeyEvent* event) override;
-//    //void resizeEvent(QResizeEvent* event) override;
-//
-//private slots:
-//    void handleStart();
-//    void getOptions();
-//    void getScores();
-//    void handleIncrease();
-//    void handleDecrease();
 
-//    void changeLabelValue(QLabel* label, QString value);
-//    void selectActual();
-//    
-//    void openGame();
-//    void openGameWindow();
-//    void drawGameWindow();
-//    void writeMenu();
-//private:
-//   
-//
-//    int buttonsWidth = 150;
-//    int buttonsHeight = 50;
-//    
-
-  /*  int argc = 1;
-	char** argv = nullptr;*/
-
-	//IOutput* output = new OutputArduino(&com);
+//IOutput* output = new OutputArduino(&com);

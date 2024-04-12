@@ -41,7 +41,7 @@ public:
   Fish* getNearFishRef(); 
   bool getIsFinished();
   bool isPlayerNearFish();
-  void processInput(InputGame input);
+  bool processInput(InputGame input);
   void randomMoveFish();
   bool isFishPositionOccupied(Position position);
   int difficulty;

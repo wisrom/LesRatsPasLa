@@ -38,6 +38,7 @@ void DisplayGameQt::startGame()
 		connect(timer, &QTimer::timeout, this, &DisplayGameQt::handleTimer);
 	}
 	timer->start(30);
+	//fishingRun->getCurrentSession()->setDifficulty(*difficulty);
 	fishingRun->getCurrentSession()->startTimer();
 	stackedWidget->setCurrentIndex(1);
 }
@@ -51,7 +52,7 @@ void DisplayGameQt::backToMenu()
 }
 
 QWidget* DisplayGameQt::createMenuPage() {
-	DisplayMenuQt* displayMenu = new DisplayMenuQt(new int(1), fishingRun, this);
+	DisplayMenuQt* displayMenu = new DisplayMenuQt(new int(1), fishingRun, input, actions, this);
 	connect(displayMenu, &DisplayMenuQt::startClicked, this, &DisplayGameQt::startGame);
 
 	return displayMenu->widget;
@@ -92,10 +93,9 @@ QWidget* DisplayGameQt::createGamePage() {
 	gaugeWidget->setObjectName("gaugeWidget");
 
 	QWidget* catchingFishWidget = new QWidget(this);
-	QGridLayout* catchingFishLayout = new QGridLayout();
+	catchingFishLayout = new QGridLayout();
 	catchingFishWidget->setLayout(catchingFishLayout);
 	catchingFishWidget->setObjectName("catchingfishwidget");
-
 	capturedFishWidget = new QStringList();
 
 	QWidget* timerWidget = new QWidget(this);
@@ -207,6 +207,7 @@ void DisplayGameQt::handleTimer() {
 	gameView->refreshMove(fishingRun);
 	gameView->removeFishToGet();
 	gameView->changeImageFish();
+	
 
 	Fish fishEmpty = Fish();
 	if (fishingRun->getCurrentSession()->getNearFish().getId() != fishEmpty.getId()) {
@@ -230,8 +231,12 @@ void DisplayGameQt::handleTimer() {
 		// TODO réinitialiser
 	}
 
-	fishingRun->getCurrentSession()->processInput(actions);
 	gameView->refreshFishDisplay();
+	if (fishingRun->getCurrentSession()->processInput(actions)) 
+	{
+		gameView->refreshFishscatch(catchingFishLayout);
+	}
+
 	actions = input->getGameInput();
 	if (quit)
 	{

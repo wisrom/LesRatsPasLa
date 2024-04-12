@@ -15,34 +15,34 @@ FishingSession::FishingSession()
 
 FishingSession::FishingSession(int fishAmount, int difficulty)
 {
-  score = 0;
-  player = Player();
-  data = new DataFile();
-  watershed = data->getWatershed(1); // MODIFY DEPENDING ON SETTINGS
-  environment = Environment();
-  rng = new RngClassic();
-  setDifficulty(difficulty);
-  timeElapsed_s = 0.0;
-  startTime = std::chrono::system_clock::now();
+	score = 0;
+	player = Player();
+	data = new DataFile();
+	watershed = data->getWatershed(1); // MODIFY DEPENDING ON SETTINGS
+	environment = Environment();
+	rng = new RngClassic();
+	setDifficulty(difficulty);
+	timeElapsed_s = 0.0;
+	startTime = std::chrono::system_clock::now();
 
-  fishs = data->getRandomFish(fishAmount);
+	fishs = data->getRandomFish(fishAmount);
 
-  map = Map(1, 29, 19);
-  for (int i = 0; i < fishs.size(); i++)
-  {
-    Position randomPosition = map.getRandomPosition();
-    if (isFishPositionOccupied(randomPosition))
-    {
-      i--;
-      continue;
-    }
-    fishs[i].setPosition(randomPosition);
-  }
+	map = Map(1, 29, 19);
+	for (int i = 0; i < fishs.size(); i++)
+	{
+		Position randomPosition = map.getRandomPosition();
+		if (isFishPositionOccupied(randomPosition))
+		{
+			i--;
+			continue;
+		}
+		fishs[i].setPosition(randomPosition);
+	}
 }
 
 FishingSession::~FishingSession()
 {
-  //delete data;
+	//delete data;
 }
 
 void FishingSession::setDifficulty(int difficulty)
@@ -70,56 +70,58 @@ void FishingSession::setDifficulty(int difficulty)
 
 int FishingSession::getScore()
 {
-  return score;
+	return score;
 }
 
 void FishingSession::startTimer()
 {
-  startTime = std::chrono::system_clock::now();
+	startTime = std::chrono::system_clock::now();
 }
 
 void FishingSession::updateTimer()
 {
-  std::chrono::system_clock::time_point currentTime = std::chrono::system_clock::now();
+	std::chrono::system_clock::time_point currentTime = std::chrono::system_clock::now();
 
-  std::chrono::duration<double> duration = currentTime - startTime;
+	std::chrono::duration<double> duration = currentTime - startTime;
 
-  timeElapsed_s = duration.count();
+	timeElapsed_s = duration.count();
 }
 
 double FishingSession::getRemainingTime_s()
 {
-  return timer_s - timeElapsed_s;
+	return timer_s - timeElapsed_s;
 }
 
 int FishingSession::getDifficulty()
 {
-  return difficulty;
+	return difficulty;
 }
 
-void FishingSession::processInput(InputGame input)
+bool FishingSession::processInput(InputGame input)
 {
-  updateTimer();
+	bool finish = false;
+	updateTimer();
 
-  if (checkMovement(input.movement))
-  {
-    player.move(input.movement);
-  }
+	if (checkMovement(input.movement))
+	{
+		player.move(input.movement);
+	}
 
-  if (input.reelSpeed_rpm > 0)
-  {
-    captureNearFish(input.reelSpeed_rpm, input.inputDuration_s);
-  }
+	if (input.reelSpeed_rpm > 0)
+	{
+		finish = captureNearFish(input.reelSpeed_rpm, input.inputDuration_s);
+	}
 
-  if (input.hasPulled)
-  {
-    getNearFishRef()->setIsCapturing(true);
-  }
+	if (input.hasPulled)
+	{
+		getNearFishRef()->setIsCapturing(true);
+	}
 
-  if (input.muon || difficulty == SESSION_DIFFICULTY_DOOM)
-  {
-    randomMoveFish();
-  }
+	if (input.muon || difficulty == SESSION_DIFFICULTY_DOOM)
+	{
+		randomMoveFish();
+	}
+	return finish;
 }
 
 void FishingSession::randomMoveFish()
@@ -178,45 +180,45 @@ void FishingSession::randomMoveFish()
 
 bool FishingSession::isFishPositionOccupied(Position position)
 {
-  Position fishPosition;
-  for (Fish fish : fishs)
-  {
-    fishPosition = fish.getPosition();
-    if (fishPosition.x == position.x && fishPosition.y == position.y)
-    {
-      return true;
-    }
-  }
-  return false;
+	Position fishPosition;
+	for (Fish fish : fishs)
+	{
+		fishPosition = fish.getPosition();
+		if (fishPosition.x == position.x && fishPosition.y == position.y)
+		{
+			return true;
+		}
+	}
+	return false;
 }
 
 Fish FishingSession::getNearFish()
 {
-  Fish nearFish = Fish();
+	Fish nearFish = Fish();
 
-  for (Fish fish : fishs)
-  {
-    if (abs(fish.getPosition().x - player.getPosition().x) <= CAPTURE_DISTANCE
-      && abs(fish.getPosition().y - player.getPosition().y) <= CAPTURE_DISTANCE)
-    {
-      nearFish = fish;
-      return nearFish;
-    }
-  }
-  return nearFish;
+	for (Fish fish : fishs)
+	{
+		if (abs(fish.getPosition().x - player.getPosition().x) <= CAPTURE_DISTANCE
+			&& abs(fish.getPosition().y - player.getPosition().y) <= CAPTURE_DISTANCE)
+		{
+			nearFish = fish;
+			return nearFish;
+		}
+	}
+	return nearFish;
 }
 
 Fish* FishingSession::getNearFishRef()
 {
-  for (int i = 0; i < fishs.size(); i++)
-  {
-    if (abs(fishs[i].getPosition().x - player.getPosition().x) <= CAPTURE_DISTANCE
-      && abs(fishs[i].getPosition().y - player.getPosition().y) <= CAPTURE_DISTANCE)
-    {
-      return &fishs[i];
-    }
-  }
-  return new Fish();
+	for (int i = 0; i < fishs.size(); i++)
+	{
+		if (abs(fishs[i].getPosition().x - player.getPosition().x) <= CAPTURE_DISTANCE
+			&& abs(fishs[i].getPosition().y - player.getPosition().y) <= CAPTURE_DISTANCE)
+		{
+			return &fishs[i];
+		}
+	}
+	return new Fish();
 }
 
 bool FishingSession::getIsFinished()
@@ -231,20 +233,20 @@ bool FishingSession::getIsFinished()
 
 bool FishingSession::isPlayerNearFish()
 {
-  if (getNearFish().getScore() != 0)
-  {
-    return true;
-  }
-  return false;
+	if (getNearFish().getScore() != 0)
+	{
+		return true;
+	}
+	return false;
 }
 
 bool FishingSession::checkMovement(Movement movement)
 {
-  Position position = player.getPosition();
-  position.x = position.x + movement.x;
-  position.y = position.y + movement.y;
+	Position position = player.getPosition();
+	position.x = position.x + movement.x;
+	position.y = position.y + movement.y;
 
-  return map.isInMap(position);
+	return map.isInMap(position);
 }
 
 bool FishingSession::checkFishMovement(Fish fish, Movement movement)
@@ -265,18 +267,18 @@ bool FishingSession::checkFishMovement(Fish fish, Movement movement)
 
 void FishingSession::captureNearFish(float reelSpeed_rotPerSec, float duration_s)
 {
-  for (int fishIndex = 0; fishIndex < fishs.size(); fishIndex++)
-  {
-    if (abs(fishs[fishIndex].getPosition().x - player.getPosition().x) <= CAPTURE_DISTANCE 
-      && abs(fishs[fishIndex].getPosition().y - player.getPosition().y) <= CAPTURE_DISTANCE)
-    {
-      if (fishs[fishIndex].capture(reelSpeed_rotPerSec, duration_s))
-      {
-        score += fishs[fishIndex].getScore();
-        capturedFishs.push_back(fishs[fishIndex]);
-        fishs.erase(fishs.begin() + fishIndex);
-        return;
-      }
-    }
-  }
+	for (int fishIndex = 0; fishIndex < fishs.size(); fishIndex++)
+	{
+		if (abs(fishs[fishIndex].getPosition().x - player.getPosition().x) <= CAPTURE_DISTANCE
+			&& abs(fishs[fishIndex].getPosition().y - player.getPosition().y) <= CAPTURE_DISTANCE)
+		{
+			if (fishs[fishIndex].capture(reelSpeed_rotPerSec, duration_s))
+			{
+				score += fishs[fishIndex].getScore();
+				capturedFishs.push_back(fishs[fishIndex]);
+				fishs.erase(fishs.begin() + fishIndex);
+				return true;
+			}
+		}
+	}
 }
