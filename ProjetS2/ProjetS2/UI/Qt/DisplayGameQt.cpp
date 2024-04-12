@@ -206,13 +206,7 @@ DisplayGameQt::~DisplayGameQt()
 void DisplayGameQt::handleTimer() {
 	gameView->refreshMove(fishingRun);
 	gameView->removeFishToGet();
-
-	if (fishingRun->getCurrentSession()->getNearFish().getIsCapturing()) {
-		gameView->changeImageFish();
-	}
-	else {
-		gameView->changeImageBubble();
-	}
+	gameView->changeImageFish();
 
 	Fish fishEmpty = Fish();
 	if (fishingRun->getCurrentSession()->getNearFish().getId() != fishEmpty.getId()) {
