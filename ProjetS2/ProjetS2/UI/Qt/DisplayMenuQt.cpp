@@ -5,8 +5,18 @@ DisplayMenuQt::DisplayMenuQt(int* intValue, FishingRun* sFishingRun, IInput* inp
     difficulty(intValue), fishingRun(sFishingRun), QMainWindow(parent), actions(actions_), input(input_)
 {
     widget = new QWidget;
+    widget->installEventFilter(this);
     writeMenu();
     startSound();
+
+    connect(&timerMenu, &QTimer::timeout, this, &DisplayMenuQt::handleTimerMenu);
+    timerMenu.start(50);
+    //if (&timerMenu == NULL) {
+        //&timerMenu = new QTimer(this);
+        //connect(&timerMenu, &QTimer::timeout, this, &DisplayMenuQt::handleTimerMenu);
+    //}
+    //timerMenu->start(30);
+
 }
 
 
@@ -49,6 +59,58 @@ void DisplayMenuQt::setLabels() {
 
 }
 
+void DisplayMenuQt::handleTimerMenu() {
+    if (input->getMenuInput().selectedOption) { selectActual(); }
+    if (!input->getMenuInput().pressedBack) {//exitMenu();
+        changeLabelValue(difficultyLabel, QString::number(input->getMenuInput().pressedBack));
+    }
+    //if (input->getGameInput().reelSpeed_rpm > 40) { selectActual(); }
+    
+    else if(input->getMenuInput().movement.x == 0 && input->getMenuInput().movement.y == -1){
+        toPrevious();
+    }
+    else if (input->getMenuInput().movement.x == 0 && input->getMenuInput().movement.y == 1){
+        toNext();
+    }
+    else if (input->getMenuInput().movement.x == -1 && input->getMenuInput().movement.y == 0){
+        toPrevious();
+    }
+    else if (input->getMenuInput().movement.x == 1 && input->getMenuInput().movement.y == 0){
+        toNext();
+    }
+    
+    
+
+}
+
+bool DisplayMenuQt::eventFilter(QObject* obj, QEvent* event) {
+    if (obj == widget && event->type() == QEvent::KeyPress) {
+        QKeyEvent* keyEvent = static_cast<QKeyEvent*>(event);
+        int key = keyEvent->key();
+        if (key == Qt::Key_W) {
+            toPrevious();
+            //handleIncrease();
+        }
+        else if (key == Qt::Key_A) {
+            toPrevious();
+            //handleDecrease();
+        }
+        else if (key == Qt::Key_S) {
+            toNext();
+            //handleDecrease();
+        }
+        else if (key == Qt::Key_D) {
+            toNext();
+            //handleDecrease();
+        }
+        else if (key == Qt::Key_H) {
+            selectActual();
+        }
+        return true; 
+    }
+    return QObject::eventFilter(obj, event);
+}
+
 void DisplayMenuQt::writeMenu() {
     setWindowTitle("Menu");
 
@@ -78,6 +140,7 @@ void DisplayMenuQt::writeMenu() {
     increaseButton = new QPushButton("Increase");
     decreaseButton = new QPushButton("Decrease");
     exitButton = new QPushButton("Exit");
+
 
     startButton->setFont(font2);
     optionButton->setFont(font2);
@@ -143,11 +206,20 @@ void DisplayMenuQt::writeMenu() {
     connect(decreaseButton, &QPushButton::clicked, this, &DisplayMenuQt::handleDecrease);
     connect(exitButton, &QPushButton::clicked, this, &DisplayMenuQt::exitMenu);
 
+    //QPushButton* NextButton = new QPushButton();
+    //connect(NextButton, &QPushButton::clicked, this, &DisplayMenuQt::toNext);
+    //NextButton->setShortcut(Qt::Key::Key_W);
+    //NextButton->setShortcut(Qt::Key::Key_A);
+
+    //QShortcut* shortcutW = new QShortcut(QKeySequence(Qt::Key_W), this);
+    //connect(shortcutW, &QShortcut::activated, this, &DisplayMenuQt::toNext);
+
     optionButton->setShortcut(Qt::Key::Key_O);
     scoreButton->setShortcut(Qt::Key::Key_P);
     exitButton->setShortcut(Qt::Key::Key_C);
+    
 
-    std::vector<QPushButton*> buttons = { startButton, optionButton, increaseButton, decreaseButton, scoreButton, exitButton };
+    std::vector<QPushButton*> buttons = { startButton, optionButton, scoreButton, increaseButton, decreaseButton, exitButton };
     buttonsList = buttons;
     setButtonsStyle(buttons);
     setBackground();
@@ -158,8 +230,8 @@ void DisplayMenuQt::writeMenu() {
 
     widget->setCursor(cursor);
     currentSelected = new int(0);
-    //currentSelectedButton = startButton;
-    setMousePos();
+    buttonsList[*currentSelected]->setFocus();
+    
 }
 
 void DisplayMenuQt::setMousePos() {
@@ -181,17 +253,18 @@ void DisplayMenuQt::setMousePos() {
 }
 
 void DisplayMenuQt::toNext() {
-    if (*currentSelected > 1) { (*currentSelected)--; }
-    else { *currentSelected = 4; }
+    if (*currentSelected < 5) { (*currentSelected)++; }
+    else { *currentSelected = 0; }
+    buttonsList[*currentSelected]->setFocus();
     //changeLabelValue(difficultyLabel, QString("Difficulty set to " + QString::number(*currentSelected)));
-    setMousePos();
 }
 void DisplayMenuQt::toPrevious() {
-    if (*currentSelected < 4) { (*currentSelected)++; }
-    else { *currentSelected = 1; }
+    if (*currentSelected > 0) { (*currentSelected)--; }
+    else { *currentSelected = 5; }
+    buttonsList[*currentSelected]->setFocus();
     //changeLabelValue(difficultyLabel, QString("Difficulty set to " + QString::number(*currentSelected)));
-    setMousePos();
 }
+
 
 void DisplayMenuQt::keyPressEvent(QKeyEvent* event) {
     /*
@@ -207,13 +280,26 @@ void DisplayMenuQt::keyPressEvent(QKeyEvent* event) {
     switch (event->key()) {
         //Movements
     case Qt::Key_Up:
-        toNext(); break;
+        toNext();
+        break;
     case Qt::Key_Down:
-        toPrevious(); break;
+        toPrevious();
+        break;
     case Qt::Key_Left:
-        toNext(); break;
+        toNext();
+        break;
     case Qt::Key_Right:
+        toPrevious();
+        break;
+
+    case Qt::Key_W:
         toPrevious(); break;
+    case Qt::Key_A:
+        toPrevious(); break;
+    case Qt::Key_D:
+        toNext(); break;
+    case Qt::Key_S:
+        toNext(); break;
 
         //Quick access
     case Qt::Key_C:
@@ -247,15 +333,16 @@ void DisplayMenuQt::keyPressEvent(QKeyEvent* event) {
 
 
     default:
-        break;
-        //QWidget::keyPressEvent(event);
+        //break;
+        QWidget::keyPressEvent(event);
     }
 }
 
 void DisplayMenuQt::selectActual() {
-    QPoint mousePos = QCursor::pos();
-    QWidget* widgetAtMouse = childAt(mousePos);
-    QPushButton* clickedButton = qobject_cast<QPushButton*>(widgetAtMouse);
+    //QPoint mousePos = QCursor::pos();
+    //QWidget* widgetAtMouse = childAt(mousePos);
+    //QPushButton* clickedButton = qobject_cast<QPushButton*>(widgetAtMouse);
+    buttonsList[*currentSelected]->click();
 }
 
 
@@ -336,7 +423,13 @@ void DisplayMenuQt::setButtonsStyle(std::vector<QPushButton*> buttons) {
             "border-radius: 10px;"         // Border radius
             "border-color: #000000;"      // Border color
             "padding: 6px;"                // Padding
-            "}");
+            "}"
+            "QPushButton:focus {"
+                "background-color: #ADD8E6;"
+                "border: 2px solid black;"
+                "color: black;"               // Text color
+            "}"
+        );
 
     }
 

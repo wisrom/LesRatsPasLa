@@ -29,6 +29,7 @@
 //#include <QAudioOutput>
 #include <QUrl>
 
+
 class DisplayMenuQt : public QMainWindow {
 	Q_OBJECT
 public:
@@ -41,8 +42,9 @@ public:
 
 protected:
 	void keyPressEvent(QKeyEvent* event) override;
-
+	bool eventFilter(QObject* obj, QEvent* event);
 private:
+	QTimer timerMenu;
 	std::vector<QPushButton*> buttonsList;
 	//QPushButton* currentSelectedButton;
 	int* currentSelected;
@@ -92,6 +94,7 @@ private slots:
 	void startSound();
 	void startSecondSound();
 
+	void handleTimerMenu();
 signals:
 	void startClicked();
 };
