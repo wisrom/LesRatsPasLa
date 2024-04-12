@@ -15,10 +15,15 @@ void DisplayMenuQt::startSound() {
     QAudioOutput* _audioOutput = new QAudioOutput;
 
     _mediaPlayer->setAudioOutput(_audioOutput);
-    _mediaPlayer->setSource(QUrl("C:/Users/jacob/Downloads/harbour_seagulls_day_2-22341.mp3"));
+    //QString athasd("calmfishingSound.mp3");
+    _mediaPlayer->setSource(QUrl("qrc:/Sounds/calmfishingSound.mp3"));
+    
     _audioOutput->setVolume(100);
     _mediaPlayer->setLoops(QMediaPlayer::Infinite);
     _mediaPlayer->play();
+}
+void DisplayMenuQt::startSecondSound() {
+
 }
 
 void DisplayMenuQt::exitMenu() {
@@ -148,7 +153,7 @@ void DisplayMenuQt::writeMenu() {
     setBackground();
 
     widget->setLayout(mainlayout);
-    QPixmap cursorImage("C:/Users/jacob/OneDrive/Bureau/Images projet s2/Bateau/mouseImg.png");
+    QPixmap cursorImage(":/Img/mouseImg.png");
     QCursor cursor(cursorImage);
 
     widget->setCursor(cursor);
@@ -160,7 +165,7 @@ void DisplayMenuQt::writeMenu() {
 void DisplayMenuQt::setMousePos() {
 
     (*currentSelected)++;
-    int y = *currentSelected * 50 + 25;
+    //int y = *currentSelected * 50 + 25;
     //if(currentSelected)
     //changeLabelValue(difficultyLabel, QString("value : " + QString::number(*currentSelected)));
     //QCursor::setPos(globalButtonCenter);
@@ -304,11 +309,13 @@ void DisplayMenuQt::getScoresPage() {
     layout->addWidget(top5);
 
     dialog->exec(); // Use exec() for modal dialog or show() for modeless dialog
+
+    highestScoreLabel->setText(QString("Highest score : " + QString::number(vtop[0])));
 }
 
 void DisplayMenuQt::setBackground() {
     //mainlayout
-    widget->setStyleSheet("background-image: url(C:/Users/jacob/OneDrive/Bureau/imageback.png);"
+    widget->setStyleSheet("background-image: url(:/Img/imageback.png);"
         "background-repeat: no-repeat;"
         "background-position: center;"
         "background-color: #000000;"

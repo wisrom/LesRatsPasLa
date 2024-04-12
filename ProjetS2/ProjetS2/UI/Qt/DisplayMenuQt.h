@@ -90,6 +90,8 @@ private slots:
 
 	void setLabels();
 	void startSound();
+	void startSecondSound();
+
 signals:
 	void startClicked();
 };

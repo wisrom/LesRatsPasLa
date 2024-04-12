@@ -85,5 +85,9 @@ Img/water.jpg \
 Img/boat.png \
 Img/poisson.png \
 Img/nemo.jpg \
+Img/imageback.png \
+Img/mouseImg.png \
+Sounds/calmfishingSound.mp3 \
+Sounds/rushingSound.mp3 \
 
 QT += widgets multimedia
