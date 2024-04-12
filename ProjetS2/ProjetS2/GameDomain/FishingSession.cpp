@@ -8,6 +8,7 @@ FishingSession::FishingSession()
     watershed = Watershed();
     environment = Environment();
     map = Map(1, 29, 19);
+    rng = new RngClassic();
     timer_s = 60.0f;
     timeElapsed_s = 0.0;
 }
@@ -19,6 +20,7 @@ FishingSession::FishingSession(int fishAmount, int difficulty)
   data = new DataFile();
   watershed = data->getWatershed(1); // MODIFY DEPENDING ON SETTINGS
   environment = Environment();
+  rng = new RngClassic();
   setDifficulty(difficulty);
   timeElapsed_s = 0.0;
   startTime = std::chrono::system_clock::now();
@@ -59,7 +61,7 @@ void FishingSession::setDifficulty(int difficulty)
       break;
     case SESSION_DIFFICULTY_DOOM:
       timer_s = 30;
-      // DOOM
+      fishs = data->getRandomFish(20);
       break;
   default:
     break;
@@ -113,6 +115,54 @@ void FishingSession::processInput(InputGame input)
   {
     getNearFishRef()->setIsCapturing(true);
   }
+
+  if (input.muon || difficulty == SESSION_DIFFICULTY_DOOM)
+  {
+    randomMoveFish();
+  }
+}
+
+void FishingSession::randomMoveFish()
+{
+  Movement randomMovement = { 0 ,0 };
+  float random = 0.0f;
+  for (int i = 0; i < fishs.size(); i++)
+  {
+    random = rng->getRandom();
+    if (random > (1 / difficulty) || difficulty == SESSION_DIFFICULTY_DOOM)
+    {
+      // X
+      random = rng->getRandom();
+      if (random <= RANDOM_THRESHOLD_MINUS)
+      {
+        randomMovement.x = -1;
+      }
+      else if (random <= RANDOM_THRESHOLD_ADD)
+      {
+        randomMovement.x = 1;
+      }
+      else
+      {
+        randomMovement.x = 0;
+      }
+
+      // Y
+      random = rng->getRandom();
+      if (random <= RANDOM_THRESHOLD_MINUS)
+      {
+        randomMovement.y = -1;
+      }
+      else if (random <= RANDOM_THRESHOLD_ADD)
+      {
+        randomMovement.y = 1;
+      }
+      else
+      {
+        randomMovement.y = 0;
+      }
+    }
+    fishs[i].move(randomMovement);
+  }
 }
 
 bool FishingSession::isFishPositionOccupied(Position position)
@@ -121,13 +171,7 @@ bool FishingSession::isFishPositionOccupied(Position position)
   for (Fish fish : fishs)
   {
     fishPosition = fish.getPosition();
-    // DÉCOMMENTER LORSQUE SUR QT (CODES ANSI DE COULEURS)
-    //if (fishPosition.x == position.x && fishPosition.y == position.y)
-    //{
-    //  return true;
-    //}
-
-    if (fishPosition.y == position.y || position.x < 1)
+    if (fishPosition.x == position.x && fishPosition.y == position.y)
     {
       return true;
     }

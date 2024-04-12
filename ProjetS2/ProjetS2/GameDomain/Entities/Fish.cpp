@@ -10,6 +10,7 @@ Fish::Fish()
   currentCaptureStepIndex = 0;
   currentCaptureProgress_s = 0;
   isCaptured = false;
+  isCapturing = false;
 }
 
 Fish::Fish(int id, std::vector<CaptureStep> captureSteps, std::string name, float length_m, float weight_kg, int score)

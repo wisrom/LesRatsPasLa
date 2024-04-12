@@ -6,6 +6,7 @@
 #include "include/serial/SerialPort.hpp"
 #include "include/json.hpp"
 #include "../Types/InputGame.hpp"
+#include "../Types/InputMenu.hpp"
 
 #define BAUD 256000
 #define MSG_MAX_SIZE 1024
@@ -20,6 +21,7 @@ public:
   void init();
   void comTest();
   InputGame getGameInput();
+  InputMenu getMenuInput();
   void sendGameData(int score);
 private:
   SerialPort* arduino;

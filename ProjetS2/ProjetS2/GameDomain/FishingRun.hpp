@@ -12,6 +12,7 @@ public:
   ~FishingRun();
 
   FishingSession* getCurrentSession();
+  void resetSession();
   bool getIsFinished();
   int getScore();
   void saveScore();

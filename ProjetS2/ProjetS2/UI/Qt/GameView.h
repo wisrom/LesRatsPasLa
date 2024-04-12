@@ -20,6 +20,7 @@ public:
     void resizeLbl(QLabel* lbl);
     void changeImageFish();
     void changeImageBubble();
+    void refreshFishDisplay();
 protected:
     void resizeEvent(QResizeEvent* event) override;
 

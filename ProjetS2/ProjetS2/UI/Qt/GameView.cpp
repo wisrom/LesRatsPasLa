@@ -132,6 +132,33 @@ void GameView::resizeEvent(QResizeEvent* event) {
 	}
 }
 
+void GameView::refreshFishDisplay()
+{
+	Position fishPosition;
+
+	for (int j = 0; j < 10; j++)
+	{
+		for (int i = 0; i < fishsToGet.count(); i++)
+		{
+			scene->removeItem(fishsToGet[i]);
+			fishsToGet.removeOne(fishsToGet[i]);
+		}
+	}
+	
+	for (Fish fish : fishingRun->getCurrentSession()->fishs)
+	{
+		fishPosition = fish.getPosition();
+
+		QPixmap fishPixmap(bubbleImgPath);
+		QGraphicsPixmapItem* fishImg = new QGraphicsPixmapItem;
+		fishImg->setPixmap(fishPixmap.scaled(cellSize, cellSize, Qt::KeepAspectRatio));
+		fishImg->setPos(fishPosition.x * cellSize, fishPosition.y * cellSize);
+		scaleImg(fishPixmap, fishImg);
+		scene->addItem(fishImg);
+		fishsToGet.append(fishImg);
+	}
+}
+
 void GameView::ResizeGrid(QResizeEvent* event) {
 	cellSize = qMin(event->size().width() / numCols, event->size().height() / numRows);
 	QPixmap waterImg(waterImgPath);

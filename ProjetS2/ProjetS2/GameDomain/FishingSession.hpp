@@ -14,6 +14,11 @@
 #define SESSION_DIFFICULTY_HARD 3
 #define SESSION_DIFFICULTY_DOOM 4
 
+// 0-threshold
+#define RANDOM_THRESHOLD_MINUS 0.4f
+#define RANDOM_THRESHOLD_NOTHING 1.0f
+#define RANDOM_THRESHOLD_ADD 0.8f
+
 class FishingSession
 {
 public:
@@ -21,6 +26,7 @@ public:
   std::vector<Fish> fishs;
   std::vector<Fish> capturedFishs;
   Map map;
+  IRng* rng;
 
   FishingSession();
   FishingSession(int fishAmount, int difficulty);
@@ -36,6 +42,7 @@ public:
   bool getIsFinished();
   bool isPlayerNearFish();
   void processInput(InputGame input);
+  void randomMoveFish();
   bool isFishPositionOccupied(Position position);
   int difficulty;
 private:
