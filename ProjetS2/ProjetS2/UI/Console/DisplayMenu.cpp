@@ -79,16 +79,16 @@ void DisplayMenu::processInput(InputMenu input, FishingRun& fishingRun)
   //  selectedOptionIndex--;
   //}
 
-  if (input.selectedOption)
-  {
-    openOption(getMenuOptions(currentMenu)[selectedOptionIndex]);
-  }
-
-  if (input.pressedBack)
-  {
-    selectedOptionIndex = 0;
-    currentMenu = Menu::MAIN_MENU;
-  }
+  //if (input.selectedOption)
+  //{
+  //  openOption(getMenuOptions(currentMenu)[selectedOptionIndex]);
+  //}
+  //
+  //if (input.pressedBack)
+  //{
+  //  selectedOptionIndex = 0;
+  //  currentMenu = Menu::MAIN_MENU;
+  //}
 }
 
 std::vector<MenuOption> DisplayMenu::getMenuOptions(Menu menu)

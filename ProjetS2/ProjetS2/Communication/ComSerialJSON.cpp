@@ -13,7 +13,7 @@ ComSerialJSON::~ComSerialJSON()
 void ComSerialJSON::init()
 {
   // Initialisation du port de communication
-  std::string com = "COM4";
+  std::string com = "COM3";
   //std::cout << "Entrer le port de communication du Arduino: ";
   //std::cin >> com;
   arduino = new SerialPort(com.c_str(), BAUD);
@@ -65,10 +65,10 @@ InputGame ComSerialJSON::getGameInput()
     input.muon = (bool)j_msg_rcv["muon"];
     input.reelSpeed_rpm = (float)j_msg_rcv["enc"];
     arduinoTime_ms = (float)j_msg_rcv["time"];
-    //input.inputDuration_s = (arduinoTime_ms - previousArduinoTime_ms) + COM_DELAY_MS * 0.001;
-    input.inputDuration_s = 1.0f;
+    input.inputDuration_s = ((arduinoTime_ms - previousArduinoTime_ms) + (float)COM_DELAY_MS) * 0.001;
+    previousArduinoTime_ms = arduinoTime_ms;
+    //input.inputDuration_s = 1.0f;
   }
-
   Sleep(COM_DELAY_MS);
 
   return input;
@@ -82,8 +82,10 @@ InputMenu ComSerialJSON::getMenuInput()
 
   InputMenu input;
   input.movement = { 0, 0 };
-  input.pressedBack = false;
-  input.selectedOption = false;
+  input.btn1 = false;
+  input.btn2 = false;
+  input.btn3 = false;
+  input.btn4 = false;
 
   j_msg_send["7Seg"] = 13;
   j_msg_send["LCD"] = "allo";
@@ -107,8 +109,10 @@ InputMenu ComSerialJSON::getMenuInput()
     input.movement.x = (int)j_msg_rcv["joyx"];
     input.movement.y = (int)j_msg_rcv["joyy"];
 
-    input.pressedBack = ((int)j_msg_rcv["btn"] << 3) % 2;
-    input.selectedOption = ((int)j_msg_rcv["btn"] << 2) % 2;
+    input.btn1 = ((int)j_msg_rcv["btn"] << 4) % 2;
+    input.btn2 = ((int)j_msg_rcv["btn"] << 3) % 2;
+    input.btn3 = ((int)j_msg_rcv["btn"] << 2) % 2;
+    input.btn4 = (int)j_msg_rcv["btn"] % 2;
   }
 
   Sleep(COM_DELAY_MS);

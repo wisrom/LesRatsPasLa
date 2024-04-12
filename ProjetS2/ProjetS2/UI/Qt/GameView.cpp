@@ -146,7 +146,17 @@ void GameView::refreshFishDisplay()
 	{
 		fishPosition = fish.getPosition();
 
-		QPixmap fishPixmap(bubbleImgPath);
+		QPixmap fishPixmap;
+
+		if (fish.getIsCapturing())
+		{
+			fishPixmap = QPixmap(fishImgPath);
+		}
+		else
+		{
+			fishPixmap = QPixmap(bubbleImgPath);
+		}
+
 		QGraphicsPixmapItem* fishImg = new QGraphicsPixmapItem;
 		fishImg->setPixmap(fishPixmap.scaled(cellSize, cellSize, Qt::KeepAspectRatio));
 		fishImg->setPos(fishPosition.x * cellSize, fishPosition.y * cellSize);

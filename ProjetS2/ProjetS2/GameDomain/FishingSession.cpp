@@ -9,7 +9,7 @@ FishingSession::FishingSession()
     environment = Environment();
     map = Map(1, 29, 19);
     rng = new RngClassic();
-    timer_s = 60.0f;
+    timer_s = 120.0f;
     timeElapsed_s = 0.0;
 }
 
@@ -51,16 +51,16 @@ void FishingSession::setDifficulty(int difficulty)
   switch (difficulty)
   {
     case SESSION_DIFFICULTY_EASY:
-      timer_s = 60.0;
+      timer_s = 120.0;
       break;
     case SESSION_DIFFICULTY_MEDIUM:
-      timer_s = 45.0;
+      timer_s = 90.0;
       break;
     case SESSION_DIFFICULTY_HARD:
-      timer_s = 30.0;
+      timer_s = 60.0;
       break;
     case SESSION_DIFFICULTY_DOOM:
-      timer_s = 30;
+      timer_s = 30.0;
       fishs = data->getRandomFish(20);
       break;
   default:
@@ -128,40 +128,51 @@ void FishingSession::randomMoveFish()
   float random = 0.0f;
   for (int i = 0; i < fishs.size(); i++)
   {
-    random = rng->getRandom();
-    if (random > (1 / difficulty) || difficulty == SESSION_DIFFICULTY_DOOM)
+    if (!(fishs[i].getPosition().x == player.getPosition().x && fishs[i].getPosition().y == player.getPosition().y))
     {
-      // X
       random = rng->getRandom();
-      if (random <= RANDOM_THRESHOLD_MINUS)
+      if (random > (1 / difficulty) || difficulty == SESSION_DIFFICULTY_DOOM)
       {
-        randomMovement.x = -1;
-      }
-      else if (random <= RANDOM_THRESHOLD_ADD)
-      {
-        randomMovement.x = 1;
-      }
-      else
-      {
-        randomMovement.x = 0;
-      }
+        // X
+        random = rng->getRandom();
+        if (random <= RANDOM_THRESHOLD_MINUS)
+        {
+          randomMovement.x = -1;
+        }
+        else if (random <= RANDOM_THRESHOLD_ADD)
+        {
+          randomMovement.x = 1;
+        }
+        else
+        {
+          randomMovement.x = 0;
+        }
 
-      // Y
-      random = rng->getRandom();
-      if (random <= RANDOM_THRESHOLD_MINUS)
-      {
-        randomMovement.y = -1;
+        // Y
+        random = rng->getRandom();
+        if (random <= RANDOM_THRESHOLD_MINUS)
+        {
+          randomMovement.y = -1;
+        }
+        else if (random <= RANDOM_THRESHOLD_ADD)
+        {
+          randomMovement.y = 1;
+        }
+        else
+        {
+          randomMovement.y = 0;
+        }
       }
-      else if (random <= RANDOM_THRESHOLD_ADD)
+      if (checkFishMovement(fishs[i], randomMovement))
       {
-        randomMovement.y = 1;
+        fishs[i].move(randomMovement);
       }
       else
       {
-        randomMovement.y = 0;
+        i--;
+        continue;
       }
     }
-    fishs[i].move(randomMovement);
   }
 }
 
@@ -212,6 +223,7 @@ bool FishingSession::getIsFinished()
 {
   if (fishs.size() == 0 || score >= 999 || timer_s - timeElapsed_s <= 0.0)
   {
+    data->addScore(score);
     return true;
   }
   return false;
@@ -233,6 +245,22 @@ bool FishingSession::checkMovement(Movement movement)
   position.y = position.y + movement.y;
 
   return map.isInMap(position);
+}
+
+bool FishingSession::checkFishMovement(Fish fish, Movement movement)
+{
+  Position aimedPosition;
+  aimedPosition.x = fish.getPosition().x + movement.x;
+  aimedPosition.y = fish.getPosition().y + movement.y;
+
+  for (Fish fish : fishs)
+  {
+    if (fish.getPosition().x == aimedPosition.x && fish.getPosition().y == aimedPosition.y)
+    {
+      return true;
+    }
+  }
+  return map.isInMap(aimedPosition);
 }
 
 void FishingSession::captureNearFish(float reelSpeed_rotPerSec, float duration_s)

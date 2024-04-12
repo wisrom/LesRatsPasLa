@@ -76,23 +76,23 @@ InputMenu InputConsole::getMenuInput()
   char key = _getch();
 
   // DEPRECATED, DO NOT USE
-  switch (key)
-  {
-    case 'w':
-      input.movement.y = 1;
-      break;
-    case 's':
-      input.movement.x = -1;
-      break;
-    case '\r': //enter
-      input.selectedOption = true;
-      break;
-    case 8:
-      input.pressedBack = true;
-      break;
-    default:
-      break;
-  }
+  //switch (key)
+  //{
+  //  case 'w':
+  //    input.movement.y = 1;
+  //    break;
+  //  case 's':
+  //    input.movement.x = -1;
+  //    break;
+  //  case '\r': //enter
+  //    input.selectedOption = true;
+  //    break;
+  //  case 8:
+  //    input.pressedBack = true;
+  //    break;
+  //  default:
+  //    break;
+  //}
 
   return input;
 }

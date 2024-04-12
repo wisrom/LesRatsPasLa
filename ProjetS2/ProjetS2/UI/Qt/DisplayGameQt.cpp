@@ -216,6 +216,10 @@ void DisplayGameQt::handleTimer() {
 			fishingRun->getCurrentSession()->getNearFish().getCurrentCaptureStep().margin + fishingRun->getCurrentSession()->getNearFish().getCurrentCaptureStep().speed_rpm,
 			actions.reelSpeed_rpm);
 	}
+	else
+	{
+		bghReelGauge->updateValues(0, MAX_REEL_SPEED_GAUGE_RPM, 0);
+	}
 
 	lblScore->setText("Score: " + QString::number(fishingRun->getCurrentSession()->getScore()));
 	lblTimer->setText(QString::number(fishingRun->getCurrentSession()->getRemainingTime_s()));
@@ -227,7 +231,7 @@ void DisplayGameQt::handleTimer() {
 	}
 
 	fishingRun->getCurrentSession()->processInput(actions);
-
+	gameView->refreshFishDisplay();
 	actions = input->getGameInput();
 	if (quit)
 	{
