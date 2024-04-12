@@ -38,6 +38,7 @@ void DisplayGameQt::startGame()
 		connect(timer, &QTimer::timeout, this, &DisplayGameQt::handleTimer);
 	}
 	timer->start(30);
+	gameView->refreshFishscatch(catchingFishLayout);
 	//fishingRun->getCurrentSession()->setDifficulty(*difficulty);
 	fishingRun->getCurrentSession()->startTimer();
 	stackedWidget->setCurrentIndex(1);
@@ -48,11 +49,13 @@ void DisplayGameQt::backToMenu()
 	fishingRun->resetSession();
 	gameView->refreshFishDisplay();
 	timer->stop();
+	displayMenu->timerMenu.start(30);
 	stackedWidget->setCurrentIndex(0);
 }
 
-QWidget* DisplayGameQt::createMenuPage() {
-	DisplayMenuQt* displayMenu = new DisplayMenuQt(new int(1), fishingRun, input, actions, this);
+QWidget* DisplayGameQt::createMenuPage() 
+{
+	displayMenu = new DisplayMenuQt(new int(1), fishingRun, input, actions, this);
 	connect(displayMenu, &DisplayMenuQt::startClicked, this, &DisplayGameQt::startGame);
 
 	return displayMenu->widget;

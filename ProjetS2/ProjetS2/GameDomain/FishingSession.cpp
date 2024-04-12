@@ -265,7 +265,7 @@ bool FishingSession::checkFishMovement(Fish fish, Movement movement)
   return map.isInMap(aimedPosition);
 }
 
-void FishingSession::captureNearFish(float reelSpeed_rotPerSec, float duration_s)
+bool FishingSession::captureNearFish(float reelSpeed_rotPerSec, float duration_s)
 {
 	for (int fishIndex = 0; fishIndex < fishs.size(); fishIndex++)
 	{
@@ -281,4 +281,5 @@ void FishingSession::captureNearFish(float reelSpeed_rotPerSec, float duration_s
 			}
 		}
 	}
+	return false;
 }

@@ -60,11 +60,10 @@ void DisplayMenuQt::setLabels() {
 }
 
 void DisplayMenuQt::handleTimerMenu() {
-    if (input->getMenuInput().selectedOption) { selectActual(); }
-    if (!input->getMenuInput().pressedBack) {//exitMenu();
-        changeLabelValue(difficultyLabel, QString::number(input->getMenuInput().pressedBack));
+    if (!input->getMenuInput().btn4) { selectActual(); }
+    if (!input->getMenuInput().btn3) {//exitMenu();
+        changeLabelValue(difficultyLabel, QString::number(input->getMenuInput().btn3));
     }
-    //if (input->getGameInput().reelSpeed_rpm > 40) { selectActual(); }
     
     else if(input->getMenuInput().movement.x == 0 && input->getMenuInput().movement.y == -1){
         toPrevious();
@@ -78,9 +77,6 @@ void DisplayMenuQt::handleTimerMenu() {
     else if (input->getMenuInput().movement.x == 1 && input->getMenuInput().movement.y == 0){
         toNext();
     }
-    
-    
-
 }
 
 bool DisplayMenuQt::eventFilter(QObject* obj, QEvent* event) {
@@ -198,9 +194,9 @@ void DisplayMenuQt::writeMenu() {
 
     //adjustButtonPositions();
 
-    connect(startButton, &QPushButton::clicked, [this]() {emit startClicked(); });
+    connect(startButton, &QPushButton::clicked, [this]() {timerMenu.stop();emit startClicked(); });
 
-    connect(optionButton, &QPushButton::clicked, this, &DisplayMenuQt::getOptions);
+    //connect(optionButton, &QPushButton::clicked, this, &DisplayMenuQt::getOptions);
     connect(scoreButton, &QPushButton::clicked, this, &DisplayMenuQt::getScoresPage);
     connect(increaseButton, &QPushButton::clicked, this, &DisplayMenuQt::handleIncrease);
     connect(decreaseButton, &QPushButton::clicked, this, &DisplayMenuQt::handleDecrease);

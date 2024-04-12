@@ -58,5 +58,5 @@ private:
   void setDifficulty(int difficulty);
   bool checkMovement(Movement movement);
   bool checkFishMovement(Fish fish, Movement movement);
-  void captureNearFish(float reelSpeed_rotPerSec, float duration_s);
+  bool captureNearFish(float reelSpeed_rotPerSec, float duration_s);
 };

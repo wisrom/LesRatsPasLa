@@ -32,6 +32,8 @@ private:
     QStackedWidget* stackedWidget;
     QWidget* createMenuPage();
     QWidget* createGamePage();
+
+    DisplayMenuQt* displayMenu;
     //QPushButton* startButton;
     //QWidget* gamePage = new QWidget();
     
@@ -48,4 +50,6 @@ private:
 
     void updateCapturedFish(std::vector<Fish> capturedFish, QGridLayout* layout);
     //void updateCapturedFishWidget(std::vector<Fish> capturedFish);
+signals:
+  void startMenu();
 };

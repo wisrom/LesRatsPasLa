@@ -39,12 +39,12 @@ public:
 	QPushButton* startButton;
 	FishingRun* fishingRun;
 	int* difficulty;
+	QTimer timerMenu;
 
 protected:
 	void keyPressEvent(QKeyEvent* event) override;
 	bool eventFilter(QObject* obj, QEvent* event);
 private:
-	QTimer timerMenu;
 	std::vector<QPushButton*> buttonsList;
 	//QPushButton* currentSelectedButton;
 	int* currentSelected;
