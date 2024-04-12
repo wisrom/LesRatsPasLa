@@ -25,6 +25,11 @@ GameView::GameView(FishingRun* sFishingRun, QWidget* parent) : fishingRun(sFishi
 		}
 	}
 
+	QPixmap playerImg(playerImgPath);
+	fish = scene->addPixmap(playerImg);
+	scaleImg(playerImg, fish);
+	fish->setPos(0, 0);
+
 	Position fishPosition;
 	for (Fish fish : fishingRun->getCurrentSession()->fishs)
 	{
@@ -39,10 +44,7 @@ GameView::GameView(FishingRun* sFishingRun, QWidget* parent) : fishingRun(sFishi
 		fishsToGet.append(fishImg);
 	}
 
-	QPixmap playerImg(playerImgPath);
-	fish = scene->addPixmap(playerImg);
-	scaleImg(playerImg, fish);
-	fish->setPos(0, 0);
+	
 }
 
 void GameView::removeFishToGet()
@@ -62,40 +64,35 @@ void GameView::removeFishToGet()
 }
 
 void GameView::changeImageFish() {
-	QPixmap fishImg(fishImgPath);
-	fishPopItem = new QGraphicsPixmapItem;
-	Position pos = fishingRun->getCurrentSession()->player.getPosition();
-	scene->addItem(fishPopItem);
-	fishPopItem->setPos(pos.x, pos.y);
-	scaleImg(fishImg, fishPopItem);
-	isReady = true;
-
-	/*Fish fish = fishingRun->getCurrentSession()->getNearFish();
-	Position pos = fish.getPosition();
-	std::vector<Fish> lstFishs = fishingRun->getCurrentSession()->fishs;
-	QPixmap fishImg(fishImgPath);
-	for (int i = 0; i < lstFishs.size(); i++)
-	{
-		if (lstFishs[i].getPosition().x == pos.x && lstFishs[i].getPosition().y == pos.y) {
-			fishsToGet[i]->setPixmap(fishImg);
-			scaleImg(fishImg, fishsToGet[i]);
+	if (fishingRun->getCurrentSession()->getNearFish().getIsCapturing()) {
+		QPixmap fishPixmap(fishImgPath);
+		Position pos = fishingRun->getCurrentSession()->player.getPosition();
+		for (int i = 0; i < fishsToGet.size(); i++)
+		{
+			if (fishsToGet[i]->pos().x() / cellSize == pos.x && fishsToGet[i]->pos().y() / cellSize == pos.y) {
+				fishsToGet[i]->setPixmap(fishPixmap.scaled(cellSize, cellSize, Qt::KeepAspectRatio));
+				isDifferent.x = pos.x;
+				isDifferent.y = pos.y;
+			}
 		}
-	}*/
-}
-
-void GameView::changeImageBubble() {
-	if (isReady) {
-		scene->removeItem(fishPopItem);
-		isReady = false;
 	}
+	else {
+		QPixmap fishPixmap(bubbleImgPath);
+		for (int i = 0; i < fishsToGet.size(); i++)
+		{
+			if (fishsToGet[i]->pos().x() / cellSize == isDifferent.x && fishsToGet[i]->pos().y() / cellSize == isDifferent.y) {
+				fishsToGet[i]->setPixmap(fishPixmap.scaled(cellSize, cellSize, Qt::KeepAspectRatio));
+				std::vector<Fish> lstFishs = fishingRun->getCurrentSession()->fishs;
+				for (int i = 0; i < lstFishs.size(); i++)
+				{
+					if (lstFishs[i].getPosition().x == isDifferent.x && lstFishs[i].getPosition().y == isDifferent.y) {
+						fishingRun->getCurrentSession()->fishs[i].setIsCapturing(false);
+					}
+				}
+			}
+		}
 
-
-	/*QPixmap bubbleImg(bubbleImgPath);
-	for (int i = 0; i < fishsToGet.size(); i++)
-	{
-		fishsToGet[i]->setPixmap(bubbleImg);
-		scaleImg(bubbleImg, fishsToGet[i]);
-	}*/
+	}
 }
 
 void GameView::resizeLbl(QLabel* lbl)

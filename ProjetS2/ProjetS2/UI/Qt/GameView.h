@@ -20,6 +20,9 @@ public:
     void resizeLbl(QLabel* lbl);
     void changeImageFish();
     void changeImageBubble();
+    Position isDifferent;
+    bool isReady = false;
+
 protected:
     void resizeEvent(QResizeEvent* event) override;
 
@@ -29,7 +32,6 @@ private:
     QString bubbleImgPath = ":/Img/bulles.png";
     QString fishImgPath = ":/Img/poisson.png";
 
-    bool isReady = false;
     QGraphicsPixmapItem* fishPopItem;
     QVector<QGraphicsPixmapItem*> fishsToGet;
     void scaleImg(QPixmap imagePath, QGraphicsPixmapItem* pixmapItem);
