@@ -38,6 +38,7 @@ void DisplayGameQt::startGame()
 		connect(timer, &QTimer::timeout, this, &DisplayGameQt::handleTimer);
 	}
 	timer->start(30);
+	//fishingRun->getCurrentSession()->setDifficulty(*difficulty);
 	fishingRun->getCurrentSession()->startTimer();
 	stackedWidget->setCurrentIndex(1);
 }
@@ -207,6 +208,7 @@ void DisplayGameQt::handleTimer() {
 	gameView->refreshMove(fishingRun);
 	gameView->removeFishToGet();
 	gameView->changeImageFish();
+	
 
 	Fish fishEmpty = Fish();
 	if (fishingRun->getCurrentSession()->getNearFish().getId() != fishEmpty.getId()) {
