@@ -75,13 +75,14 @@ InputMenu InputConsole::getMenuInput()
 
   char key = _getch();
 
+  // DEPRECATED, DO NOT USE
   switch (key)
   {
     case 'w':
-      input.pressedPrevious = true;
+      input.movement.y = 1;
       break;
     case 's':
-      input.pressedNext = true;
+      input.movement.x = -1;
       break;
     case '\r': //enter
       input.selectedOption = true;

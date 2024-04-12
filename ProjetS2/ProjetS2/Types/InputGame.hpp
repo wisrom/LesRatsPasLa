@@ -10,4 +10,5 @@ struct InputGame
     bool menu;
     bool quit;
     bool hasPulled;
+    bool muon;
 };

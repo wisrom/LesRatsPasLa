@@ -31,16 +31,21 @@ DisplayGameQt::DisplayGameQt(IInput* sInput, InputGame sActions, FishingRun* sFi
 	setCentralWidget(mainmainWidget);
 }
 
-void DisplayGameQt::startGame() {
+void DisplayGameQt::startGame() 
+{
 	if (timer == NULL) {
 		timer = new QTimer(this);
 		connect(timer, &QTimer::timeout, this, &DisplayGameQt::handleTimer);
 	}
 	timer->start(30);
+	fishingRun->getCurrentSession()->startTimer();
 	stackedWidget->setCurrentIndex(1);
 }
 
-void DisplayGameQt::backToMenu() {
+void DisplayGameQt::backToMenu() 
+{
+	fishingRun->resetSession();
+	gameView->refreshFishDisplay();
 	timer->stop();
 	stackedWidget->setCurrentIndex(0);
 }
@@ -91,9 +96,7 @@ QWidget* DisplayGameQt::createGamePage() {
 	catchingFishWidget->setLayout(catchingFishLayout);
 	catchingFishWidget->setObjectName("catchingfishwidget");
 
-	capturedFishWidget = new QTableWidget();
-	capturedFishWidget->setColumnCount(2);
-	capturedFishWidget->setHorizontalHeaderLabels({ "Name", "Score" });
+	capturedFishWidget = new QStringList();
 
 	QWidget* timerWidget = new QWidget(this);
 	QGridLayout* timerLayout = new QGridLayout();
@@ -203,13 +206,7 @@ DisplayGameQt::~DisplayGameQt()
 void DisplayGameQt::handleTimer() {
 	gameView->refreshMove(fishingRun);
 	gameView->removeFishToGet();
-
-	if (fishingRun->getCurrentSession()->getNearFish().getIsCapturing()) {
-		gameView->changeImageFish();
-	}
-	else {
-		gameView->changeImageBubble();
-	}
+	gameView->changeImageFish();
 
 	Fish fishEmpty = Fish();
 	if (fishingRun->getCurrentSession()->getNearFish().getId() != fishEmpty.getId()) {
@@ -237,5 +234,28 @@ void DisplayGameQt::handleTimer() {
 		quit = false;
 		backToMenu();
 		// TODO réinitialiser
+	}
+}
+
+void DisplayGameQt::updateCapturedFish(std::vector<Fish> capturedFish, QGridLayout* layout)
+{
+	capturedFishWidget->clear();
+
+	for (Fish fish : capturedFish)
+	{
+		*capturedFishWidget << QString::fromStdString(fish.getName()) << QString::number(fish.getScore());
+	}
+
+	int row = 0;
+	int column = 0;
+	for (const QString& text : *capturedFishWidget)
+	{
+		QLabel* label = new QLabel(text);
+		layout->addWidget(label, row, column);
+		column = (column + 1) % 2;
+		if (column == 0)
+		{
+			++row;
+		}
 	}
 }

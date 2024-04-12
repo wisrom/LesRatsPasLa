@@ -37,6 +37,7 @@ InputGame ComSerialJSON::getGameInput()
   input.movement = { 0, 0 };
   input.quit = false;
   input.reelSpeed_rpm = 0.0f;
+  input.muon = false;
 
   j_msg_send["7Seg"] = 13;
   j_msg_send["LCD"] = "allo";
@@ -61,11 +62,53 @@ InputGame ComSerialJSON::getGameInput()
     input.movement.y = (int)j_msg_rcv["joyy"];
 
     input.hasPulled = (bool)j_msg_rcv["mov"];
-    
+    input.muon = (bool)j_msg_rcv["muon"];
     input.reelSpeed_rpm = (float)j_msg_rcv["enc"];
     arduinoTime_ms = (float)j_msg_rcv["time"];
     //input.inputDuration_s = (arduinoTime_ms - previousArduinoTime_ms) + COM_DELAY_MS * 0.001;
     input.inputDuration_s = 1.0f;
+  }
+
+  Sleep(COM_DELAY_MS);
+
+  return input;
+}
+
+InputMenu ComSerialJSON::getMenuInput()
+{
+  std::string raw_msg;
+  nlohmann::json j_msg_send, j_msg_rcv;
+  float arduinoTime_ms;
+
+  InputMenu input;
+  input.movement = { 0, 0 };
+  input.pressedBack = false;
+  input.selectedOption = false;
+
+  j_msg_send["7Seg"] = 13;
+  j_msg_send["LCD"] = "allo";
+  j_msg_send["vib"] = int(3);
+  if (!SendToSerial(arduino, j_msg_send))
+  {
+    std::cerr << "Erreur lors de l'envoie du message. " << std::endl;
+  }
+
+  j_msg_rcv.clear();
+  if (!RcvFromSerial(arduino, raw_msg))
+  {
+    std::cerr << "Erreur lors de la reception du message. " << std::endl; // UPDATE
+  }
+
+  if (raw_msg.size() > 0)
+  {
+    j_msg_rcv = nlohmann::json::parse(raw_msg);
+
+    // Parse
+    input.movement.x = (int)j_msg_rcv["joyx"];
+    input.movement.y = (int)j_msg_rcv["joyy"];
+
+    input.pressedBack = ((int)j_msg_rcv["btn"] << 3) % 2;
+    input.selectedOption = ((int)j_msg_rcv["btn"] << 2) % 2;
   }
 
   Sleep(COM_DELAY_MS);
