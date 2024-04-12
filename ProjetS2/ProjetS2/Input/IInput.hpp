@@ -6,6 +6,6 @@
 class IInput
 {
 public:
-    virtual InputGame getGameInput() = 0;
+    virtual InputGame getGameInput(int score) = 0;
     virtual InputMenu getMenuInput() = 0;
 };

@@ -10,7 +10,7 @@ InputConsole::~InputConsole()
 
 }
 
-InputGame InputConsole::getGameInput()
+InputGame InputConsole::getGameInput(int score)
 {
   char key = _getch();
   Movement movement = MOVEMENT_NONE;

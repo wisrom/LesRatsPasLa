@@ -11,6 +11,7 @@ FishingSession::FishingSession()
     rng = new RngClassic();
     timer_s = 120.0f;
     timeElapsed_s = 0.0;
+		movementCounter = 0;
 }
 
 FishingSession::FishingSession(int fishAmount, int difficulty)
@@ -38,6 +39,7 @@ FishingSession::FishingSession(int fishAmount, int difficulty)
 		}
 		fishs[i].setPosition(randomPosition);
 	}
+	movementCounter = 0;
 }
 
 FishingSession::~FishingSession()
@@ -61,7 +63,6 @@ void FishingSession::setDifficulty(int difficulty)
       break;
     case SESSION_DIFFICULTY_DOOM:
       timer_s = 30.0;
-      fishs = data->getRandomFish(20);
       break;
   default:
     break;
@@ -70,7 +71,7 @@ void FishingSession::setDifficulty(int difficulty)
 
 int FishingSession::getScore()
 {
-	return score;
+	return score * ((float)difficulty / 2);
 }
 
 void FishingSession::startTimer()
@@ -104,7 +105,12 @@ bool FishingSession::processInput(InputGame input)
 
 	if (checkMovement(input.movement))
 	{
-		player.move(input.movement);
+		if (movementCounter >= 3)
+		{
+			player.move(input.movement);
+			movementCounter = 0;
+		}
+		movementCounter++;
 	}
 
 	if (input.reelSpeed_rpm > 0)

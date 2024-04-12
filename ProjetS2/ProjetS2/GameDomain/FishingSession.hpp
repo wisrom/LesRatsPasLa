@@ -44,6 +44,7 @@ public:
   bool processInput(InputGame input);
   void randomMoveFish();
   bool isFishPositionOccupied(Position position);
+  void setDifficulty(int difficulty);
   int difficulty;
 private:
   Watershed watershed;
@@ -54,8 +55,8 @@ private:
   double timeElapsed_s;
   std::chrono::system_clock::time_point startTime;
   const int CAPTURE_DISTANCE = 0;
+  int movementCounter;
 
-  void setDifficulty(int difficulty);
   bool checkMovement(Movement movement);
   bool checkFishMovement(Fish fish, Movement movement);
   bool captureNearFish(float reelSpeed_rotPerSec, float duration_s);

@@ -1,6 +1,7 @@
 #include "DataFile.hpp"
 #include <QFile>
 #include <QTextStream>
+#include <QDir>
 
 
 DataFile::DataFile()
@@ -17,16 +18,26 @@ std::vector<int> DataFile::getScores()
 {
 	std::vector<int> scores;
 	int score;
-	int highScore = 0;
-	std::ifstream file("../GameData/Scores/Scores.csv");
-	std::string lineText;
-	while (getline(file, lineText))
+	QFile file(":/GameData/Scores/Scores.csv");
+	if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
 	{
-		score = std::stoi(lineText);
+		return scores; // Renvoyer un vecteur vide si le fichier ne peut pas être ouvert
+	}
+
+	file.readLine();
+
+	while (!file.atEnd())
+	{
+		QByteArray line = file.readLine();
+		QString s = QString::fromUtf8(line).trimmed(); // Convertir la ligne en QString
+
+		score = s.toInt();
+
 		scores.push_back(score);
 	}
 
 	file.close();
+
 	return scores;
 }
 
@@ -71,6 +82,7 @@ std::vector<FishDTO> DataFile::getAllFish()
 {
 	std::vector<FishDTO> fishs;
 	QFile file(":/GameData/Fish/Fish.csv");
+
 	if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) 
 	{
 		return fishs; // Renvoyer un vecteur vide si le fichier ne peut pas être ouvert
@@ -78,7 +90,8 @@ std::vector<FishDTO> DataFile::getAllFish()
 
 	file.readLine();
 
-	while (!file.atEnd()) {
+	while (!file.atEnd()) 
+	{
 		QByteArray line = file.readLine();
 		QString s = QString::fromUtf8(line).trimmed(); // Convertir la ligne en QString
 
@@ -122,7 +135,7 @@ Map DataFile::getMap(int mapId)
 
 void DataFile::addScore(int score)
 {
-	QFile file("../GameData/Scores/Scores.csv");
+	QFile file("C:/Users/pitch/Desktop/QtBackup/ProjetS2/GameData/Scores/Scores.csv");
 	if (file.open(QIODevice::Append | QIODevice::Text)) 
 	{
 		QTextStream stream(&file);
@@ -132,23 +145,26 @@ void DataFile::addScore(int score)
 	}
 }
 
-int DataFile::getHighScore()
+std::vector<int> DataFile::get5HighScores()
 {
-	int score;
+	std::vector<int> scores = getScores();
 	int highScore = 0;
-	std::ifstream file("../GameData/Scores/Scores.csv");
-	std::string lineText;
-	while (getline(file, lineText))
+	int highScoreIndex = 0;
+	for (int i = 0; i < 5; i++)
 	{
-		score = std::stoi(lineText);
-		if (highScore < score)
+		for (int j = 0; j < scores.size(); j++)
 		{
-			highScore = score;
+			if (scores[j] > highScore)
+			{
+				highScore = scores[j];
+				highScoreIndex = j;
+			}
 		}
+		scores.push_back(highScore);
+		scores.erase(scores.begin() + highScoreIndex);
 	}
-
-	file.close();
-	return highScore;
+	
+	return scores;
 }
 
 std::vector<CaptureStep> DataFile::getCaptureSteps(int difficulty)

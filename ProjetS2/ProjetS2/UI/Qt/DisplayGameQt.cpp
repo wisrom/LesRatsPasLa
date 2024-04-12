@@ -240,7 +240,7 @@ void DisplayGameQt::handleTimer() {
 		gameView->refreshFishscatch(catchingFishLayout);
 	}
 
-	actions = input->getGameInput();
+	actions = input->getGameInput(fishingRun->getCurrentSession()->getScore());
 	if (quit)
 	{
 		quit = false;

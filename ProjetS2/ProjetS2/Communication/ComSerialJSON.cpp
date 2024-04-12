@@ -1,5 +1,7 @@
 #include "ComSerialJSON.hpp"
 
+#define DELAY_BETWEEN_MOVEMENTS_MS 100
+
 ComSerialJSON::ComSerialJSON()
 {
   previousArduinoTime_ms = 0;
@@ -25,7 +27,7 @@ void ComSerialJSON::init()
   }
 }
 
-InputGame ComSerialJSON::getGameInput()
+InputGame ComSerialJSON::getGameInput(int score)
 {
   std::string raw_msg;
   nlohmann::json j_msg_send, j_msg_rcv;

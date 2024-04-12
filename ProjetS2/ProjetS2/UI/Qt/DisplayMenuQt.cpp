@@ -10,7 +10,7 @@ DisplayMenuQt::DisplayMenuQt(int* intValue, FishingRun* sFishingRun, IInput* inp
     startSound();
 
     connect(&timerMenu, &QTimer::timeout, this, &DisplayMenuQt::handleTimerMenu);
-    timerMenu.start(50);
+    timerMenu.start(30);
     //if (&timerMenu == NULL) {
         //&timerMenu = new QTimer(this);
         //connect(&timerMenu, &QTimer::timeout, this, &DisplayMenuQt::handleTimerMenu);
@@ -45,10 +45,10 @@ void DisplayMenuQt::setLabels() {
     difficultyLabel = new QLabel(QString("Difficulty : " + QString::number(*difficulty)));
 
     DataFile data;
-    std::vector<int> Scores = data.getScores();
-    Scores.push_back(0);
-    std::sort(Scores.begin(), Scores.end(), std::greater<int>());
-    int highestScore = Scores[0];
+    std::vector<int> scores = data.getScores();
+    scores.push_back(0);
+    std::sort(scores.begin(), scores.end(), std::greater<int>());
+    int highestScore = scores[0];
     highestScoreLabel = new QLabel(QString("Highest score : " + QString::number(highestScore)));
 
     highestScoreLabel->setAlignment(Qt::AlignCenter);
@@ -60,9 +60,13 @@ void DisplayMenuQt::setLabels() {
 }
 
 void DisplayMenuQt::handleTimerMenu() {
-    if (!input->getMenuInput().btn4) { selectActual(); }
-    if (!input->getMenuInput().btn3) {//exitMenu();
-        changeLabelValue(difficultyLabel, QString::number(input->getMenuInput().btn3));
+    if (!input->getMenuInput().btn4) 
+    { 
+      selectActual(); 
+    }
+    if (!input->getMenuInput().btn3) 
+    {
+      //exitMenu();
     }
     
     else if(input->getMenuInput().movement.x == 0 && input->getMenuInput().movement.y == -1){
@@ -85,19 +89,15 @@ bool DisplayMenuQt::eventFilter(QObject* obj, QEvent* event) {
         int key = keyEvent->key();
         if (key == Qt::Key_W) {
             toPrevious();
-            //handleIncrease();
         }
         else if (key == Qt::Key_A) {
             toPrevious();
-            //handleDecrease();
         }
         else if (key == Qt::Key_S) {
             toNext();
-            //handleDecrease();
         }
         else if (key == Qt::Key_D) {
             toNext();
-            //handleDecrease();
         }
         else if (key == Qt::Key_H) {
             selectActual();
@@ -474,10 +474,12 @@ void DisplayMenuQt::handleIncrease() {
     if (*difficulty < 4) { (*difficulty)++; }
     else { *difficulty = 1; }
     changeLabelValue(difficultyLabel, QString("Difficulty set to " + QString::number(*difficulty)));
+    fishingRun->getCurrentSession()->setDifficulty(*difficulty);
 }
 void DisplayMenuQt::handleDecrease() {
     if (*difficulty > 1) { (*difficulty)--; }
     else { *difficulty = 4; }
     changeLabelValue(difficultyLabel, QString("Difficulty set to " + QString::number(*difficulty)));
+    fishingRun->getCurrentSession()->setDifficulty(*difficulty);
 }
 

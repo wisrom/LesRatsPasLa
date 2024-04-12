@@ -13,6 +13,6 @@ public:
   virtual Watershed getWatershed(int watershedId) = 0;
   virtual Map getMap(int mapId) = 0;
   virtual void addScore(int score) = 0;
-  virtual int getHighScore() = 0;
+  //virtual std::vector<int> get5HighScores() = 0;
   virtual std::vector<Fish> getRandomFish(int quantity) = 0;
 };

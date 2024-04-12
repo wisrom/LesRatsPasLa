@@ -10,9 +10,9 @@ InputArduino::~InputArduino()
 
 }
 
-InputGame InputArduino::getGameInput()
+InputGame InputArduino::getGameInput(int score)
 {
-	return com->getGameInput();
+	return com->getGameInput(score);
 }
 
 InputMenu InputArduino::getMenuInput()

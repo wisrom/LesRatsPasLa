@@ -29,7 +29,7 @@ public:
     Watershed getWatershed(int watershedId);
     Map getMap(int mapId);
     void addScore(int score);
-    int getHighScore();
+    std::vector<int> get5HighScores();
     std::vector<Fish> getRandomFish(int quantity);
     std::vector<FishDTO> getAllFish();
 

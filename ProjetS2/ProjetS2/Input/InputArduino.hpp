@@ -9,7 +9,7 @@ public:
 	InputArduino(ComSerialJSON* com);
 	~InputArduino();
 
-	InputGame getGameInput();
+	InputGame getGameInput(int score);
 	InputMenu getMenuInput();
 private:
 	ComSerialJSON* com;

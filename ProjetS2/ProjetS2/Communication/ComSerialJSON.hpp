@@ -10,7 +10,7 @@
 
 #define BAUD 256000
 #define MSG_MAX_SIZE 1024
-#define COM_DELAY_MS 50
+#define COM_DELAY_MS 20
 
 class ComSerialJSON
 {
@@ -20,7 +20,7 @@ public:
 
   void init();
   void comTest();
-  InputGame getGameInput();
+  InputGame getGameInput(int score);
   InputMenu getMenuInput();
   void sendGameData(int score);
 private:
