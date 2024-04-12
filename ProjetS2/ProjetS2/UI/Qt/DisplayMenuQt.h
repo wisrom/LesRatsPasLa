@@ -25,8 +25,8 @@
 
 #include "Communication/ComSerialJSON.hpp"
 
-#include <QMediaPlayer>
-#include <QAudioOutput>
+//#include <QMediaPlayer>
+//#include <QAudioOutput>
 #include <QUrl>
 
 class DisplayMenuQt : public QMainWindow {

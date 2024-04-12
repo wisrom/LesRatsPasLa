@@ -23,6 +23,7 @@ public:
     void refreshFishDisplay();
     Position isDifferent;
     bool isReady = false;
+    void refreshFishscatch(QGridLayout* layout);
 
 protected:
     void resizeEvent(QResizeEvent* event) override;

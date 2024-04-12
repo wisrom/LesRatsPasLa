@@ -7,7 +7,7 @@ QLabel {
 }
 
 #scoreWidget {
-    background-color: rgba(231, 231, 231, 0.2);
+    background-color: rgba(231, 231, 231, 0.4);
 }
 
 #lblScore {
@@ -23,15 +23,15 @@ QLabel {
 }
 
 #gaugeWidget {
-    background-color: rgba(231, 231, 231, 0.2);
+    background-color: rgba(231, 231, 231, 0.4);
 }
 
 #catchingfishwidget {
-    background-color: rgba(231, 231, 231, 0.2);
+    background-color: rgba(231, 231, 231, 0.4);
 }
 
 #timerWidget {
-    background-color: rgba(231, 231, 231, 0.2);
+    background-color: rgba(231, 231, 231, 0.4);
 }
 
 

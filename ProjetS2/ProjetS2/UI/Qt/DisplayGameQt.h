@@ -17,6 +17,8 @@ public:
     DisplayGameQt(IInput* input, InputGame actions, FishingRun* fishingRun, QWidget* parent = nullptr);
     ~DisplayGameQt();
     GameView* gameView;
+    QGridLayout* catchingFishLayout;
+
 
 protected:
     void keyPressEvent(QKeyEvent* event) override;
@@ -30,7 +32,7 @@ private:
     QStackedWidget* stackedWidget;
     QWidget* createMenuPage();
     QWidget* createGamePage();
-    QPushButton* startButton;
+    //QPushButton* startButton;
     //QWidget* gamePage = new QWidget();
     
 

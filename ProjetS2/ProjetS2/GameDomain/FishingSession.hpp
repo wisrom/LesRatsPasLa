@@ -41,7 +41,7 @@ public:
   Fish* getNearFishRef(); 
   bool getIsFinished();
   bool isPlayerNearFish();
-  void processInput(InputGame input);
+  bool processInput(InputGame input);
   void randomMoveFish();
   bool isFishPositionOccupied(Position position);
   int difficulty;
@@ -57,5 +57,5 @@ private:
 
   void setDifficulty(int difficulty);
   bool checkMovement(Movement movement);
-  void captureNearFish(float reelSpeed_rotPerSec, float duration_s);
+  bool captureNearFish(float reelSpeed_rotPerSec, float duration_s);
 };

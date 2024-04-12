@@ -90,4 +90,4 @@ Img/mouseImg.png \
 Sounds/calmfishingSound.mp3 \
 Sounds/rushingSound.mp3 \
 
-QT += widgets multimedia
+QT += widgets

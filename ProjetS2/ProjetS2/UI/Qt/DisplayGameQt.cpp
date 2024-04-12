@@ -92,10 +92,9 @@ QWidget* DisplayGameQt::createGamePage() {
 	gaugeWidget->setObjectName("gaugeWidget");
 
 	QWidget* catchingFishWidget = new QWidget(this);
-	QGridLayout* catchingFishLayout = new QGridLayout();
+	catchingFishLayout = new QGridLayout();
 	catchingFishWidget->setLayout(catchingFishLayout);
 	catchingFishWidget->setObjectName("catchingfishwidget");
-
 	capturedFishWidget = new QStringList();
 
 	QWidget* timerWidget = new QWidget(this);
@@ -226,7 +225,9 @@ void DisplayGameQt::handleTimer() {
 		// TODO réinitialiser
 	}
 
-	fishingRun->getCurrentSession()->processInput(actions);
+	if (fishingRun->getCurrentSession()->processInput(actions)) {
+		gameView->refreshFishscatch(catchingFishLayout);
+	}
 
 	actions = input->getGameInput();
 	if (quit)

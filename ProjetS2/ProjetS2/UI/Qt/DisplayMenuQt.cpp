@@ -11,16 +11,16 @@ DisplayMenuQt::DisplayMenuQt(int* intValue, FishingRun* sFishingRun, IInput* inp
 
 
 void DisplayMenuQt::startSound() {
-    QMediaPlayer* _mediaPlayer = new QMediaPlayer;
-    QAudioOutput* _audioOutput = new QAudioOutput;
+    //QMediaPlayer* _mediaPlayer = new QMediaPlayer;
+    //QAudioOutput* _audioOutput = new QAudioOutput;
 
-    _mediaPlayer->setAudioOutput(_audioOutput);
-    //QString athasd("calmfishingSound.mp3");
-    _mediaPlayer->setSource(QUrl("qrc:/Sounds/calmfishingSound.mp3"));
-    
-    _audioOutput->setVolume(100);
-    _mediaPlayer->setLoops(QMediaPlayer::Infinite);
-    _mediaPlayer->play();
+    //_mediaPlayer->setAudioOutput(_audioOutput);
+    ////QString athasd("calmfishingSound.mp3");
+    //_mediaPlayer->setSource(QUrl("qrc:/Sounds/calmfishingSound.mp3"));
+    //
+    //_audioOutput->setVolume(100);
+    //_mediaPlayer->setLoops(QMediaPlayer::Infinite);
+    //_mediaPlayer->play();
 }
 void DisplayMenuQt::startSecondSound() {
 
