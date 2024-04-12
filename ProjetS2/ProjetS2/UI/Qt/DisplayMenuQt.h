@@ -48,6 +48,8 @@ private:
 	std::vector<QPushButton*> buttonsList;
 	//QPushButton* currentSelectedButton;
 	int* currentSelected;
+	int movementCounter;
+	Movement lastMovement;
 	IInput* input;
 	InputGame actions;
 

@@ -65,11 +65,10 @@ InputGame ComSerialJSON::getGameInput(int score)
 
     input.hasPulled = (bool)j_msg_rcv["mov"];
     input.muon = (bool)j_msg_rcv["muon"];
-    input.reelSpeed_rpm = (float)j_msg_rcv["enc"] * 0.25f;
+    input.reelSpeed_rpm = (float)j_msg_rcv["enc"] * ENCODER_SPEED_MULT;
     arduinoTime_ms = (float)j_msg_rcv["time"];
     input.inputDuration_s = ((arduinoTime_ms - previousArduinoTime_ms) + (float)COM_DELAY_MS) * 0.001;
     previousArduinoTime_ms = arduinoTime_ms;
-    //input.inputDuration_s = 1.0f;
   }
   Sleep(COM_DELAY_MS);
 
@@ -84,10 +83,10 @@ InputMenu ComSerialJSON::getMenuInput()
 
   InputMenu input;
   input.movement = { 0, 0 };
-  input.btn1 = false;
-  input.btn2 = false;
-  input.btn3 = false;
-  input.btn4 = false;
+  input.btn1 = true;
+  input.btn2 = true;
+  input.btn3 = true;
+  input.btn4 = true;
 
   j_msg_send["7Seg"] = 13;
   j_msg_send["LCD"] = "allo";
@@ -110,7 +109,9 @@ InputMenu ComSerialJSON::getMenuInput()
     // Parse
     input.movement.x = (int)j_msg_rcv["joyx"];
     input.movement.y = (int)j_msg_rcv["joyy"];
+    arduinoTime_ms = (float)j_msg_rcv["time"];
 
+    // BUG AT START
     input.btn4 = ((unsigned int)j_msg_rcv["btn"] >> 3) % 2;
     input.btn3 = ((unsigned int)j_msg_rcv["btn"] >> 2) % 2;
     input.btn2 = ((unsigned int)j_msg_rcv["btn"] >> 1) % 2;

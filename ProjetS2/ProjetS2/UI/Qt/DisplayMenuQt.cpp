@@ -10,7 +10,9 @@ DisplayMenuQt::DisplayMenuQt(int* intValue, FishingRun* sFishingRun, IInput* inp
     startSound();
 
     connect(&timerMenu, &QTimer::timeout, this, &DisplayMenuQt::handleTimerMenu);
-    timerMenu.start(30);
+    movementCounter = 0;
+    lastMovement = { 0, 0 };
+    timerMenu.start(20);
     //if (&timerMenu == NULL) {
         //&timerMenu = new QTimer(this);
         //connect(&timerMenu, &QTimer::timeout, this, &DisplayMenuQt::handleTimerMenu);
@@ -66,21 +68,30 @@ void DisplayMenuQt::handleTimerMenu() {
     }
     if (!input->getMenuInput().btn3) 
     {
-      //exitMenu();
+      //not implemented
     }
     
-    else if(input->getMenuInput().movement.x == 0 && input->getMenuInput().movement.y == -1){
+    if (lastMovement.x == 0 && lastMovement.y == 0)
+    {
+      if (input->getMenuInput().movement.x == 0 && input->getMenuInput().movement.y == -1) {
         toPrevious();
-    }
-    else if (input->getMenuInput().movement.x == 0 && input->getMenuInput().movement.y == 1){
+      }
+      else if (input->getMenuInput().movement.x == 0 && input->getMenuInput().movement.y == 1) {
         toNext();
-    }
-    else if (input->getMenuInput().movement.x == -1 && input->getMenuInput().movement.y == 0){
+      }
+      else if (input->getMenuInput().movement.x == -1 && input->getMenuInput().movement.y == 0) {
         toPrevious();
-    }
-    else if (input->getMenuInput().movement.x == 1 && input->getMenuInput().movement.y == 0){
+      }
+      else if (input->getMenuInput().movement.x == 1 && input->getMenuInput().movement.y == 0) {
         toNext();
+      }
+      lastMovement.x = input->getMenuInput().movement.x;
+      lastMovement.y = input->getMenuInput().movement.y;
+      return;
     }
+    lastMovement.x = 0;
+    lastMovement.y = 0;
+    
 }
 
 bool DisplayMenuQt::eventFilter(QObject* obj, QEvent* event) {
@@ -345,11 +356,11 @@ void DisplayMenuQt::selectActual() {
 //to complete
 void DisplayMenuQt::getScoresPage() {
     QDialog* dialog = new QDialog(this);
-    dialog->setWindowTitle("Scores logs");
+    dialog->setWindowTitle("High scores");
 
     dialog->resize(300, 400);
 
-    QLabel* Infos = new QLabel("\nList of the best scores\nGood Luck Beating them!\n", dialog);
+    QLabel* Infos = new QLabel("\nHall of fame\n2024\n", dialog);
 
     DataFile data;
     std::vector<int> scores = data.getScores();
@@ -362,9 +373,9 @@ void DisplayMenuQt::getScoresPage() {
 
     QFont fontscore("Arial", 18, QFont::Bold);
 
-    QLabel* top1 = new QLabel("Score to beat : " + QString::number(vtop[0]), dialog);
-    QLabel* top2 = new QLabel("Second : " + QString::number(vtop[1]), dialog);
-    QLabel* top3 = new QLabel("Third : " + QString::number(vtop[2]), dialog);
+    QLabel* top1 = new QLabel("1st : " + QString::number(vtop[0]), dialog);
+    QLabel* top2 = new QLabel("2th : " + QString::number(vtop[1]), dialog);
+    QLabel* top3 = new QLabel("3th : " + QString::number(vtop[2]), dialog);
     QLabel* top4 = new QLabel("4th : " + QString::number(vtop[3]), dialog);
     QLabel* top5 = new QLabel("5th : " + QString::number(vtop[4]), dialog);
     Infos->setFont(fontscore);

@@ -49,7 +49,7 @@ void DisplayGameQt::backToMenu()
 	fishingRun->resetSession();
 	gameView->refreshFishDisplay();
 	timer->stop();
-	displayMenu->timerMenu.start(30);
+	displayMenu->timerMenu.start(20);
 	stackedWidget->setCurrentIndex(0);
 }
 

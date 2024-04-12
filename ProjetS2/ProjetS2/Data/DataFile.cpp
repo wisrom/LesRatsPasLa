@@ -135,7 +135,8 @@ Map DataFile::getMap(int mapId)
 
 void DataFile::addScore(int score)
 {
-	QFile file("C:/Users/pitch/Desktop/QtBackup/ProjetS2/GameData/Scores/Scores.csv");
+	QFile file("C:/Users/pitch/Documents/GitHub/LesRatsPasLa/ProjetS2/ProjetS2/GameData/Scores/Scores.csv");
+	//QFile file(":/GameData/Scores/Scores.csv");
 	if (file.open(QIODevice::Append | QIODevice::Text)) 
 	{
 		QTextStream stream(&file);

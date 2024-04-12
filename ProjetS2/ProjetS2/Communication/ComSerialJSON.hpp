@@ -11,6 +11,7 @@
 #define BAUD 256000
 #define MSG_MAX_SIZE 1024
 #define COM_DELAY_MS 20
+#define ENCODER_SPEED_MULT 0.5f
 
 class ComSerialJSON
 {
