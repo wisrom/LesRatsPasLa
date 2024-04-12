@@ -1,5 +1,6 @@
 #include "DataFile.hpp"
 #include <QFile>
+#include <QTextStream>
 
 
 DataFile::DataFile()
@@ -15,6 +16,17 @@ DataFile::~DataFile()
 std::vector<int> DataFile::getScores()
 {
 	std::vector<int> scores;
+	int score;
+	int highScore = 0;
+	std::ifstream file("../GameData/Scores/Scores.csv");
+	std::string lineText;
+	while (getline(file, lineText))
+	{
+		score = std::stoi(lineText);
+		scores.push_back(score);
+	}
+
+	file.close();
 	return scores;
 }
 
@@ -59,10 +71,10 @@ std::vector<FishDTO> DataFile::getAllFish()
 {
 	std::vector<FishDTO> fishs;
 	QFile file(":/GameData/Fish/Fish.csv");
-	if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+	if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) 
+	{
 		return fishs; // Renvoyer un vecteur vide si le fichier ne peut pas être ouvert
 	}
-
 
 	file.readLine();
 
@@ -110,11 +122,14 @@ Map DataFile::getMap(int mapId)
 
 void DataFile::addScore(int score)
 {
-	std::ofstream outfile;
-
-	outfile.open("Scores.csv", std::ios_base::app); // append instead of overwrite
-	outfile << score;
-	outfile.close();
+	QFile file("../GameData/Scores/Scores.csv");
+	if (file.open(QIODevice::Append | QIODevice::Text)) 
+	{
+		QTextStream stream(&file);
+		// Writing each element of the rowData list separated by commas
+		stream << score << "\n";
+		file.close();
+	}
 }
 
 int DataFile::getHighScore()
