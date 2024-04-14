@@ -58,7 +58,7 @@ private:
 	QPushButton* increaseButton;
 	QPushButton* decreaseButton;
 	QPushButton* exitButton;
-	QLabel* highestScoreLabel;
+	//QLabel* highestScoreLabel;
 	QLabel* difficultyLabel;
 	int WidWidth = 0;
 	int WidHeight = 0;

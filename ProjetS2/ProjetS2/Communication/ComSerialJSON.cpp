@@ -5,6 +5,7 @@
 ComSerialJSON::ComSerialJSON()
 {
   previousArduinoTime_ms = 0;
+  lastScore = 0;
 }
 
 ComSerialJSON::~ComSerialJSON()
@@ -41,7 +42,12 @@ InputGame ComSerialJSON::getGameInput(int score)
   input.reelSpeed_rpm = 0.0f;
   input.muon = false;
 
-  j_msg_send["7Seg"] = 13;
+  j_msg_send["7Seg"] = score;
+  if (score != 0)
+  {
+    lastScore = score;
+  }
+  
   j_msg_send["LCD"] = "allo";
   j_msg_send["vib"] = int(3);
   if (!SendToSerial(arduino, j_msg_send)) 
@@ -88,7 +94,7 @@ InputMenu ComSerialJSON::getMenuInput()
   input.btn3 = true;
   input.btn4 = true;
 
-  j_msg_send["7Seg"] = 13;
+  j_msg_send["7Seg"] = lastScore;
   j_msg_send["LCD"] = "allo";
   j_msg_send["vib"] = int(3);
   if (!SendToSerial(arduino, j_msg_send))

@@ -53,13 +53,13 @@ void FishingSession::setDifficulty(int difficulty)
   switch (difficulty)
   {
     case SESSION_DIFFICULTY_EASY:
-      timer_s = 120.0;
+      timer_s = 90.0;
       break;
     case SESSION_DIFFICULTY_MEDIUM:
       timer_s = 90.0;
       break;
     case SESSION_DIFFICULTY_HARD:
-      timer_s = 60.0;
+      timer_s = 90.0;
       break;
     case SESSION_DIFFICULTY_DOOM:
       timer_s = 30.0;
@@ -71,7 +71,7 @@ void FishingSession::setDifficulty(int difficulty)
 
 int FishingSession::getScore()
 {
-	return score * ((float)difficulty / 2);
+	return score; //* ((float)difficulty / 2);
 }
 
 void FishingSession::startTimer()
@@ -139,7 +139,7 @@ void FishingSession::randomMoveFish()
     if (!(fishs[i].getPosition().x == player.getPosition().x && fishs[i].getPosition().y == player.getPosition().y))
     {
       random = rng->getRandom();
-      if (random > (1 / difficulty) || difficulty == SESSION_DIFFICULTY_DOOM)
+      if (random > (1 / (difficulty + 1)) || difficulty == SESSION_DIFFICULTY_DOOM)
       {
         // X
         random = rng->getRandom();

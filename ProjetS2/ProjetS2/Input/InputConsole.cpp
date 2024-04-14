@@ -71,7 +71,14 @@ InputGame InputConsole::getGameInput(int score)
 
 InputMenu InputConsole::getMenuInput()
 {
-  InputMenu input = {false, false, false};
+  InputMenu input;
+
+  input.btn1 = true;
+  input.btn2 = true;
+  input.btn3 = true;
+  input.btn4 = true;
+
+  input.movement = { 0, 0 };
 
   char key = _getch();
 

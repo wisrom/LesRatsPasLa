@@ -7,7 +7,7 @@
 #include <qpainter.h>
 
 #define MIN_REEL_SPEED_GAUGE_RPM 0
-#define MAX_REEL_SPEED_GAUGE_RPM 200.0f
+#define MAX_REEL_SPEED_GAUGE_RPM 150.0f
 
 class ReelGauge : public QProgressBar 
 {

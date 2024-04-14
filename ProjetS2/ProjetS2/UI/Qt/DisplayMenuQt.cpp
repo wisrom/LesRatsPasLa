@@ -51,10 +51,10 @@ void DisplayMenuQt::setLabels() {
     scores.push_back(0);
     std::sort(scores.begin(), scores.end(), std::greater<int>());
     int highestScore = scores[0];
-    highestScoreLabel = new QLabel(QString("Highest score : " + QString::number(highestScore)));
+    //highestScoreLabel = new QLabel(QString("Last score : " + QString::number(fishingRun->getCurrentSession()->getScore())));
 
-    highestScoreLabel->setAlignment(Qt::AlignCenter);
-    highestScoreLabel->setMaximumHeight(75);
+    //highestScoreLabel->setAlignment(Qt::AlignCenter);
+    //highestScoreLabel->setMaximumHeight(75);
 
     difficultyLabel->setAlignment(Qt::AlignCenter);
     difficultyLabel->setMaximumHeight(75);
@@ -62,6 +62,13 @@ void DisplayMenuQt::setLabels() {
 }
 
 void DisplayMenuQt::handleTimerMenu() {
+  DataFile data;
+  std::vector<int> scores = data.getScores();
+  scores.push_back(0);
+  std::sort(scores.begin(), scores.end(), std::greater<int>());
+  int highestScore = scores[0];
+  //highestScoreLabel = new QLabel(QString("Last score : " + QString::number(fishingRun->getCurrentSession()->getScore())));
+
     if (!input->getMenuInput().btn4) 
     { 
       selectActual(); 
@@ -139,7 +146,7 @@ void DisplayMenuQt::writeMenu() {
     QFont font3("Arial", 16, QFont::Bold);
 
     difficultyLabel->setFont(font1);
-    highestScoreLabel->setFont(font1);
+    //highestScoreLabel->setFont(font1);
 
     startButton = new QPushButton("Start");
     optionButton = new QPushButton("Options");
@@ -170,7 +177,7 @@ void DisplayMenuQt::writeMenu() {
     scoreLayout->addSpacing(space);
 
     difficultyShowLayout->addWidget(difficultyLabel);
-    difficultyShowLayout->addWidget(highestScoreLabel);
+    //difficultyShowLayout->addWidget(highestScoreLabel);
 
     labelWidget->setLayout(difficultyShowLayout);
     labelWidget->setMaximumHeight(150);
@@ -364,7 +371,7 @@ void DisplayMenuQt::getScoresPage() {
 
     DataFile data;
     std::vector<int> scores = data.getScores();
-    for (int i = 0; i < 7; i++) { scores.push_back(i * 3); }
+    //for (int i = 0; i < 7; i++) { scores.push_back(i * 3); }
 
     std::sort(scores.begin(), scores.end(), std::greater<int>());
     std::vector<int> vtop = { 0, 0, 0, 0, 0 };
@@ -404,7 +411,8 @@ void DisplayMenuQt::getScoresPage() {
 
     dialog->exec(); // Use exec() for modal dialog or show() for modeless dialog
 
-    highestScoreLabel->setText(QString("Highest score : " + QString::number(vtop[0])));
+
+    //highestScoreLabel->setText(QString("Highest score : " + QString::number(vtop[0])));
 }
 
 void DisplayMenuQt::setBackground() {
